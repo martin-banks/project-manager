@@ -5,10 +5,19 @@ class Nav extends React.Component {
   render () {
     return <ul>
       <li>
-        <Link href="/projects">Projects</Link>
+        <Link href="/">
+          <a>Home</a>
+        </Link>
       </li>
       <li>
-        <Link href="/addproject">Add Project</Link>
+        <Link href="/projects">
+          <a>Projects</a>
+        </Link>
+      </li>
+      <li>
+        <Link href="/addproject">
+          <a>Add Project</a>
+        </Link>
       </li>
     </ul>
   }
