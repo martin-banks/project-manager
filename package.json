@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next"
+    "dev": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/martin-banks/project-manager#readme",
   "dependencies": {
+    "express": "^4.16.3",
+    "isomorphic-unfetch": "^2.1.1",
     "next": "^6.1.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2"
