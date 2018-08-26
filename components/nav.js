@@ -5,17 +5,17 @@ class Nav extends React.Component {
   render () {
     return <ul>
       <li>
-        <Link href="/">
-          <a>Home</a>
-        </Link>
+        <a href="/" >
+          <span>Home</span>
+        </a>
       </li>
       <li>
-        <Link href="/projects">
-          <a>Projects</a>
-        </Link>
+        <a href="/projects" >
+          <span>Projects</span>
+        </a>
       </li>
       <li>
-        <Link href="/addproject">
+        <Link href="/addproject" prefetch>
           <a>Add Project</a>
         </Link>
       </li>

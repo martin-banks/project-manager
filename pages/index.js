@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import MainLayout from '../layouts/main'
+import { withRouter } from 'next/router'
 import fetch from 'isomorphic-unfetch'
 
 // const Index = () => (
@@ -12,29 +13,44 @@ import fetch from 'isomorphic-unfetch'
 //   </div>
 // )
 
+const ShowLink = ({ show }) => (
+  <li>
+
+    <Link href={ `/p/${show.id}` }>
+      <a>{ show.name }</a>
+    </Link>
+  </li>
+)
+
 class Index extends React.Component {
+  static async getInitialProps (context) {
+    console.log({ context })
+    const response = await fetch('https://api.tvmaze.com/search/shows?q=batman')
+    const shows = await response.json()
+    console.log('number of shows: ', shows.length)
+    const output = {
+      shows, 
+      locals: context.res && context.res.locals
+    }
+    return output
+  }
+
   render () {
     return <MainLayout>
       <h1>Hello world</h1>
       <ul>
-        { this.props.shows.map(s => <li>
-            <Link href={ `/p/${s.show.id}` }>
-            <a>{ s.show.name }</a>
-          </Link></li>
-        ) }
+        { this.props.shows.map(s => (
+          <ShowLink show={ s.show } key={ s.show.id } />
+        )) }
       </ul>
       <pre>
-        { JSON.stringify(this.props.shows, 'utf-8', 2) }
+        { JSON.stringify(Object.keys(this.props), 'utf-8', 2) }
+        { JSON.stringify(this.props.locals, 'utf-8', 2) }
       </pre>
+      
     </MainLayout>
   }
 }
 
-Index.getInitialProps = async function () {
-  const res = await fetch('https://api.tvmaze.com/search/shows?q=batman')
-  const shows = await res.json()
-  console.log('number of shows: ', shows.length)
-  return { shows }
-}
 
-export default Index
+export default withRouter(Index)

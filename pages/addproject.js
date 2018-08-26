@@ -7,56 +7,57 @@ class addproject extends React.Component {
       <h1>Add a new project</h1>
       <form action="addproject" method="post">
 
-        <label for="name">Add a project name</label>
-        <input name="name" type="text" placehodler="projectname" />
+        <label htmlFor="name">Add a project name</label>
+        <input id="name" name="name" type="text" placehodler="projectname" required />
 
-        <label for="description">add a project description</label>
-        <textarea name="description" id="" cols="30" rows="5" />
+        <label htmlFor="description">add a project description</label>
+        <textarea id="description" name="description" cols="30" rows="5" required />
 
-        <label for="keywords">Keywords</label>
-        <ul class="keywords">
-          <li>
-            <label for="keywords">Keyword</label>
-            <input type="checkbox" id="" value="" name="tech" />
-          </li>
-        </ul>
+        {/* <h3 htmlFor="keywords">Keywords</h3> */}
+        {/* <ul class="keywords"> */}
+          {/* <li> */}
+            {/* <label htmlFor="keyword">Keyword</label> */}
+            {/* <input type="checkbox" id="" value="" id="keyword" /> */}
+          {/* </li> */}
+        {/* </ul> */}
         
-        <label for="tech">Tech used</label>
-        <ul class="tech">
-          <li>
-            <label for="javascript">JS</label>
-            <input type="checkbox" id="" value="" name="javscript" />
-          </li>
-        </ul>
+        {/* <h3 htmlFor="tech">Tech used</h3> */}
+        {/* <ul className="tech"> */}
+          {/* <li> */}
+            {/* <label htmlFor="javascript">JS</label> */}
+            {/* <input type="checkbox" value="" id="javascript" /> */}
+          {/* </li> */}
+        {/* </ul> */}
 
 
-        <label for="publicUrl">Add a public URL</label>
-        <input name="publicUrl" type="text" placehodler="Public URL" />
+        <h3>Links</h3>
+        <label htmlFor="publicUrl">Add a public URL</label>
+        <input id="publicUrl" type="text" placehodler="Public URL" />
 
-        <label for="privateUrl">Add a private URL</label>
-        <input name="privateUrl" type="text" placehodler="Private URL" />
+        {/* <label htmlFor="privateUrl">Add a private URL</label> */}
+        {/* <input id="privateUrl" type="text" placehodler="Private URL" /> */}
 
-        <label for="publicRepo">Add a public repo</label>
-        <input name="publicRepo" type="text" placehodler="Public repo" />
+        <label htmlFor="publicRepo">Add a public repo</label>
+        <input id="publicRepo" type="text" placehodler="Public repo" />
 
-        <label for="privateRepo">Add a private repo</label>
-        <input name="privateRepo" type="text" placehodler="private repo" />
+        {/* <label htmlFor="privateRepo">Add a private repo</label> */}
+        {/* <input id="privateRepo" type="text" placehodler="private repo" /> */}
 
-        <label for="livedate">Live date</label>
-        <input type="date"/>
+        <label htmlFor="livedate">Live date</label>
+        <input type="date" required />
 
-        <label for="personal-project">Personal project</label>
-        <input name="personal-project" type="checkbox" />
+        <label htmlFor="personal-project">Personal project</label>
+        <input id="personal-project" type="checkbox" />
 
-        <label for="news-project">news project</label>
-        <input name="news-project" type="checkbox" />
+        <label htmlFor="news-project">news project</label>
+        <input id="news-project" type="checkbox" />
 
-        <label for="challenge-project">challenge project</label>
-        <input name="challenge-project" type="checkbox" />
+        <label htmlFor="challenge-project">challenge project</label>
+        <input id="challenge-project" type="checkbox" />
 
 
-        <label for="submit">Submit project</label>
-        <input name="submit" type="submit" />
+        <label htmlFor="submit">Submit project</label>
+        <input id="submit" type="submit" />
       </form>
     </Layout>
   }

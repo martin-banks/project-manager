@@ -29,6 +29,12 @@ app.prepare()
     server.use(bodyParser.json())
     server.use(bodyParser.urlencoded({ extended: true }))
 
+    server.use((req, res, next) => {
+      // console.log('middle ware working')
+      res.locals.test = 'this is a test local'
+      next()
+    })
+
     // TODO -> Set up a router middleware
     // server.use('/', routes)
 
@@ -38,16 +44,35 @@ app.prepare()
       app.render(req, res, page, queryParams)
     })
 
+    server.get('/projects', async (req, res) => {
+      let projects = {}
+      try {
+        projects = await Store.find()
+      } catch (err) {
+        console.log(err)
+      }
+      res.locals.projects = projects
+      app.render(req, res, '/projects')
+    })
+
     server.post('/addproject', async (req, res) => {
       console.log('posting', req.body)
-      const page = '/addproject'
+      const page = '/projects'
       const queryParams = {}
       const store = new Store(req.body)
       await store.save()
       app.render(req, res, page)
     })
 
-    server.get('*', (req, res) => handle(req, res))
+    server.get('/', (req, res) => {
+      app.render(req, res, '/index')
+    })
+
+    server.get('*', (req, res) => {
+      // console.log(res.locals)
+      handle(req, res)
+      // app.render(req, res, '/')
+    })
 
     server.listen(port, err => {
       if (err) throw err

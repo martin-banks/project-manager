@@ -9,10 +9,13 @@ class Project extends React.Component {
       <p>project page</p>
       <p>{ this.props.router.query.id }</p>
       <h1>{ this.props.show.name }</h1>
+
       <p>{ this.props.show.summary.replace(/<[/]?p>/g, '') }</p>
       <img src={ this.props.show.image.medium } alt={ this.props.show.name } />
 
-      <pre>{ JSON.stringify(this.props, 'utf-8', 2) }</pre>
+      <style jsx global>{`
+
+      `}</style>
     </MainLayout>
   }
 }

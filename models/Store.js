@@ -10,22 +10,22 @@ const storeSchema = new mongoose.Schema({
   },
   slug: String,
 
-  // description: {
-  //   type: String,
-  //   trim: true,
-  //   required: 'Please enter a project description',
-  // },
+  description: {
+    type: String,
+    trim: true,
+    required: 'Please enter a project description',
+  },
   // keywords: {
   //   type: [String],
   //   truem: true,
   //   required: 'Please enter at least one keyword',
   // },
 
-  // client: {
-  //   type: String,
-  //   trim: true,
-  //   required: 'Please enter who the client is',
-  // },
+  client: {
+    type: String,
+    trim: true,
+    required: 'Please enter who the client is',
+  },
 
   // tech: {
   //   type: [ String ],
@@ -33,46 +33,46 @@ const storeSchema = new mongoose.Schema({
   //   required: 'Please add at least one tech',
   // },
 
-  // publicRepo: {
-  //   type: String,
-  //   trim: true,
-  //   required: false,
-  // },
+  publicRepo: {
+    type: String,
+    trim: true,
+    required: false,
+  },
   // privateRepo: { 
   //   type: String,
   //   trim: true,
   //   required: false,
   // },
 
-  // publicUrl: {
-  //   type: String,
-  //   trim: true,
-  //   required: false,
-  // },
+  publicUrl: {
+    type: String,
+    trim: true,
+    required: false,
+  },
   // privateUrl: {
   //   type: String,
   //   trim: true,
   //   required: false,
   // },
 
-  // liveDate: {
-  //   type: Date,
-  //   trim: true,
-  //   required: 'Please enter the date the project went live',
-  // },
+  liveDate: {
+    type: Date,
+    trim: true,
+    required: 'Please enter the date the project went live',
+  },
 
-  // personalProject: {
-  //   type: Boolean,
-  //   required: false,
-  // },
-  // newsProject: {
-  //   type: Boolean,
-  //   required: false,
-  // },
-  // challenge: {
-  //   type: Boolean,
-  //   required: false,
-  // },
+  personalProject: {
+    type: Boolean,
+    required: false,
+  },
+  newsProject: {
+    type: Boolean,
+    required: false,
+  },
+  challenge: {
+    type: Boolean,
+    required: false,
+  },
 
   // tags: [ String ],
 })
