@@ -1,5 +1,19 @@
-export default `* {
+export default `
+body {
+  margin: 0;
+  padding: 0;
+}
+* {
   font-family: "Arial";
+}
+
+h1, h2, h3, h4, h5, h6,
+p {
+  margin: 0;
+  margin-bottom: 16px;
+}
+p:last-of-type {
+  margin: 0
 }
 
 ul {
@@ -30,6 +44,15 @@ input, textarea {
   margin-bottom: 24px;
 }
 label {
+}
+
+pre {
+  background: rgba(0,0,0, 0.3);
+  padding: 20px;
+  overflow: auto;
+  border: solid 1px rgba(255,255,255, 0.2);
+  border-radius: 4px;
+  font-family: monospace;
 }
 
 .background__gradient {
