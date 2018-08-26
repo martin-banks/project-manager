@@ -1,0 +1,13 @@
+<svg
+  width="20"
+  height="20"
+  fill="#fff"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+>
+  <g>
+    <polygon points="30.57 81.43 0 100 0 18.57 30.57 0 30.57 81.43"/>
+    <polygon points="65.28 81.43 34.72 100 34.72 18.57 65.28 0 65.28 81.43"/>
+    <polygon points="100 81.43 69.43 100 69.43 18.57 100 0 100 81.43"/>
+  </g>
+</svg>
