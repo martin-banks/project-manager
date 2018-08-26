@@ -1,17 +1,20 @@
 import React from 'react'
 import { withRouter } from 'next/router'
 import MainLayout from '../layouts/main'
-import fetch from 'isomorphic-fetch'
+// import fetch from 'isomorphic-fetch'
 
 class Project extends React.Component {
+  static getInitialProps (context) {
+    const { logo } = context.res.locals
+    console.log({ logo })
+    return logo
+  }
   render () {
     return <MainLayout>
-      <p>project page</p>
-      <p>{ this.props.router.query.id }</p>
-      <h1>{ this.props.show.name }</h1>
+      <h1>{ this.props.router.query.details.name }</h1>
+      <p>{ this.props.router.query.details.description || '--' }</p>
 
-      <p>{ this.props.show.summary.replace(/<[/]?p>/g, '') }</p>
-      <img src={ this.props.show.image.medium } alt={ this.props.show.name } />
+      <pre>{ JSON.stringify(this.props.router.query.details, 'utf-8', 2) }</pre>
 
       <style jsx global>{`
 
@@ -20,15 +23,15 @@ class Project extends React.Component {
   }
 }
 
-Project.getInitialProps = async function (context) {
-  console.log('fetching show data')
-  const { id } = context.query
-  const res = await fetch(`https://api.tvmaze.com/shows/${id}`)
-  const show = await res.json()
-  console.log(`Fetched show: ${show.name}`)
-  // console.log('show information', show)
+// Project.getInitialProps = async function (context) {
+//   // console.log('fetching show data')
+//   // const { id } = context.query
+//   // const res = await fetch(`https://api.tvmaze.com/shows/${id}`)
+//   // const show = await res.json()
+//   // console.log(`Fetched show: ${show.name}`)
+//   // console.log('show information', show)
   
-  return { show }
-}
+//   return { id: '123' }
+// }
 
 export default withRouter(Project)
