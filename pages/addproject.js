@@ -7,9 +7,6 @@ class addproject extends React.Component {
     return <div>
       <Layout>
         <h1>Add a new project</h1>
-        <div className="editorWrapper">
-          <TestEditor />
-        </div>
         <form action="addproject" method="post">
 
           <label htmlFor="name">Add a project name</label>
@@ -35,6 +32,9 @@ class addproject extends React.Component {
           {/* </ul> */}
 
 
+          <label htmlFor="client">Client</label>
+          <input type="text" name="client" id="client" required />
+
           <h3>Links</h3>
           <label htmlFor="publicUrl">Add a public URL</label>
           <input id="publicUrl" type="text" placehodler="Public URL" />
@@ -48,8 +48,8 @@ class addproject extends React.Component {
           {/* <label htmlFor="privateRepo">Add a private repo</label> */}
           {/* <input id="privateRepo" type="text" placehodler="private repo" /> */}
 
-          <label htmlFor="livedate">Live date</label>
-          <input type="date" required />
+          <label htmlFor="liveDate">Live date</label>
+          <input type="date" name="liveDate" id="liveDate" required />
 
           <label htmlFor="personal-project">Personal project</label>
           <input id="personal-project" type="checkbox" />
@@ -60,21 +60,14 @@ class addproject extends React.Component {
           <label htmlFor="challenge-project">challenge project</label>
           <input id="challenge-project" type="checkbox" />
 
+          <hr />
 
           <label htmlFor="submit">Submit project</label>
           <input id="submit" type="submit" />
         </form>
       </Layout>
 
-      <style jsx>{`
-        .editorWrapper {
-
-          border: solid 1px orange;
-          width: 80%;
-          // min-height: 400px;
-
-        }
-      `}</style>
+      <style jsx>{``}</style>
     </div>
   }
 }
