@@ -63,11 +63,13 @@ pre {
   height: 100vh;
   z-index: -1;
   background-image: linear-gradient(45deg, #111, #333);
-  background-repeat: no-repeat
+  background-repeat: no-repeat;
 }
 .content {
   padding: 50px;
-  color: #ccc
+  color: #ccc;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 
