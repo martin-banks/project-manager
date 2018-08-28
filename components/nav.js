@@ -23,14 +23,10 @@ class Nav extends React.Component {
     return <nav>
       <ul>
         <li>
-          <a href="/" >
-            <Logo />          
-          </a>
+          <a href="/" ><Logo /></a>
         </li>
         <li>
-          <a href="/projects" >
-            <span>Projects</span>
-          </a>
+          <a href="/projects" >Projects</a>
         </li>
         <li>
           <Link href="/addproject" prefetch>
@@ -40,20 +36,34 @@ class Nav extends React.Component {
       </ul>
       <style jsx>{`
       nav {
+        position: relative;
         padding: 0;
         margin:0;
       }
       ul {
+        // border: solid 1px pink;
         position: relative;
+        display: block;
+        top: 0;
         padding: 0;
         margin: 0;
       }
       li {
+        // border: solid 1px lime;
+        position: relative;
+        top: 0;
         transition: all 200ms;
         display: inline-block;
-        border: solid 1px lime
         margin: 0;
-        padding: 20px
+        vertical-align: top;
+        padding: 30px 0;
+      }
+      a {
+        // border: solid 1px gold;
+        dispay: block;
+        position: relative;
+        padding: 30px;
+        vertical-align: top;
       }
       li:hover {
         background: rgba(200, 200, 200, 0.1)
