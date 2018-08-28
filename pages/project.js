@@ -4,44 +4,46 @@ import MainLayout from '../layouts/main'
 import Markdown from 'react-markdown'
 // import fetch from 'isomorphic-fetch'
 
-class Par extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      edit: false,
-      value: null,
-    }
-  }
 
-  componentDidMount () {
-    const s = this.state
-    s.value = this.props.desc
-    this.setState({ s })
-  }
+// ! DEPRICATED
+// class Par extends React.Component {
+//   constructor (props) {
+//     super(props)
+//     this.state = {
+//       edit: false,
+//       value: null,
+//     }
+//   }
 
-  // handleClick () {
-  //   const s = this.state
-  //   s.edit = !this.state.edit
-  //   this.setState(s)
-  // }
+//   componentDidMount () {
+//     const s = this.state
+//     s.value = this.props.desc
+//     this.setState({ s })
+//   }
 
-  handleChange (e) {
-    this.props.handleChange(e)
-  }
+//   // handleClick () {
+//   //   const s = this.state
+//   //   s.edit = !this.state.edit
+//   //   this.setState(s)
+//   // }
+
+//   handleChange (e) {
+//     this.props.handleChange(e)
+//   }
 
 
-  render () {
-    return (
-      <div>
-        <button onClick={ this.props.onClick } >Edit</button>
-        { this.props.edit
-            ? <input value={ this.state.value } onChange={ this.handleChange.bind(this) } /> 
-            : <p>{ this.state.value }</p>
-        }
-      </div>
-    )
-  }
-}
+//   render () {
+//     return (
+//       <div>
+//         <button onClick={ this.props.onClick } >Edit</button>
+//         { this.props.edit
+//             ? <input value={ this.state.value } onChange={ this.handleChange.bind(this) } /> 
+//             : <p>{ this.state.value }</p>
+//         }
+//       </div>
+//     )
+//   }
+// }
 
 class Project extends React.Component {
   static getInitialProps (context) {
@@ -90,6 +92,12 @@ class Project extends React.Component {
         onChange={ this.handleChange.bind(this) }
       /> */}
 
+
+      {/* 
+        // TODO consider separate layout 
+        // TODO loop over all content items 
+        // TODO submit changes back to server for DB update 
+      */}
       <button onClick={ this.handleToggleEdit.bind(this) } >Edit</button>
       { this.state.edit
           ? <input value={ this.state.desc } onChange={ this.handleChange.bind(this) } /> 
