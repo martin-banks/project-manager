@@ -64,11 +64,11 @@ app.prepare()
       const queryParams = { id: req.params.id }
       try {
         const details = await Store.findById(req.params.id)
-        queryParams.details = details
-        app.render(req, res, page, queryParams)
+        // queryParams.details = details
+        app.render(req, res, page, details)
       } catch (err) {
         console.error(err)
-        app.render(req, res, '/404')
+        app.render(req, res, '/')
       }
     })
 
