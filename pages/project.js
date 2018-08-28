@@ -45,6 +45,7 @@ import Markdown from 'react-markdown'
 //   }
 // }
 
+
 class Project extends React.Component {
   static getInitialProps (context) {
     const { logo } = context.res.locals
@@ -55,34 +56,34 @@ class Project extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      edit: false
+      edit: false,
+      details: {},
     }
   }
 
-  handleToggleEdit () {
-    const s = this.state
-    s.edit = !this.state.edit
-    console.log(this.state.edit)
-    this.setState(s)
-  }
+  // handleToggleEdit () {
+  //   const s = this.state
+  //   s.edit = !this.state.edit
+  //   console.log(this.state.edit)
+  //   this.setState(s)
+  // }
 
-  handleChange (e) {
-    console.log('change!!!')
-    const s = this.state
-    s.desc = e.target.value
-    this.setState({ s })
-  }
+  // handleChange (e) {
+  //   console.log('change!!!')
+  //   const s = this.state
+  //   s.desc = e.target.value
+  //   this.setState({ s })
+  // }
 
-  componentDidMount () {
-    const s = this.state
-    s.desc = this.props.router.query.details.description
-    this.setState({ s })
-  }
-
+  // componentDidMount () {
+  //   const s = this.state
+  //   s.desc = this.props.router.query.details.description
+  //   this.setState({ s })
+  // }
   render () {
     return <MainLayout>
-      <h1>{ this.props.router.query.details.name }</h1>
-      <Markdown source={ this.props.router.query.details.description } />
+      <h1>{ this.props.router.query.name }</h1>
+      {/* <Markdown source={ this.props.router.query.details.description } /> */}
 
       {/* <p>{ this.props.router.query.details.description || '--' }</p> */}
       {/* <Par
@@ -98,16 +99,31 @@ class Project extends React.Component {
         // TODO loop over all content items 
         // TODO submit changes back to server for DB update 
       */}
-      <button onClick={ this.handleToggleEdit.bind(this) } >Edit</button>
+      {/* <button onClick={ this.handleToggleEdit.bind(this) } >Edit</button>
       { this.state.edit
           ? <input value={ this.state.desc } onChange={ this.handleChange.bind(this) } /> 
           : <p>{ this.state.desc }</p>
-      }
+      } */}
 
-      <pre>{ JSON.stringify(this.props.router.query.details, 'utf-8', 2) }</pre>
+
+      {/* DO NOT ITTERATE OVER OBJECT KEYS!!! */}
+      <div>
+        { this.props.router.query.name && <h3>{ this.props.router.query.name }</h3>}
+        { this.props.router.query.description && <h3>{ this.props.router.query.description }</h3>}
+        { this.props.router.query.client && <h3>{ this.props.router.query.client }</h3>}
+      </div>
+
+
+      <pre>{ JSON.stringify(this.state, 'utf-8', 2) }</pre>
 
       <style jsx global>{`
-
+        hr {
+          opacity: 0.2;
+          margin-top: 24px;
+        }
+        h3 {
+          margin-bottom: 8px;
+        }
       `}</style>
     </MainLayout>
   }
