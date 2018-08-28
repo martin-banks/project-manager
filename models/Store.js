@@ -8,12 +8,34 @@ const storeSchema = new mongoose.Schema({
     trim: true,
     required: 'Please enter a project name',
   },
+
   slug: String,
 
-  description: {
+  // description: {
+  //   type: String,
+  //   trim: true,
+  //   required: 'Please enter a project description',
+  // },
+
+  what: {
     type: String,
     trim: true,
-    required: 'Please enter a project description',
+    required: 'Please enter a desctription of what this project is',
+  },
+  why: {
+    type: String,
+    trim: true,
+    required: 'Please enter a desctription of why this project is',
+  },
+  how: {
+    type: String,
+    trim: true,
+    required: 'Please enter a desctription of how this project is',
+  },
+  evolution: {
+    type: String,
+    trim: true,
+    required: 'Please enter a desctription of what this project is',
   },
   // keywords: {
   //   type: [String],
