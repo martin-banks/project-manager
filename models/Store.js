@@ -37,6 +37,18 @@ const storeSchema = new mongoose.Schema({
     trim: true,
     required: 'Please enter a desctription of what this project is',
   },
+  // tech: {
+  //   type: [ String ],
+  //   trim: true,
+  //   required: 'Please add at least one tech',
+  // },
+
+  'what did i learn': {
+    type: String,
+    trim: true,
+    required: 'Don\'t fprget to add what you learned in this...',
+  },
+
   // keywords: {
   //   type: [String],
   //   truem: true,
@@ -49,11 +61,16 @@ const storeSchema = new mongoose.Schema({
     required: 'Please enter who the client is',
   },
 
-  // tech: {
-  //   type: [ String ],
+  publicUrl: {
+    type: String,
+    trim: true,
+    required: false,
+  },
+  // privateUrl: {
+  //   type: String,
   //   trim: true,
-  //   required: 'Please add at least one tech',
-  // },
+  //   required: false,
+  // },f
 
   publicRepo: {
     type: String,
@@ -66,16 +83,6 @@ const storeSchema = new mongoose.Schema({
   //   required: false,
   // },
 
-  publicUrl: {
-    type: String,
-    trim: true,
-    required: false,
-  },
-  // privateUrl: {
-  //   type: String,
-  //   trim: true,
-  //   required: false,
-  // },
 
   liveDate: {
     type: Date,
@@ -89,7 +96,7 @@ const storeSchema = new mongoose.Schema({
   },
   newsProject: {
     type: Boolean,
-    required: false,
+    required: false,                                                                                                                                                                                                                                                                                                                                                       
   },
   challenge: {
     type: Boolean,
