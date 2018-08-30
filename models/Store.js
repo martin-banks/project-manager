@@ -66,22 +66,22 @@ const storeSchema = new mongoose.Schema({
     trim: true,
     required: false,
   },
-  // privateUrl: {
-  //   type: String,
-  //   trim: true,
-  //   required: false,
-  // },f
+  privateUrl: {
+    type: String,
+    trim: true,
+    required: false,
+  },
 
   publicRepo: {
     type: String,
     trim: true,
     required: false,
   },
-  // privateRepo: { 
-  //   type: String,
-  //   trim: true,
-  //   required: false,
-  // },
+  privateRepo: { 
+    type: String,
+    trim: true,
+    required: false,
+  },
 
 
   liveDate: {
@@ -96,7 +96,7 @@ const storeSchema = new mongoose.Schema({
   },
   newsProject: {
     type: Boolean,
-    required: false,                                                                                                                                                                                                                                                                                                                                                       
+    required: false,
   },
   challenge: {
     type: Boolean,
