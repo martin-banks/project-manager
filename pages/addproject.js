@@ -1,8 +1,23 @@
 import React from 'react'
 import Layout from '../layouts/main'
 import TestEditor from '../components/testEditor'
+const keywords = require('../functions/keywords')
 
 class addproject extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      keywords: []
+    }
+  }
+
+  getKeyWords (e) {
+    const extraction = keywords(e.target.value)
+    const s = this.state
+    s.keywords = extraction
+    this.setState({ s })
+  }
+
   render () {
     return <div>
       <Layout>
@@ -13,7 +28,22 @@ class addproject extends React.Component {
           <input id="name" name="name" type="text" placehodler="projectname" required />
 
           <label htmlFor="description">add a project description</label>
-          <textarea id="description" name="description" cols="30" rows="5" required />
+          <textarea
+            id="description"
+            name="description"
+            cols="30"
+            rows="5"
+            onChange={ this.getKeyWords.bind(this) }
+            required
+          />
+
+          <label for="keywords">Keywords</label>
+          <textarea
+            name="keywords"
+            id="keywords"
+            cols="30"
+            rows="10"
+          value={ this.state.keywords.join(', ') }></textarea>
 
           {/* <h3 htmlFor="keywords">Keywords</h3> */}
           {/* <ul class="keywords"> */}
