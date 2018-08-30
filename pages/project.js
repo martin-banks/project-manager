@@ -48,9 +48,7 @@ import Markdown from 'react-markdown'
 
 class Project extends React.Component {
   static getInitialProps (context) {
-    const { logo } = context.res.locals
-    console.log({ logo })
-    return logo
+    return {}
   }
 
   constructor (props) {
@@ -105,12 +103,14 @@ class Project extends React.Component {
           : <p>{ this.state.desc }</p>
       } */}
 
+      {/*
+       // TODO Store content in state before component mount then itterate to render
+      */}
 
-      {/* DO NOT ITTERATE OVER OBJECT KEYS!!! */}
       <div>
-        { this.props.router.query.name && <h3>{ this.props.router.query.name }</h3>}
-        { this.props.router.query.description && <h3>{ this.props.router.query.description }</h3>}
-        { this.props.router.query.client && <h3>{ this.props.router.query.client }</h3>}
+        { this.props.router.query.name && <Markdown>{ this.props.router.query.name }</Markdown>}
+        { this.props.router.query.description && <Markdown>{ this.props.router.query.description }</Markdown>}
+        { this.props.router.query.client && <Markdown>{ this.props.router.query.client }</Markdown>}
       </div>
 
 
