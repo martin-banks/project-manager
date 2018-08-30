@@ -83,34 +83,64 @@ class addproject extends React.Component {
           {/* <input id="privateRepo" type="text" placehodler="private repo" /> */}
 
           <hr />
-          <label htmlFor="liveDate">Live date</label>
+
           <input type="date" name="liveDate" id="liveDate" required />
+          <label htmlFor="liveDate">Live date</label>
 
           <hr />
-          <label htmlFor="personal-project">Personal project</label>
-          <input id="personal-project" type="checkbox" />
+          <div className="toggle">
+            <label htmlFor="personal-project">
+              <input id="personal-project" type="checkbox" />
+              Personal project
+            </label>
+          </div>
 
           <hr />
-          <label htmlFor="news-project">news project</label>
-          <input id="news-project" type="checkbox" />
+          <div className="toggle">
+            <label htmlFor="news-project">
+              <input id="news-project" type="checkbox" />
+              news project
+            </label>
+          </div>
 
           <hr />
-          <label htmlFor="challenge-project">challenge project</label>
-          <input id="challenge-project" type="checkbox" />
+          <div className="toggle">
+            <label htmlFor="challenge-project">
+              <input id="challenge-project" type="checkbox" />
+              challenge project
+            </label>
+          </div>
 
           <hr />
-
           <label htmlFor="submit">Submit project</label>
           <input id="submit" type="submit" />
+
         </form>
       </Layout>
 
       <style jsx>{`
         #keywords {
           margin-bottom: 24px;
+          opacity: 0.5;
         }
         hr {
           opacity: 0.3;
+        }
+        .toggle {
+          display: inline-block;
+          // padding: 8px 16px;
+          background: rgba(255,255,255, 0.3);
+        }
+        .toggle input, .toggle label {
+          display: inline-block;
+          vertical-align: center;
+          margin: 0;
+        }
+        .toggle label {
+          padding: 8px 16px;
+        }
+        .toggle input {
+          margin-right: 10px;
         }
       `}</style>
     </div>
