@@ -5,9 +5,9 @@ const keywords = require('../functions/keywords')
 
 class addproject extends React.Component {
   static async getInitialProps ({ url }) {
-    console.log('gip', { url })
     return { url }
   }
+
   constructor (props) {
     super(props)
     this.state = {
@@ -25,6 +25,7 @@ class addproject extends React.Component {
   }
 
   getKeyWords (e) {
+    console.log({ e })
     const extraction = keywords(e.target.value)
     const s = this.state
     s.keywords = extraction
@@ -35,7 +36,7 @@ class addproject extends React.Component {
     console.log('porps before render', this.props.url.pathname)
     return <div>
       <Layout pathname={ this.props.url.pathname || '' }>
-        <h1>Add a new project</h1>
+        <h1>Add a new project</h1> 
         <hr />
         <UploadImage
           onUpload={ this.saveImage.bind(this) }
@@ -50,18 +51,18 @@ class addproject extends React.Component {
           <h3>About the project</h3>
           <p>What type of project was it?</p>
           <div className="toggles">
-            <input className="toggle" id="news-project" type="checkbox" />
-            <label className="toggle" htmlFor="news-project">
+            <input className="toggle" id="type_news" type="checkbox" />
+            <label className="toggle" htmlFor="type_news">
               News Corp DNA
             </label>
 
-            <input className="toggle" id="personal-project" type="checkbox" />
-            <label className="toggle" htmlFor="personal-project">
+            <input className="toggle" id="type_personal" type="checkbox" />
+            <label className="toggle" htmlFor="type_personal">
               Personal
             </label>
 
-            <input className="toggle" id="challenge-project" type="checkbox" />
-            <label className="toggle" htmlFor="challenge-project">
+            <input className="toggle" id="type_challenge" type="checkbox" />
+            <label className="toggle" htmlFor="type_challenge">
               Challenge / Sandbox
             </label>
           </div>
@@ -100,7 +101,22 @@ class addproject extends React.Component {
           />
 
           <hr />
+          <label htmlFor="evolution">
+            How could it be improved or developed further?</label>
+          <textarea
+            id="evolution"
+            name="evolution"
+            cols="30"
+            rows="5"
+            onChange={ this.getKeyWords.bind(this) }
+            required
+          />
+
+          <hr />
           <label htmlFor="keywords">Keywords</label>
+          {/* <textarea name="keywords" id="keywords" rows="10">
+            { this.state.keywords }
+          </textarea> */}
           <p
             name="keywords"
             id="keywords"
@@ -114,7 +130,9 @@ class addproject extends React.Component {
             {/* </li> */}
           {/* </ul> */}
           
-          {/* <h3 htmlFor="tech">Tech used</h3> */}
+          <hr />
+          <label htmlFor="text">Texh used</label>
+          <textarea name="texh" id="texh" rows="10"></textarea>
           {/* <ul className="tech"> */}
             {/* <li> */}
               {/* <label htmlFor="javascript">JS</label> */}
@@ -126,6 +144,10 @@ class addproject extends React.Component {
           <hr />
           <label htmlFor="client">Who was it for?</label>
           <input type="text" name="client" id="client" required />
+          
+          <hr />
+          <label htmlFor="learn">What did you learn</label>
+          <input type="text" name="learn" id="learn" required />
 
           <hr />
           <h3>Links</h3>
