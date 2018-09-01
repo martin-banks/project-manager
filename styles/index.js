@@ -12,6 +12,24 @@ p {
   margin: 0;
   margin-bottom: 16px;
 }
+h1 {
+  margin-bottom: 40px;
+}
+h2 {
+  margin-bottom: 36px;
+}
+h3 {
+  margin-bottom: 32px;
+}
+h4 {
+  margin-bottom: 28px;
+}
+h5 {
+  margin-bottom: 24px;
+}
+h6 {
+  margin-bottom: 20px;
+}
 p:last-of-type {
   margin: 0
 }
@@ -47,6 +65,13 @@ textarea {
   margin-bottom: 24px;
 }
 label {
+  margin-bottom: 8px;
+}
+
+hr {
+  opacity: 0.1;
+  margin: 0;
+  margin-bottom: 24px;
 }
 
 pre {
@@ -70,6 +95,7 @@ pre {
 }
 .content {
   padding: 50px;
+  padding-top: 100px;
   color: #ccc;
   max-width: 1000px;
   margin: 0 auto;
