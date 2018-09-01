@@ -46,13 +46,7 @@ app.prepare()
     server.use(bodyParser.urlencoded({ extended: true }))
 
     server.use(async (req, res, next) => {
-      // console.log('middle ware working')
       res.locals.test = 'this is a test local 🤘'
-      // try {
-      //   res.locals.logo = await readFile('assets/logo.svg')
-      // } catch (err) {
-      //   console.log(err)
-      // }
       next()
     })
 
