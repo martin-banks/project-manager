@@ -1,14 +1,26 @@
 import React from 'react'
 import Layout from '../layouts/main'
 import TestEditor from '../components/testEditor'
+import UploadImage from '../components/uploadImage'
 const keywords = require('../functions/keywords')
 
 class addproject extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      keywords: []
+      keywords: [],
+      displayImage: null,
     }
+  }
+
+  saveDisplayImage (base64) {
+    // TODO - size validation
+    // TODO - create size variants
+    // TODO - include in form submission (custum function posting to server)
+    console.log({ base64 })
+    this.setState({
+      displayImage: base64,
+    })
   }
 
   getKeyWords (e) {
@@ -22,6 +34,9 @@ class addproject extends React.Component {
     return <div>
       <Layout>
         <h1>Add a new project</h1>
+        <UploadImage
+          onUpload={ this.saveDisplayImage.bind(this) }
+        />
         <form action="addproject" method="post">
 
           <hr />
@@ -29,15 +44,68 @@ class addproject extends React.Component {
           <input id="name" name="name" type="text" placehodler="projectname" required />
 
           <hr />
-          <label htmlFor="description">add a project description</label>
+          <h3>Add a display image</h3>
+
+
+          <hr />
+          <h3>About the project</h3>
+          <p>What type of project was it?</p>
+          <div className="toggle">
+            <label htmlFor="news-project">
+              <input id="news-project" type="checkbox" />
+              news project
+            </label>
+          </div>
+
+          <div className="toggle">
+            <label htmlFor="personal-project">
+              <input id="personal-project" type="checkbox" />
+              Personal project
+            </label>
+          </div>
+
+          <div className="toggle">
+            <label htmlFor="challenge-project">
+              <input id="challenge-project" type="checkbox" />
+              challenge project
+            </label>
+          </div>
+
+          <hr />
+          <label htmlFor="what">What is this project about?</label>
           <textarea
-            id="description"
-            name="description"
+            id="what"
+            name="what"
             cols="30"
             rows="5"
             onChange={ this.getKeyWords.bind(this) }
             required
           />
+          
+          <hr />
+          <label htmlFor="how">How did you complete it</label>
+          <textarea
+            id="how"
+            name="how"
+            cols="30"
+            rows="5"
+            onChange={ this.getKeyWords.bind(this) }
+            required
+          />
+
+          <hr />
+          <label htmlFor="why">Why did you do it and take this approach</label>
+          <textarea
+            id="why"
+            name="why"
+            cols="30"
+            rows="5"
+            onChange={ this.getKeyWords.bind(this) }
+            required
+          />
+
+
+          
 
           <hr />
           <label htmlFor="keywords">Keywords</label>
@@ -64,52 +132,33 @@ class addproject extends React.Component {
 
 
           <hr />
-          <label htmlFor="client">Client</label>
+          <label htmlFor="client">Who was it for?</label>
           <input type="text" name="client" id="client" required />
 
           <hr />
           <h3>Links</h3>
-          <label htmlFor="publicUrl">Add a public URL</label>
+          <label htmlFor="publicUrl">Public URL</label>
           <input id="publicUrl" type="text" placehodler="Public URL" />
 
-          {/* <label htmlFor="privateUrl">Add a private URL</label> */}
-          {/* <input id="privateUrl" type="text" placehodler="Private URL" /> */}
+          <label htmlFor="privateUrl">Private URL</label>
+          <input id="privateUrl" type="text" placehodler="Private URL" />
 
           <hr />
-          <label htmlFor="publicRepo">Add a public repo</label>
+          <h3>Repos</h3>
+          <label htmlFor="publicRepo">Public repo</label>
           <input id="publicRepo" type="text" placehodler="Public repo" />
 
-          {/* <label htmlFor="privateRepo">Add a private repo</label> */}
-          {/* <input id="privateRepo" type="text" placehodler="private repo" /> */}
+          <label htmlFor="privateRepo">Private repo</label>
+          <input id="privateRepo" type="text" placehodler="private repo" />
 
           <hr />
 
+          <label htmlFor="liveDate">When did it go live?</label>
           <input type="date" name="liveDate" id="liveDate" required />
-          <label htmlFor="liveDate">Live date</label>
 
-          <hr />
-          <div className="toggle">
-            <label htmlFor="personal-project">
-              <input id="personal-project" type="checkbox" />
-              Personal project
-            </label>
-          </div>
+         
 
-          <hr />
-          <div className="toggle">
-            <label htmlFor="news-project">
-              <input id="news-project" type="checkbox" />
-              news project
-            </label>
-          </div>
-
-          <hr />
-          <div className="toggle">
-            <label htmlFor="challenge-project">
-              <input id="challenge-project" type="checkbox" />
-              challenge project
-            </label>
-          </div>
+          
 
           <hr />
           <label htmlFor="submit">Submit project</label>
@@ -119,17 +168,28 @@ class addproject extends React.Component {
       </Layout>
 
       <style jsx>{`
+        input[type=text], textarea {
+          box-sizing: border-box;
+          width: 100%;
+        }
         #keywords {
           margin-bottom: 24px;
           opacity: 0.5;
         }
         hr {
           opacity: 0.3;
+          margin: 32px 0
+        }
+        label {
+          margin-bottom: 12px
         }
         .toggle {
           display: inline-block;
-          // padding: 8px 16px;
+          margin: 2px;
           background: rgba(255,255,255, 0.3);
+        }
+        .toggle[checked] {
+          background: gold;
         }
         .toggle input, .toggle label {
           display: inline-block;
