@@ -11,11 +11,16 @@ const storeSchema = new mongoose.Schema({
 
   slug: String,
 
-  // description: {
-  //   type: String,
-  //   trim: true,
-  //   required: 'Please enter a project description',
-  // },
+  display: {
+    type: String,
+    trim: true,
+    required: 'Display image missing',
+  },
+  thumbnail: {
+    type: String,
+    trim: true,
+    required: 'Thumbnail image missing',
+  },
 
   what: {
     type: String,
@@ -25,24 +30,23 @@ const storeSchema = new mongoose.Schema({
   why: {
     type: String,
     trim: true,
-    required: 'Please enter a desctription of why this project is',
+    required: 'Please enter a desctription of why you did it',
   },
   how: {
     type: String,
     trim: true,
-    required: 'Please enter a desctription of how this project is',
+    required: 'Please enter a desctription of how you did it',
   },
   evolution: {
     type: String,
     trim: true,
-    required: 'Please enter a desctription of what this project is',
+    required: 'Please enter what else could be done',
   },
   tech: {
     type: [ String ],
     trim: true,
     required: 'Please add at least one tech',
   },
-
   learn: {
     type: String,
     trim: true,
