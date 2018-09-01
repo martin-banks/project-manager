@@ -28,7 +28,7 @@ const card = project => (
 
 class projects extends React.Component {
   static async getInitialProps (context) {
-    const { projects } = context.res.locals
+    const projects = await context.res.locals.projects
     const { url } = context
     console.log({ projects })
     return { projects, url }
