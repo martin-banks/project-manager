@@ -58,14 +58,14 @@ class Nav extends React.Component {
         display: inline-block;
         margin: 0;
         vertical-align: top;
-        padding: 16px 30px;
         opacity: 0.6;
         border-top: solid 2px rgba(0,0,0,0);
       }
       a {
-        dispay: block;
+        display: block;
         position: relative;
         vertical-align: top;
+        padding: 16px 30px;
       }
       li.active {
         opacity: 0.8;
