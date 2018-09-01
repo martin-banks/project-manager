@@ -6,13 +6,13 @@ import styles from '../styles'
 class MainLayout extends React.Component {
   render () {
     return <div>
-      <Nav />
+      <Nav pathname={ this.props.pathname } />
       <div className="background__gradient"></div>
       <div className="content">
         { this.props.children }
       </div>
 
-      <style jsx global>{ styles }</style>
+      { styles }
     </div>
   }
 }
