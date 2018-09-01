@@ -4,6 +4,10 @@ import UploadImage from '../components/uploadImage'
 const keywords = require('../functions/keywords')
 
 class addproject extends React.Component {
+  static async getInitialProps ({ url }) {
+    console.log('gip', { url })
+    return { url }
+  }
   constructor (props) {
     super(props)
     this.state = {
@@ -30,43 +34,40 @@ class addproject extends React.Component {
   }
 
   render () {
+    console.log('porps before render', this.props.url.pathname)
     return <div>
-      <Layout>
+      <Layout pathname={ this.props.url.pathname || '' }>
         <h1>Add a new project</h1>
+        <hr />
         <UploadImage
           onUpload={ this.saveDisplayImage.bind(this) }
         />
-        <form action="addproject" method="post">
 
-          <hr />
+        <hr />
+        <form action="addproject" method="post">
           <label htmlFor="name">Add a project name</label>
           <input id="name" name="name" type="text" placehodler="projectname" required />
 
-          <hr />
-          <h3>Add a display image</h3>
+
 
 
           <hr />
           <h3>About the project</h3>
           <p>What type of project was it?</p>
-          <div className="toggle">
-            <label htmlFor="news-project">
-              <input id="news-project" type="checkbox" />
-              news project
+          <div className="toggles">
+            <input className="toggle" id="news-project" type="checkbox" />
+            <label className="toggle" htmlFor="news-project">
+              News Corp DNA
             </label>
-          </div>
 
-          <div className="toggle">
-            <label htmlFor="personal-project">
-              <input id="personal-project" type="checkbox" />
-              Personal project
+            <input className="toggle" id="personal-project" type="checkbox" />
+            <label className="toggle" htmlFor="personal-project">
+              Personal
             </label>
-          </div>
 
-          <div className="toggle">
-            <label htmlFor="challenge-project">
-              <input id="challenge-project" type="checkbox" />
-              challenge project
+            <input className="toggle" id="challenge-project" type="checkbox" />
+            <label className="toggle" htmlFor="challenge-project">
+              Challenge / Sandbox
             </label>
           </div>
 
@@ -111,7 +112,7 @@ class addproject extends React.Component {
           <p
             name="keywords"
             id="keywords"
-          >{ this.state.keywords.join(', ') }</p>
+          >{ this.state.keywords.join(', ') || <i>No keywords yet</i> }</p>
 
           {/* <h3 htmlFor="keywords">Keywords</h3> */}
           {/* <ul class="keywords"> */}
@@ -155,51 +156,65 @@ class addproject extends React.Component {
           <label htmlFor="liveDate">When did it go live?</label>
           <input type="date" name="liveDate" id="liveDate" required />
 
-         
-
-          
-
           <hr />
-          <label htmlFor="submit">Submit project</label>
-          <input id="submit" type="submit" />
+          <input id="submit" type="submit" value="Submit new project" />
 
         </form>
       </Layout>
 
       <style jsx>{`
-        input[type=text], textarea {
-          box-sizing: border-box;
+        input[type=submit] {
+          transition: all 200ms;
+          cursor: pointer;
           width: 100%;
+          background: #ccc;
+          color: #333;
+          font-size: 18px;
+          padding: 12px;
+          margin-bottom: 50px;
+        }
+        
+        input[type=submit]:hover {
+          background: gold;
         }
         #keywords {
           margin-bottom: 24px;
           opacity: 0.5;
         }
         hr {
-          opacity: 0.3;
-          margin: 32px 0
+          opacity: 0.1;
+          margin: 0;
+          margin-bottom: 32px;
         }
         label {
           margin-bottom: 12px
+        }
+
+        .toggles {
+          margin-bottom: 24px;
         }
         .toggle {
           display: inline-block;
           margin: 2px;
           background: rgba(255,255,255, 0.3);
+          padding: 16px
         }
-        .toggle[checked] {
-          background: gold;
-        }
-        .toggle input, .toggle label {
-          display: inline-block;
-          vertical-align: center;
-          margin: 0;
-        }
-        .toggle label {
+        // .toggle input,
+        // .toggle label {
+        //   display: inline-block;
+        //   vertical-align: center;
+        //   margin: 0;
+        // }
+        label.toggle {
           padding: 8px 16px;
+          border-radius: 2px
         }
-        .toggle input {
-          margin-right: 10px;
+        input.toggle {
+          display: none;
+        }
+        input.toggle:checked + label.toggle {
+          background: hsl(50, 60%, 45%);
+          color: black;
         }
       `}</style>
     </div>
