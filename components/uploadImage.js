@@ -35,20 +35,33 @@ export default class UploadImage extends React.Component {
 
   render () {
     return (
-      <div>
-        
+      <div className="wrapper">
         <form onSubmit={ this.handleSubmit.bind(this) } >
-          <label htmlFor="file">File upload</label>
+          <label htmlFor="file">Upload a display image</label>
           <input
             name="file"
             id="file"
             type="file"
             onChange={ this.handleImageUpload.bind(this) }
           />
-          <input type="submit" />
         </form>
 
-        { this.state.previewUrl ? <img src={ this.state.previewUrl } /> : 'No preview'}
+        { this.state.previewUrl ? <img src={ this.state.previewUrl } /> : <p><i>Nothing to preview</i></p>}
+        <style jsx>{`
+          .wrapper {
+            margin-bottom: 24px
+          }
+          img {
+            width: 400px;
+          }
+          i {
+            color: #666;
+          }
+          input {
+            border: none;
+            padding: 16px 0;
+          }
+        `}</style>
       </div>
     )
   }
