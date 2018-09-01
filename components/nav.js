@@ -19,16 +19,20 @@ const Logo = () => (
 
 
 class Nav extends React.Component {
+  constructor (props) {
+    super(props)
+  }
   render () {
+    console.log('nav render', this.props)
     return <nav>
       <ul>
-        <li>
+        <li className={ this.props.pathname === '/index' ? 'active' : '' }>
           <a href="/" ><Logo /></a>
         </li>
-        <li>
+        <li className={ this.props.pathname === '/projects' ? 'active' : '' }>
           <a href="/projects" >Projects</a>
         </li>
-        <li>
+        <li className={ this.props.pathname === '/addproject' ? 'active' : '' }>
           <Link href="/addproject" prefetch>
             <a>Add Project</a>
           </Link>
@@ -41,7 +45,6 @@ class Nav extends React.Component {
         margin:0;
       }
       ul {
-        // border: solid 1px pink;
         position: relative;
         display: block;
         top: 0;
@@ -49,24 +52,29 @@ class Nav extends React.Component {
         margin: 0;
       }
       li {
-        // border: solid 1px lime;
         position: relative;
         top: 0;
         transition: all 200ms;
         display: inline-block;
         margin: 0;
         vertical-align: top;
-        padding: 30px 0;
+        padding: 16px 30px;
+        opacity: 0.6;
+        border-top: solid 2px rgba(0,0,0,0);
       }
       a {
-        // border: solid 1px gold;
         dispay: block;
         position: relative;
-        padding: 30px;
         vertical-align: top;
       }
+      li.active {
+        opacity: 0.8;
+        background:  rgba(0,0,0, 0.4);
+        border-top: solid 2px hsl(50, 60%, 45%);
+      }
       li:hover {
-        background: rgba(200, 200, 200, 0.1)
+        background: rgba(200, 200, 200, 0.1);
+        opacity: 1;
       }
       `}</style>
     </nav>
