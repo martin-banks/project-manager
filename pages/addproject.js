@@ -12,17 +12,15 @@ class addproject extends React.Component {
     super(props)
     this.state = {
       keywords: [],
-      displayImage: null,
+      display: null,
+      thumbnail: null,
     }
   }
 
-  saveDisplayImage (base64) {
-    // TODO - size validation
-    // TODO - create size variants
+  saveImage ({ url, type }) {
     // TODO - include in form submission (custum function posting to server)
-    console.log({ base64 })
     this.setState({
-      displayImage: base64,
+      [type]: url,
     })
   }
 
@@ -40,16 +38,13 @@ class addproject extends React.Component {
         <h1>Add a new project</h1>
         <hr />
         <UploadImage
-          onUpload={ this.saveDisplayImage.bind(this) }
+          onUpload={ this.saveImage.bind(this) }
         />
 
         <hr />
         <form action="addproject" method="post">
           <label htmlFor="name">Add a project name</label>
           <input id="name" name="name" type="text" placehodler="projectname" required />
-
-
-
 
           <hr />
           <h3>About the project</h3>
@@ -104,9 +99,6 @@ class addproject extends React.Component {
             required
           />
 
-
-          
-
           <hr />
           <label htmlFor="keywords">Keywords</label>
           <p
@@ -157,12 +149,15 @@ class addproject extends React.Component {
           <input type="date" name="liveDate" id="liveDate" required />
 
           <hr />
-          <input id="submit" type="submit" value="Submit new project" />
+          <input id="submit" type="submit" value="Save project" />
 
+          <input name="thumbnail" value={ this.state.thumbnail || '' } />
+          <input name="display" value={ this.state.display || '' } />
         </form>
       </Layout>
 
       <style jsx>{`
+
         input[type=submit] {
           transition: all 200ms;
           cursor: pointer;
@@ -181,14 +176,6 @@ class addproject extends React.Component {
           margin-bottom: 24px;
           opacity: 0.5;
         }
-        hr {
-          opacity: 0.1;
-          margin: 0;
-          margin-bottom: 32px;
-        }
-        label {
-          margin-bottom: 12px
-        }
 
         .toggles {
           margin-bottom: 24px;
@@ -196,18 +183,15 @@ class addproject extends React.Component {
         .toggle {
           display: inline-block;
           margin: 2px;
-          background: rgba(255,255,255, 0.3);
+          background: rgba(0,0,0, 0.3);
+          border: solid 1px rgba(255,255,255, 0.2);
           padding: 16px
         }
-        // .toggle input,
-        // .toggle label {
-        //   display: inline-block;
-        //   vertical-align: center;
-        //   margin: 0;
-        // }
+
         label.toggle {
-          padding: 8px 16px;
-          border-radius: 2px
+          padding: 12px 20px;
+          border-radius: 2px;
+          font-size: 14px;
         }
         input.toggle {
           display: none;
