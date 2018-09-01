@@ -1,6 +1,5 @@
 import React from 'react'
 import Layout from '../layouts/main'
-import TestEditor from '../components/testEditor'
 import UploadImage from '../components/uploadImage'
 const keywords = require('../functions/keywords')
 
