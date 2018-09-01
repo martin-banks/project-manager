@@ -37,23 +37,23 @@ const storeSchema = new mongoose.Schema({
     trim: true,
     required: 'Please enter a desctription of what this project is',
   },
-  // tech: {
-  //   type: [ String ],
-  //   trim: true,
-  //   required: 'Please add at least one tech',
-  // },
+  tech: {
+    type: [ String ],
+    trim: true,
+    required: 'Please add at least one tech',
+  },
 
-  'what did i learn': {
+  learn: {
     type: String,
     trim: true,
     required: 'Don\'t fprget to add what you learned in this...',
   },
 
-  // keywords: {
-  //   type: [String],
-  //   truem: true,
-  //   required: 'Please enter at least one keyword',
-  // },
+  keywords: {
+    type: [String],
+    truem: true,
+    required: 'Please enter at least one keyword',
+  },
 
   client: {
     type: String,
