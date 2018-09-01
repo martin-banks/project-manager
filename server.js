@@ -42,8 +42,8 @@ app.prepare()
   
     const server = express()
     // Takes the raw requests and turns them into usable properties on req.body
-    server.use(bodyParser.json())
-    server.use(bodyParser.urlencoded({ extended: true }))
+    server.use(bodyParser.json({ limit: '50mb', extended: true }))
+    server.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
 
     server.use(async (req, res, next) => {
       res.locals.test = 'this is a test local 🤘'
@@ -70,11 +70,12 @@ app.prepare()
       let projects = {}
       try {
         projects = await Store.find()
+        console.log({ projects })
+        res.locals.projects = projects
+        app.render(req, res, '/projects')
       } catch (err) {
         console.log(err)
       }
-      res.locals.projects = projects
-      app.render(req, res, '/projects')
     })
 
     server.post('/screenshot', (req, res) => {
