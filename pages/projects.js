@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import MainLayout from '../layouts/main'
+import Layout from '../layouts/main'
 
 const card = project => (
   <a
@@ -29,11 +29,12 @@ const card = project => (
 class projects extends React.Component {
   static async getInitialProps (context) {
     const { projects } = context.res.locals
+    const { url } = context
     console.log({ projects })
-    return { projects }
+    return { projects, url }
   }
   render () {
-    return <MainLayout>
+    return <Layout pathname={ this.props.url.pathname }>
       <h1>Projects</h1>
       <div className="wrapper__cards">
         { this.props.projects.map(card) }
@@ -41,7 +42,7 @@ class projects extends React.Component {
       {/* <pre>{ JSON.stringify(this.props.projects, 'utf-8', 2) }</pre> */}
 
       <style jsx >{``}</style>
-    </MainLayout>
+    </Layout>
   }
 }
 

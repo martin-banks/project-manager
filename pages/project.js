@@ -1,6 +1,6 @@
 import React from 'react'
 import { withRouter } from 'next/router'
-import MainLayout from '../layouts/main'
+import Layout from '../layouts/main'
 import Markdown from 'react-markdown'
 // import fetch from 'isomorphic-fetch'
 
@@ -47,9 +47,9 @@ import Markdown from 'react-markdown'
 
 
 class Project extends React.Component {
-  static getInitialProps (context) {
-    return {}
-  }
+  // static async getInitialProps ({ url }) {
+  //   return { url }
+  // }
 
   constructor (props) {
     super(props)
@@ -79,7 +79,8 @@ class Project extends React.Component {
   //   this.setState({ s })
   // }
   render () {
-    return <MainLayout>
+    console.log('project props', this.props.router.query)
+    return <Layout pathname={ this.props.url.pathname || '' }>
       <h1>{ this.props.router.query.name }</h1>
       {/* <Markdown source={ this.props.router.query.details.description } /> */}
 
@@ -125,7 +126,7 @@ class Project extends React.Component {
           margin-bottom: 8px;
         }
       `}</style>
-    </MainLayout>
+    </Layout>
   }
 }
 
