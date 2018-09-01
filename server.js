@@ -83,6 +83,11 @@ app.prepare()
       app.render(req, res, '/projects')
     })
 
+    server.post('/screenshot', (req, res) => {
+      console.log(req.body)
+      app.render(req, res, '/screenshot')
+    })
+
     server.post('/addproject', async (req, res) => {
       console.log('posting', req.body)
       const page = '/projects'
