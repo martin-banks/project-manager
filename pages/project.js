@@ -2,6 +2,7 @@ import React from 'react'
 import { withRouter } from 'next/router'
 import Layout from '../layouts/main'
 import Markdown from 'react-markdown'
+import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 // import fetch from 'isomorphic-fetch'
 
 
@@ -56,6 +57,7 @@ class Project extends React.Component {
     this.state = {
       edit: false,
       details: {},
+      displayWidth: 0,
     }
   }
 
@@ -78,10 +80,15 @@ class Project extends React.Component {
   //   s.desc = this.props.router.query.details.description
   //   this.setState({ s })
   // }
+
+  componentDidMount() {
+    this.setState({
+      displayWidth: Math.min(window.innerWidth - 100, 1000)
+    })
+  }
   render () {
     console.log('project props', this.props.router.query)
     return <Layout pathname={ this.props.url.pathname || '' }>
-      <h1>{ this.props.router.query.name }</h1>
       {/* <Markdown source={ this.props.router.query.details.description } /> */}
 
       {/* <p>{ this.props.router.query.details.description || '--' }</p> */}
@@ -109,8 +116,15 @@ class Project extends React.Component {
       */}
 
       <div>
+        <Image
+          cloudName="martinbanks"
+          publicId={ this.props.router.query.details.display }
+          width={ this.state.displayWidth }
+          crop="scale"
+        />
+        
         { this.props.router.query.details.name && <h1>{ this.props.router.query.details.name }</h1>}
-       
+
         <Markdown>{ this.props.router.query.details.what }</Markdown>
         <Markdown>{ this.props.router.query.details.why }</Markdown>
         <Markdown>{ this.props.router.query.details.how }</Markdown>
