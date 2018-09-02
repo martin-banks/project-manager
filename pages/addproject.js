@@ -15,6 +15,12 @@ class addproject extends React.Component {
       display: null,
       thumbnail: null,
     }
+    this.description = {
+     what: React.createRef(),
+     why: React.createRef(),
+     how: React.createRef(),
+     evolution: React.createRef(),
+    }
   }
 
   saveImage ({ url, type }) {
@@ -25,8 +31,13 @@ class addproject extends React.Component {
   }
 
   getKeyWords (e) {
-    console.log({ e })
-    const extraction = keywords(e.target.value)
+    // Each textarea has it's own reference
+    // For each keypress we pass the content from all textareas to extraction
+    // This way we always have all keywords from all description fields
+    const stringToCheck = Object.keys(this.description)
+      .map(k => this.description[k].current.value)
+      .join(' ')
+    const extraction = keywords(stringToCheck)
     const s = this.state
     s.keywords = extraction
     this.setState({ s })
@@ -37,13 +48,10 @@ class addproject extends React.Component {
     return <div>
       <Layout pathname={ this.props.url.pathname || '' }>
         <h1>Add a new project</h1> 
-        <hr />
-        <UploadImage
-          onUpload={ this.saveImage.bind(this) }
-        />
 
         <hr />
         <form action="addproject" method="post">
+          <UploadImage />
           <label htmlFor="name">Add a project name</label>
           <input id="name" name="name" type="text" placehodler="projectname" required />
 
@@ -72,30 +80,28 @@ class addproject extends React.Component {
           <textarea
             id="what"
             name="what"
-            cols="30"
             rows="5"
-            onChange={ this.getKeyWords.bind(this) }
-            required
-          />
-          
-          <hr />
-          <label htmlFor="how">How did you complete it</label>
-          <textarea
-            id="how"
-            name="how"
-            cols="30"
-            rows="5"
+            ref={ this.description.what }
             onChange={ this.getKeyWords.bind(this) }
             required
           />
 
-          <hr />
+          <label htmlFor="how">How did you complete it</label>
+          <textarea
+            id="how"
+            name="how"
+            rows="5"
+            ref={ this.description.how }
+            onChange={ this.getKeyWords.bind(this) }
+            required
+          />
+
           <label htmlFor="why">Why did you do it and take this approach</label>
           <textarea
             id="why"
             name="why"
-            cols="30"
             rows="5"
+            ref={ this.description.why }
             onChange={ this.getKeyWords.bind(this) }
             required
           />
@@ -106,33 +112,23 @@ class addproject extends React.Component {
           <textarea
             id="evolution"
             name="evolution"
-            cols="30"
             rows="5"
+            ref={ this.description.evolution }
             onChange={ this.getKeyWords.bind(this) }
             required
           />
 
-          <hr />
-          <label htmlFor="keywords">Keywords</label>
-          {/* <textarea name="keywords" id="keywords" rows="10">
-            { this.state.keywords }
-          </textarea> */}
+          <label htmlFor="keywords">Keywords <i>(These are automatically generated from the descriptions above)</i></label>
           <p
             name="keywords"
             id="keywords"
           >{ this.state.keywords.join(', ') || <i>No keywords yet</i> }</p>
 
-          {/* <h3 htmlFor="keywords">Keywords</h3> */}
-          {/* <ul class="keywords"> */}
-            {/* <li> */}
-              {/* <label htmlFor="keyword">Keyword</label> */}
-              {/* <input type="checkbox" id="" value="" id="keyword" /> */}
-            {/* </li> */}
-          {/* </ul> */}
           
           <hr />
-          <label htmlFor="text">Texh used</label>
-          <textarea name="texh" id="texh" rows="10"></textarea>
+          <label htmlFor="tech">Tech used</label>
+          <textarea name="tech" id="tech" rows="5"></textarea>
+
           {/* <ul className="tech"> */}
             {/* <li> */}
               {/* <label htmlFor="javascript">JS</label> */}
@@ -173,8 +169,6 @@ class addproject extends React.Component {
           <hr />
           <input id="submit" type="submit" value="Save project" />
 
-          <input name="thumbnail" value={ this.state.thumbnail || '' } />
-          <input name="display" value={ this.state.display || '' } />
         </form>
       </Layout>
 
