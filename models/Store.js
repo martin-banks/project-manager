@@ -3,25 +3,17 @@ const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 
 const storeSchema = new mongoose.Schema({
+  
+  slug: String,
+
+  // Name / title of the project
   name: {
     type: String,
     trim: true,
     required: 'Please enter a project name',
   },
 
-  slug: String,
-
-  display: {
-    type: String,
-    trim: true,
-    required: 'Display image missing',
-  },
-  thumbnail: {
-    type: String,
-    trim: true,
-    required: 'Thumbnail image missing',
-  },
-
+  // Description info about hte project
   what: {
     type: String,
     trim: true,
@@ -42,29 +34,37 @@ const storeSchema = new mongoose.Schema({
     trim: true,
     required: 'Please enter what else could be done',
   },
-  tech: {
-    type: [ String ],
-    trim: true,
-    required: 'Please add at least one tech',
-  },
-  learn: {
-    type: String,
-    trim: true,
-    required: 'Don\'t fprget to add what you learned in this...',
-  },
 
+  // Keywords lifted from the descriptions - auto-generated
   keywords: {
     type: [String],
     truem: true,
     required: 'Please enter at least one keyword',
   },
 
+  // What was used
+  tech: {
+    type: [ String ],
+    trim: true,
+    required: 'Please add at least one tech',
+  },
+
+  // What did you learn
+  learn: {
+    type: String,
+    trim: true,
+    required: 'Don\'t fprget to add what you learned in this...',
+  },
+
+
+  // Client info
   client: {
     type: String,
     trim: true,
     required: 'Please enter who the client is',
   },
 
+  // Preview links
   publicUrl: {
     type: String,
     trim: true,
@@ -76,6 +76,7 @@ const storeSchema = new mongoose.Schema({
     required: false,
   },
 
+  // Where project files live
   publicRepo: {
     type: String,
     trim: true,
@@ -87,13 +88,14 @@ const storeSchema = new mongoose.Schema({
     required: false,
   },
 
-
+  // When was it done
   liveDate: {
     type: Date,
     trim: true,
     required: 'Please enter the date the project went live',
   },
 
+  // Category types
   personalProject: {
     type: Boolean,
     required: false,
@@ -108,6 +110,18 @@ const storeSchema = new mongoose.Schema({
   },
 
   // tags: [ String ],
+
+  // Images to be handled by server to Cloudinary
+  // display: {
+  //   type: String,
+  //   trim: true,
+  //   required: 'Display image missing',
+  // },
+  // thumbnail: {
+  //   type: String,
+  //   trim: true,
+  //   required: 'Thumbnail image missing',
+  // },
 })
 
 storeSchema.pre('save', function (next) {
