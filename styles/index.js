@@ -49,8 +49,15 @@ a {
 a:hover {
 }
 
+img {
+  max-width: 100%;
+}
+
 input, label {
   display: block;
+}
+input {
+  font-size: 16px;
 }
 input[type=text],
 input[type=date],
@@ -66,6 +73,7 @@ textarea {
 }
 label {
   margin-bottom: 8px;
+  opacity: 0.6;
 }
 
 hr {
