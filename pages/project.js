@@ -109,12 +109,15 @@ class Project extends React.Component {
       */}
 
       <div>
-        { this.props.router.query.name && <Markdown>{ this.props.router.query.name }</Markdown>}
-        { this.props.router.query.description && <Markdown>{ this.props.router.query.description }</Markdown>}
-        { this.props.router.query.client && <Markdown>{ this.props.router.query.client }</Markdown>}
+        { this.props.router.query.details.name && <h1>{ this.props.router.query.details.name }</h1>}
+       
+        <Markdown>{ this.props.router.query.details.what }</Markdown>
+        <Markdown>{ this.props.router.query.details.why }</Markdown>
+        <Markdown>{ this.props.router.query.details.how }</Markdown>
+        <Markdown>{ this.props.router.query.details.liveDate }</Markdown>
       </div>
 
-
+      <pre>{ JSON.stringify(this.props.router.query.details, 'utf-8', 2) }</pre>
       <pre>{ JSON.stringify(this.state, 'utf-8', 2) }</pre>
 
       <style jsx global>{`
