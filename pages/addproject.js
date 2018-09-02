@@ -50,7 +50,7 @@ class addproject extends React.Component {
         <h1>Add a new project</h1> 
 
         <hr />
-        <form action="addproject" method="post">
+        <form action="addproject" method="post" encType="multipart/form-data">
           <UploadImage />
           <label htmlFor="name">Add a project name</label>
           <input id="name" name="name" type="text" placehodler="projectname" required />
@@ -119,6 +119,7 @@ class addproject extends React.Component {
           />
 
           <label htmlFor="keywords">Keywords <i>(These are automatically generated from the descriptions above)</i></label>
+          <input type="text" name="keywords" value={ this.state.keywords } />
           <p
             name="keywords"
             id="keywords"
