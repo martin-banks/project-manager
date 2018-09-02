@@ -13,6 +13,8 @@ const storeSchema = new mongoose.Schema({
     required: 'Please enter a project name',
   },
 
+  display: String,
+
   // Description info about hte project
   what: {
     type: String,
