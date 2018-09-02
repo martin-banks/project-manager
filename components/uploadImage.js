@@ -48,11 +48,11 @@ export default class UploadImage extends React.Component {
   render () {
     return (
       <div className="wrapper">
-        <label htmlFor="file">Upload a display image</label>
+        <label htmlFor="image">Upload a display image</label>
         <p><i>Images must be less than { this.state.maxSize }Mb</i></p>
         <input
-          name="file"
-          id="file"
+          name="image"
+          id="image"
           type="file"
           accept="image/jpeg, image/png"
           onChange={ this.handleImageUpload.bind(this) }
