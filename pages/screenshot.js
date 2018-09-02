@@ -7,9 +7,9 @@ export default class Screenshot extends React.Component {
     return (
       <div>
         <Layout>
-          <form action="/screenshot" method="POST">
-            <label htmlFor="upload">Image</label>
-            <input id="upload" name="upload" type="file" />
+          <form action="/screenshot" method="POST" encType="multipart/form-data" >
+            <label htmlFor="image">Image</label>
+            <input id="image" name="image" type="file" />
             <input type="submit" />
           </form>
         </Layout>
