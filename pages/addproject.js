@@ -125,18 +125,9 @@ class addproject extends React.Component {
             id="keywords"
           >{ this.state.keywords.join(', ') || <i>No keywords yet</i> }</p>
 
-          
           <hr />
           <label htmlFor="tech">Tech used</label>
           <textarea name="tech" id="tech" rows="5"></textarea>
-
-          {/* <ul className="tech"> */}
-            {/* <li> */}
-              {/* <label htmlFor="javascript">JS</label> */}
-              {/* <input type="checkbox" value="" id="javascript" /> */}
-            {/* </li> */}
-          {/* </ul> */}
-
 
           <hr />
           <label htmlFor="client">Who was it for?</label>
