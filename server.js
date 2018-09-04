@@ -82,14 +82,14 @@ app.prepare()
     // TODO -> Set up a router middleware
 
 
-    sever.get('/register', (req, res, next) => {
+    server.get('/register', (req, res, next) => {
       // Validate registration data
       // rgegister user
       // log new user in
       app.render(req ,res, '/register')
     })
     
-    sever.get('/signin', (req, res, next) => {
+    server.get('/signin', (req, res, next) => {
       app.render(req ,res, '/signin')
     })
 
