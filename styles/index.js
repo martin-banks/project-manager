@@ -10,7 +10,7 @@ body {
 h1, h2, h3, h4, h5, h6,
 p {
   margin: 0;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 h1 {
   margin-bottom: 40px;
@@ -19,27 +19,31 @@ h2 {
   margin-bottom: 36px;
 }
 h3 {
-  margin-bottom: 32px;
+  margin-bottom: 8px;
 }
 h4 {
-  margin-bottom: 28px;
+  margin-bottom: 8px;
 }
 h5 {
-  margin-bottom: 24px;
+  margin-bottom: 8px;
 }
 h6 {
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 }
-p:last-of-type {
-  margin: 0
-}
+
 
 ul {
   padding: 0;
+  margin: 0;
 }
 li {
   list-style: none;
+  padding: 0;
   margin: 5px 0;
+}
+li.bullet {
+  margin-left: 20px;
+  list-style: disc;
 }
 
 a {
