@@ -88,6 +88,21 @@ class Project extends React.Component {
   }
   render () {
     console.log('project props', this.props.router.query)
+    const {
+      display,
+      name,
+      tech,
+      publicUrl,
+      privateUrl,
+      publicRepo,
+      privateRepo,
+      what,
+      why,
+      how,
+      learn,
+      evolution,
+      liveDate,
+    } = this.props.router.query.details
     return <Layout pathname={ this.props.url.pathname || '' }>
       {/* <Markdown source={ this.props.router.query.details.description } /> */}
 
@@ -118,29 +133,60 @@ class Project extends React.Component {
       <div>
         <Image
           cloudName="martinbanks"
-          publicId={ this.props.router.query.details.display }
+          publicId={ display }
           width={ this.state.displayWidth }
           crop="scale"
         />
         
-        { this.props.router.query.details.name && <h1>{ this.props.router.query.details.name }</h1>}
+        { name && <h1>{ name }</h1>}
 
-        <Markdown>{ this.props.router.query.details.what }</Markdown>
-        <Markdown>{ this.props.router.query.details.why }</Markdown>
-        <Markdown>{ this.props.router.query.details.how }</Markdown>
-        <Markdown>{ this.props.router.query.details.liveDate }</Markdown>
+        <h3>What</h3>
+        <Markdown>{ what || '--' }</Markdown>
+
+        <h3>Why</h3>
+        <Markdown>{ why || '--' }</Markdown>
+
+        <h3>How</h3>
+        <Markdown>{ how || '--' }</Markdown>
+
+        <h3>Learn</h3>
+        <Markdown>{ learn || '--' }</Markdown>
+
+        <h3>Taking it further</h3>
+        <Markdown>{ evolution || '--' }</Markdown>
+
+        <h3>Published</h3>
+        <Markdown>{ liveDate || '--' }</Markdown>
+
+        <h3>Tech</h3>
+        <ul>
+          { tech && tech.map(t => (<li className="bullet">{ t }</li>))}
+        </ul>
+
+        { publicUrl && <a href={ publicUrl }><h3>Preview - public</h3></a> }
+
+        { privateUrl && <a href={ privateUrl }><h3>Preview - private</h3></a> }
+
+        { publicRepo && <a href={ publicRepo }><h3>Repo - public</h3></a> }
+
+        { privateRepo && <a href={ privateRepo }><h3>Repo - private</h3></a> }
+
+
       </div>
 
       <pre>{ JSON.stringify(this.props.router.query.details, 'utf-8', 2) }</pre>
       <pre>{ JSON.stringify(this.state, 'utf-8', 2) }</pre>
 
-      <style jsx global>{`
+      <style jsx>{`
         hr {
           opacity: 0.2;
           margin-top: 24px;
         }
         h3 {
           margin-bottom: 8px;
+        }
+        p {
+          margin-bottom: 24px;
         }
       `}</style>
     </Layout>
