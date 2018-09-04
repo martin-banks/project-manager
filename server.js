@@ -1,4 +1,5 @@
 const express = require('express')
+const expressValidator = require('express-validator')
 const bodyParser = require('body-parser')
 const next = require('next')
 const mongoose = require('mongoose')
@@ -6,6 +7,7 @@ const fs = require('fs')
 const path = require('path')
 const multer = require('multer')
 const uploadToCloudinary = require('./uploadCloudinary')
+const passport = require('passport')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -67,6 +69,8 @@ app.prepare()
     server.use(bodyParser.json({ limit: '10mb', extended: true }))
     server.use(bodyParser.urlencoded({ limit: '10mb', extended: true }))
 
+    server.use(expressValidator())
+
     // Adds locals to the response
     // Locals are object sent back on all requests
     server.use(async (req, res, next) => {
@@ -76,7 +80,18 @@ app.prepare()
     })
 
     // TODO -> Set up a router middleware
-    // server.use('/', routes)
+
+
+    sever.get('/register', (req, res, next) => {
+      // Validate registration data
+      // rgegister user
+      // log new user in
+      app.render(req ,res, '/register')
+    })
+    
+    sever.get('/signin', (req, res, next) => {
+      app.render(req ,res, '/signin')
+    })
 
     // Requesting project details
     server.get('/p/:id', async (req, res) => {
@@ -112,8 +127,6 @@ app.prepare()
       uploadToCloudinary,
       async (req, res) => {
         console.log('posting', req.body)
-        // req.body.cloudinary = { image: res.cloudinary.public_id }
-        // req.body.display = res.body.cloudinary.public_id
         req.body.keywords = req.body.keywords
           .split(',')
           .map(w => w.trim().toLowerCase())
@@ -123,7 +136,6 @@ app.prepare()
         console.log('body after update', req.body)
         const store = new Store(req.body)
         await store.save()
-        // app.render(req, res, page)
         res.redirect('/projects')
       }
     )
@@ -139,9 +151,8 @@ app.prepare()
         uploadToCloudinary(req, res, next)
       },
       (req, res, next) => {
-        console.log('cloudinary results:', Object.keys(res))
-        console.log('cloud', res['cloudinary'])
-        // app.render(req, res, '/index')
+        // console.log('cloudinary results:', Object.keys(res))
+        // console.log('cloud', res['cloudinary'])
         res.redirect('/')
       }
     )
