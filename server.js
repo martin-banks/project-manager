@@ -6,8 +6,10 @@ const mongoose = require('mongoose')
 const fs = require('fs')
 const path = require('path')
 const multer = require('multer')
-const uploadToCloudinary = require('./uploadCloudinary')
 const passport = require('passport')
+
+const uploadToCloudinary = require('./uploadCloudinary')
+const userControllers = require('./controllers/userControllers')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -60,8 +62,10 @@ app.prepare()
     })
 
     // 3. Set up data schema model
-    require('./models/Store')
-    const Store = mongoose.model('Store')
+    require('./models/Project')
+    require('./models/User')
+    const Store = mongoose.model('Project')
+    const User = mongoose.model('User')
 
     // Create custom Express server for additional server-side functionality
     const server = express()
@@ -88,6 +92,12 @@ app.prepare()
       // log new user in
       app.render(req ,res, '/register')
     })
+
+    serverpost('/register',
+      userControllers.validateRegister,
+      userControllers.register
+    )
+
     
     server.get('/signin', (req, res, next) => {
       app.render(req ,res, '/signin')
@@ -98,7 +108,7 @@ app.prepare()
       const page = '/project'
       const queryParams = { id: req.params.id }
       try {
-        const details = await Store.findById(req.params.id)
+        const details = await Project.findById(req.params.id)
         queryParams.details = details
         app.render(req, res, page, queryParams)
       } catch (err) {
@@ -134,8 +144,8 @@ app.prepare()
           .split(',')
           .map(w => w.trim().toLowerCase())
         console.log('body after update', req.body)
-        const store = new Store(req.body)
-        await store.save()
+        const project = new Project(req.body)
+        await project.save()
         res.redirect('/projects')
       }
     )
