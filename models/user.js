@@ -4,10 +4,9 @@ const validator = require('validator')
 const mongodbErrorHandler = require('mongoose-mongodb-errors')
 const passportLocalMongoose = require('passport-local-mongoose')
 
-const Schema = mongoose.Schema
-
 mongoose.Promise = global.Promise
 
+const Schema = mongoose.Schema
 const userSchema = new Schema({
   email: {
     type: String,
