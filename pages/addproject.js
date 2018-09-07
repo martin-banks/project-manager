@@ -165,21 +165,6 @@ class addproject extends React.Component {
       </Layout>
 
       <style jsx>{`
-
-        input[type=submit] {
-          transition: all 200ms;
-          cursor: pointer;
-          width: 100%;
-          background: #ccc;
-          color: #333;
-          font-size: 18px;
-          padding: 12px;
-          margin-bottom: 50px;
-        }
-        
-        input[type=submit]:hover {
-          background: gold;
-        }
         #keywords {
           margin-bottom: 24px;
           opacity: 0.5;

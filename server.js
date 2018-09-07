@@ -47,25 +47,25 @@ function readFile (file) {
 require('dotenv').config({ path: 'database.env' })
 const db = process.env.DATABASE
 
+mongoose.connect(db, {
+  useNewUrlParser: true
+})
+mongoose.Promise = global.Promise
+
+// Handle connection errors
+mongoose.connection.on('error', err => {
+  console.error(`⚠️ Error connecting to database ⚠️\n${err.message}`)
+})
+// Set up data schema model
+require('./models/Project')
+require('./models/User')
+const Project = mongoose.model('Project')
+const User = mongoose.model('User')
 app.prepare()
   .then(() => {
     // Set up database
     // 1: connect
-    mongoose.connect(db, {
-      useNewUrlParser: true
-    })
-    mongoose.Promise = global.Promise
 
-    // 2. Handle connection errors
-    mongoose.connection.on('error', err => {
-      console.error(`⚠️ Error connecting to database ⚠️\n${err.message}`)
-    })
-
-    // 3. Set up data schema model
-    require('./models/Project')
-    require('./models/User')
-    const Store = mongoose.model('Project')
-    const User = mongoose.model('User')
 
     // Create custom Express server for additional server-side functionality
     const server = express()
@@ -93,9 +93,12 @@ app.prepare()
       app.render(req ,res, '/register')
     })
 
-    serverpost('/register',
+    server.post('/register',
       userControllers.validateRegister,
-      userControllers.register
+      userControllers.register,
+      (req, res) => {
+        res.send('success')
+      }
     )
 
     
@@ -122,7 +125,7 @@ app.prepare()
     server.get('/projects', async (req, res) => {
       let projects = {}
       try {
-        projects = await Store.find()
+        projects = await Project.find()
         res.locals.projects = projects
         app.render(req, res, '/projects')
       } catch (err) {

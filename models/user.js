@@ -13,7 +13,7 @@ const userSchema = new Schema({
     unique: true,
     lowercase: true,
     trim: true,
-    validate: [vaidator.isEmail, 'Invalid email address'],
+    validate: [validator.isEmail, 'Invalid email address'],
     required: 'Please add an email address',
   },
   name: {
@@ -27,6 +27,6 @@ userSchema.plugin(
   passportLocalMongoose,
   { usernameField: 'email' }
 )
-userSchema(mongodbErrorHandler)
+userSchema.plugin(mongodbErrorHandler)
 
 module.exports = mongoose.model('User', userSchema)

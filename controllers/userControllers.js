@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
-const promisify = require('es6-promisify')
+const { promisify } = require('es6-promisify')
+
+require('../models/User')
+const User = mongoose.model('User')
 
 exports.validateRegister = (req, res, next) => {
   req.sanitizeBody('name')
@@ -13,18 +16,19 @@ exports.validateRegister = (req, res, next) => {
   })
 
   req.checkBody('password', 'Password cannot be blank').notEmpty()
-  req.checkBoddy('conform-password', 'Confirm password cannot be blank').notEmpty()
-  req.checkBody('confirm-pssword', 'Passwords do not match').equals(req.body.password)
+  req.checkBody('confirm-password', 'Confirm password cannot be blank').notEmpty()
+  req.checkBody('confirm-password', 'Passwords do not match').equals(req.body.password)
 
   const errors = req.validationErrors()
   if (errors) {
     // Implement flashes
     // Check this rendering will work in Next.js
-    req.flashes('error', errors.map(err => err.msg))
-    res.render('register', {
-      body: req.body,
-      flashes: re.flash()
-    })
+    console.log('error in registration', errors)
+    // req.flashes('error', errors.map(err => err.msg))
+    // res.render('register', {
+    //   body: req.body,
+    //   // flashes: re.flash()
+    // })
     return
   }
   next()
@@ -32,9 +36,13 @@ exports.validateRegister = (req, res, next) => {
 
 exports.register = async (req, res, next) => {
   const { name, email } = req.body
-  const user = new user({ name, email })
+  const user = new User({ name, email })
   // register user
-  const register = promisify(User.register, User)
-  await register(user, req.body.password)
-  next()
+  // const register = promisify(User.register, user)
+  User.register(user, req.body.password, (err, success) => {
+    console.log(err || success)
+    next()
+  })
+  // await register(user, req.body.password)
+  // next()
 }

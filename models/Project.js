@@ -134,4 +134,4 @@ projectSchema.pre('save', function (next) {
 })
 
 
-module.exports = mongoose.model('Store', projectSchema)
+module.exports = mongoose.model('Project', projectSchema)
