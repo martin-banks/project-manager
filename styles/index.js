@@ -64,6 +64,9 @@ input {
   font-size: 16px;
 }
 input[type=text],
+input[type=email],
+input[type=password],
+input[type=submit],
 input[type=date],
 textarea {
   box-sizing: border-box;
@@ -74,6 +77,27 @@ textarea {
   border-radius: 2px;
   color: white;
   margin-bottom: 24px;
+}
+input[type=submit] {
+  transition: all 200ms;
+  cursor: pointer;
+  width: 100%;
+  background: rgba(255,255,255, 0.2);
+  color: #fff;
+  font-size: 18px;
+  padding: 12px;
+  margin-bottom: 50px;
+}
+input[type=submit]:hover {
+  background: gold;
+  color: black
+}
+
+input:focus {
+  outline: solid 2px gold;
+}
+input[type=submit]:focus {
+  outline: solid 2px orange;
 }
 label {
   margin-bottom: 8px;
