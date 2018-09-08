@@ -5,14 +5,16 @@ export default class Register extends React.Component {
   render () {
     return (
       <Layout>
-        <h1>Sign in page</h1>
+        <h1>Log in page</h1>
 
-        <form action="/signin" method="POST">
-          <label for="username">Username</label>
+        <form action="/login" method="POST">
+          <label htmlFor="username">Username</label>
           <input type="text" name="username" required />
 
-          <label for="password">Password</label>
+          <label htmlFor="password">Password</label>
           <input type="password" name="password" required />
+
+          <input type="submit" />
         </form>
       </Layout>
     )
