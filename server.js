@@ -10,6 +10,7 @@ const passport = require('passport')
 
 const uploadToCloudinary = require('./uploadCloudinary')
 const userControllers = require('./controllers/userControllers')
+const authController = require('./controllers/auth')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -80,6 +81,7 @@ app.prepare()
     server.use(async (req, res, next) => {
       res.locals.test = '🤘'
       res.locals.cloudName = 'martinbanks',
+      res.locals.user = req.user || false
       next()
     })
 
@@ -101,9 +103,15 @@ app.prepare()
       }
     )
 
-    
-    server.get('/signin', (req, res, next) => {
-      app.render(req ,res, '/signin')
+    server.get('/login', (req, res, next) => {
+      app.render(req ,res, '/login')
+    })
+    server.post('/login', authController.login)
+
+    server.get('/logout', (req, res) => {
+      req.logout()
+      // add flashes for lo gout
+      res.redirect('/')
     })
 
     // Requesting project details
