@@ -1,16 +1,24 @@
+const fs = require('fs')
+const next = require('next')
 const express = require('express')
 const expressValidator = require('express-validator')
+const session = require('express-session')
 const bodyParser = require('body-parser')
-const next = require('next')
 const mongoose = require('mongoose')
-const fs = require('fs')
+const MongoStore = require('connect-mongo')(session)
 const path = require('path')
 const multer = require('multer')
 const passport = require('passport')
+const flash = require('connect-flash')
+
+const cookieParser = require('cookie-parser')
 
 const uploadToCloudinary = require('./uploadCloudinary')
 const userControllers = require('./controllers/userControllers')
 const authController = require('./controllers/auth')
+
+// Import config for passport strategy
+require('./handlers/passport')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -45,8 +53,9 @@ function readFile (file) {
   })
 }
 
-require('dotenv').config({ path: 'database.env' })
+require('dotenv').config({ path: '.env' })
 const db = process.env.DATABASE
+console.log(process.env.DATABASE)
 
 mongoose.connect(db, {
   useNewUrlParser: true
@@ -76,10 +85,33 @@ app.prepare()
 
     server.use(expressValidator())
 
+    // populates req.cookies with any cookies that came along with the request
+    server.use(cookieParser());
+
+    // Sessions allow us to store data on visitors from request to request
+    // This keeps users logged in and allows us to send flash messages
+    server.use(session({
+      secret: process.env.SECRET,
+      key: process.env.KEY,
+      resave: false,
+      saveUninitialized: false,
+      store: new MongoStore({
+        mongooseConnection: mongoose.connection
+      })
+    }));
+
+    // Passport JS is what we use to handle our logins
+    server.use(passport.initialize())
+    server.use(passport.session())
+    server.use(flash())
+
     // Adds locals to the response
     // Locals are object sent back on all requests
+    // In order for locals to be used the path must be handled in the custom express server
+    // AND the page wil require a  get initial props static method - see pages/index.js
     server.use(async (req, res, next) => {
       res.locals.test = '🤘'
+      res.locals.flashes = req.flash(),
       res.locals.cloudName = 'martinbanks',
       res.locals.user = req.user || false
       next()
