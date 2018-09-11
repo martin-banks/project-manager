@@ -135,9 +135,11 @@ app.prepare()
       }
     )
 
-    server.get('/login', (req, res, next) => {
-      app.render(req ,res, '/login')
-    })
+    server.get('/login',
+      (req, res, next) => {
+        app.render(req, res, '/login')
+      }
+    )
     server.post('/login', authController.login)
     
     server.get('/logout', (req, res) => {
