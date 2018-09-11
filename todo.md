@@ -20,7 +20,6 @@ Public user profile page
 - Store proejct id against user
 - Display user projects on 
 
-
 ### PROJECTS
 - User comments
 - List favourited (score?)
@@ -28,3 +27,7 @@ Public user profile page
 - Multiple images/thumbs
 - pagination
 
+
+## Layout
+- Flashes
+- Messaging about closed to registration - get in touch
