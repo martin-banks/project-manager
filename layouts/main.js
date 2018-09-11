@@ -7,6 +7,16 @@ class MainLayout extends React.Component {
   constructor (props) {
     super(props)
   }
+
+  componentDidMount () {
+    // Starting input for controll prompts ...
+    // window.addEventListener('keyup', e => {
+    //   const { mataKey, shiftKey } = e
+    //   if (meteKey && shiftKey && key === 'p') {
+    //     this.setState({ showInput: true })
+    //   }
+    // })
+  }
   render () {
     return <div>
       <Nav
