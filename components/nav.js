@@ -32,11 +32,22 @@ class Nav extends React.Component {
         <li className={ this.props.pathname === '/projects' ? 'active' : '' }>
           <a href="/projects">Projects</a>
         </li>
-        { this.props.user && <li className={ this.props.pathname === '/addproject' ? 'active' : '' }>
-          <Link href="/addproject" prefetch>
-            <a>Add Project</a>
-          </Link>
-        </li> }
+
+        { this.props.user &&
+          <li className={ this.props.pathname === '/addproject' ? 'active' : '' }>
+            <a href="/addproject">Add Project</a>
+          </li>
+        }
+        { this.props.user &&
+          <li className="user">
+            <a href="/logout">Log out</a>
+          </li> 
+        }
+        { this.props.user &&
+          <li className="user">
+            <a href="/account">{ this.props.user.name.split(' ')[0] }</a>
+          </li>
+        }
 
         { !this.props.user && 
           <li className={ this.props.pathname === '/register' ? 'active' : '' }>
@@ -48,10 +59,6 @@ class Nav extends React.Component {
             <a href="/login">Log in</a>
           </li> 
         }
-        { this.props.user && <li className="user"><a href="/logout">Log out</a></li> }
-
-        { this.props.user && <li className="user">
-          <a href="/account">{ this.props.user.name.split(' ')[0] }</a></li>}
       </ul>
 
       <style jsx>{`
