@@ -48,7 +48,10 @@ class Nav extends React.Component {
             <a href="/login">Log in</a>
           </li> 
         }
-        { this.props.user && <li><a href="/logout">Log out</a></li> }
+        { this.props.user && <li className="user"><a href="/logout">Log out</a></li> }
+
+        { this.props.user && <li className="user">
+          <a href="/account">{ this.props.user.name.split(' ')[0] }</a></li>}
       </ul>
 
       <style jsx>{`
@@ -59,7 +62,6 @@ class Nav extends React.Component {
       }
       ul {
         position: relative;
-        display: block;
         top: 0;
         padding: 0;
         margin: 0;
@@ -84,6 +86,9 @@ class Nav extends React.Component {
         opacity: 0.8;
         background:  rgba(0,0,0, 0.4);
         border-top: solid 2px hsl(50, 60%, 45%);
+      }
+      li.user {
+        border: solid 1px orange;
       }
       li:hover {
         background: rgba(200, 200, 200, 0.1);
