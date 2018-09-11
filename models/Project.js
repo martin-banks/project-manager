@@ -3,7 +3,11 @@ const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 
 const projectSchema = new mongoose.Schema({
-  
+  author: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: 'You must be a registered, logged in user to add a new project',
+  },
   slug: String,
 
   // Name / title of the project
