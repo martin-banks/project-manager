@@ -14,7 +14,7 @@ const flash = require('connect-flash')
 const cookieParser = require('cookie-parser')
 
 const uploadToCloudinary = require('./uploadCloudinary')
-const userControllers = require('./controllers/userControllers')
+const userController = require('./controllers/user')
 const authController = require('./controllers/auth')
 
 // Import config for passport strategy
@@ -80,6 +80,7 @@ app.prepare()
     // Create custom Express server for additional server-side functionality
     const server = express()
     // Takes the raw requests and turns them into usable properties on req.body
+    server.use(flash())
     server.use(bodyParser.json({ limit: '10mb', extended: true }))
     server.use(bodyParser.urlencoded({ limit: '10mb', extended: true }))
 
@@ -103,8 +104,7 @@ app.prepare()
     // Passport JS is what we use to handle our logins
     server.use(passport.initialize())
     server.use(passport.session())
-    server.use(flash())
-
+    
     // Adds locals to the response
     // Locals are object sent back on all requests
     // In order for locals to be used the path must be handled in the custom express server
@@ -116,20 +116,20 @@ app.prepare()
       res.locals.user = req.user || false
       next()
     })
-
+    
     // TODO -> Set up a router middleware
-
-
-    server.get('/register', (req, res, next) => {
-      // Validate registration data
-      // rgegister user
-      // log new user in
-      app.render(req ,res, '/register')
+    // Home page request
+    server.get('/', (req, res) => {
+      app.render(req, res, '/index')
     })
 
+    // Registering new users
+    server.get('/register', (req, res, next) => {
+      app.render(req ,res, '/register')
+    })
     server.post('/register',
-      userControllers.validateRegister,
-      userControllers.register,
+      userController.validateRegister,
+      userController.register,
       (req, res) => {
         res.send('success')
       }
@@ -139,16 +139,28 @@ app.prepare()
       app.render(req ,res, '/login')
     })
     server.post('/login', authController.login)
-
+    
     server.get('/logout', (req, res) => {
       req.logout()
-      // add flashes for lo gout
+      req.flash('success', 'You have been logged out')
       res.redirect('/')
     })
 
-    server.get('/account', (req, res, next) => {
-      app.render(req, res, '/account')
-    })
+    // Account details of the currently logged in user
+    server.get('/account', 
+      authController.checkIfLoggedIn,
+      (req, res, next) => {
+        app.render(req, res, '/account')
+      }
+    )
+    server.post('/account', 
+      authController.checkIfLoggedIn,
+      userController.updateAccount,
+      // (req, res, next) => {
+      //   req.flash('success', 'update completed')
+      //   app.render(req, res, '/account')
+      // }
+    )
 
     // Requesting project details
     server.get('/p/:id', async (req, res) => {
@@ -178,18 +190,29 @@ app.prepare()
       }
     })
 
+    server.get('/addproject', 
+      authController.checkIfLoggedIn,
+      (req, res, next) => {
+        app.render(req, res, '/addproject')
+      }
+    )
+    
     // Submitting new project data
     server.post('/addproject', 
+      authController.checkIfLoggedIn,
       multer(multerOptions).single('image'),
+      // merge these 2 functions with promise all to minimise bottle-necks
       uploadToCloudinary,
       async (req, res) => {
         console.log('posting', req.body)
+        // ? move keyword processing from client to server?
         req.body.keywords = req.body.keywords
           .split(',')
           .map(w => w.trim().toLowerCase())
         req.body.tech = req.body.tech
           .split(',')
           .map(w => w.trim().toLowerCase())
+        req.body.author = req.user._id
         console.log('body after update', req.body)
         const project = new Project(req.body)
         await project.save()
@@ -214,10 +237,6 @@ app.prepare()
       }
     )
 
-    // Home page request
-    server.get('/', (req, res) => {
-      app.render(req, res, '/index')
-    })
 
     // Default next router handling
     // For any routes that are not specifically handled above
