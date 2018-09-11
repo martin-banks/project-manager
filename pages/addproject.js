@@ -4,8 +4,11 @@ import UploadImage from '../components/uploadImage'
 const keywords = require('../functions/keywords')
 
 class addproject extends React.Component {
-  static async getInitialProps ({ url }) {
-    return { url }
+  static async getInitialProps (context) {
+    return {
+      url: context.url,
+      locals: context.res && context.res.locals,
+    }
   }
 
   constructor (props) {
@@ -44,9 +47,12 @@ class addproject extends React.Component {
   }
 
   render () {
-    console.log('porps before render', this.props.url.pathname)
+    console.log('props before render', this.props.locals)
     return <div>
-      <Layout pathname={ this.props.url.pathname || '' }>
+        <Layout
+        pathname={ this.props.url.pathname }
+        locals={ this.props.locals }
+      >
         <h1>Add a new project</h1> 
 
         <hr />
