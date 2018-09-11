@@ -2,23 +2,19 @@
 Some things to do at some point
 
 ### NAV
-- Use css grid to layout nav
 - Create nav button component??
+- Avatar in nav
+- Mobile view
 
 ### USER
-- Import gravatar??
+- Placeholder avatar image - http://avatars.adorable.io/
 - Choose custom user avatar image
-- edit user
 - change/reset password
-- Favourite projects
-
-Public user profile page
+- Favourited project list
 
 ### DB
 - Store user id against project
-  - Pre-fill project page with user name
-- Store proejct id against user
-- Display user projects on 
+- Bind project ids to user id
 
 ### PROJECTS
 - User comments
@@ -27,7 +23,14 @@ Public user profile page
 - Multiple images/thumbs
 - pagination
 
+### PROJECT DETAIL
+- Favourite ❤️ project
 
-## Layout
-- Flashes
+
+
+
+### Layout
+- CCS Grid layout
 - Messaging about closed to registration - get in touch
+- Public user profile page
+
