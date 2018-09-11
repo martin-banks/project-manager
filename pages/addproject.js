@@ -1,14 +1,17 @@
 import React from 'react'
 import Layout from '../layouts/main'
+import { withRouter } from 'next/router'
+
 import UploadImage from '../components/uploadImage'
 const keywords = require('../functions/keywords')
 
 class addproject extends React.Component {
   static async getInitialProps (context) {
-    return {
-      url: context.url,
+    const output = {
       locals: context.res && context.res.locals,
+      url: context.url,
     }
+    return output
   }
 
   constructor (props) {
@@ -48,8 +51,7 @@ class addproject extends React.Component {
 
   render () {
     console.log('props before render', this.props.locals)
-    return <div>
-        <Layout
+    return <Layout
         pathname={ this.props.url.pathname }
         locals={ this.props.locals }
       >
@@ -168,40 +170,41 @@ class addproject extends React.Component {
           <input id="submit" type="submit" value="Save project" />
 
         </form>
+
+        <style jsx>{`
+          #keywords {
+            margin-bottom: 24px;
+            opacity: 0.5;
+          }
+  
+          .toggles {
+            margin-bottom: 24px;
+          }
+          .toggle {
+            display: inline-block;
+            margin: 2px;
+            background: rgba(0,0,0, 0.3);
+            border: solid 1px rgba(255,255,255, 0.2);
+            padding: 16px
+          }
+  
+          label.toggle {
+            padding: 12px 20px;
+            border-radius: 2px;
+            font-size: 14px;
+          }
+          input.toggle {
+            display: none;
+          }
+          input.toggle:checked + label.toggle {
+            background: hsl(50, 60%, 45%);
+            color: black;
+          }
+        `}</style>
       </Layout>
 
-      <style jsx>{`
-        #keywords {
-          margin-bottom: 24px;
-          opacity: 0.5;
-        }
 
-        .toggles {
-          margin-bottom: 24px;
-        }
-        .toggle {
-          display: inline-block;
-          margin: 2px;
-          background: rgba(0,0,0, 0.3);
-          border: solid 1px rgba(255,255,255, 0.2);
-          padding: 16px
-        }
-
-        label.toggle {
-          padding: 12px 20px;
-          border-radius: 2px;
-          font-size: 14px;
-        }
-        input.toggle {
-          display: none;
-        }
-        input.toggle:checked + label.toggle {
-          background: hsl(50, 60%, 45%);
-          color: black;
-        }
-      `}</style>
-    </div>
   }
 }
 
-export default addproject
+export default withRouter(addproject)
