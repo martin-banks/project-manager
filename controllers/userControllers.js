@@ -24,7 +24,7 @@ exports.validateRegister = (req, res, next) => {
     // Implement flashes
     // Check this rendering will work in Next.js
     console.log('error in registration', errors)
-    // req.flashes('error', errors.map(err => err.msg))
+    req.flashes('error', errors.map(err => err.msg))
     // res.render('register', {
     //   body: req.body,
     //   // flashes: re.flash()
