@@ -1,10 +1,25 @@
 import React from 'react'
 import Layout from '../layouts/main'
+import { withRouter } from 'next/router'
 
-export default class Register extends React.Component {
+class Register extends React.Component {
+  static async getInitialProps (context) {
+    const output = {
+      locals: context.res && context.res.locals,
+      url: context.url,
+    }
+    return output
+  }
+
+  // constructor (props) {
+  //   super(props)
+  // }
   render () {
     return (
-      <Layout>
+      <Layout
+        locals={ this.props.locals }
+        pathname={ this.props.url.pathname }
+      >
         <h1>Log in page</h1>
 
         <form action="/login" method="POST">
@@ -20,3 +35,5 @@ export default class Register extends React.Component {
     )
   }
 }
+
+export default withRouter(Register)

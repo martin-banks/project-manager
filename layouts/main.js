@@ -8,6 +8,11 @@ class MainLayout extends React.Component {
     return <div>
       <Nav pathname={ this.props.pathname } />
       <div className="background__gradient"></div>
+
+      <pre>
+        locals: { JSON.stringify(this.props.locals, 'utf-8', 2) }
+      </pre>
+
       <div className="content">
         { this.props.children }
       </div>

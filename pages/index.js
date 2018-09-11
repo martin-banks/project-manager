@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Layout from '../layouts/main'
 import { withRouter } from 'next/router'
-import fetch from 'isomorphic-unfetch'
+// import fetch from 'isomorphic-unfetch'
 
 
 class Index extends React.Component {
@@ -14,12 +14,10 @@ class Index extends React.Component {
   }
 
   render () {
-    return <Layout pathname={ this.props.url.pathname }>
-      <pre>
-        { JSON.stringify(Object.keys(this.props), 'utf-8', 2) }
-        { JSON.stringify(this.props.locals, 'utf-8', 2) }
-      </pre>
-
+    return <Layout
+      pathname={ this.props.url.pathname }
+      locals={ this.props.locals }
+    >
       <style jsx> {``}</style>
     </Layout>
   }

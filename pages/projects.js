@@ -31,10 +31,19 @@ class projects extends React.Component {
     const projects = await context.res.locals.projects
     const { url } = context
     console.log({ projects })
-    return { projects, url }
+    return {
+      locals: context.res && context.res.locals,
+      projects,
+      url,
+    }
   }
+
+
   render () {
-    return <Layout pathname={ this.props.url.pathname }>
+    return <Layout
+      pathname={ this.props.url.pathname }
+      locals={ this.props.locals }
+    >
       <h1>Projects</h1>
       <div className="wrapper__cards">
         { this.props.projects.map(card) }

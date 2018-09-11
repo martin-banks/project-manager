@@ -48,9 +48,13 @@ import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react'
 
 
 class Project extends React.Component {
-  // static async getInitialProps ({ url }) {
-  //   return { url }
-  // }
+  static async getInitialProps (context) {
+    const output = {
+      locals: context.res && context.res.locals,
+      url: context.url,
+    }
+    return output
+  }
 
   constructor (props) {
     super(props)
@@ -103,7 +107,10 @@ class Project extends React.Component {
       evolution,
       liveDate,
     } = this.props.router.query.details
-    return <Layout pathname={ this.props.url.pathname || '' }>
+    return <Layout
+      pathname={ this.props.url.pathname }
+      locals={ this.props.locals }
+    >
       {/* <Markdown source={ this.props.router.query.details.description } /> */}
 
       {/* <p>{ this.props.router.query.details.description || '--' }</p> */}
