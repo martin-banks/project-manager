@@ -21,14 +21,8 @@ exports.validateRegister = (req, res, next) => {
 
   const errors = req.validationErrors()
   if (errors) {
-    // Implement flashes
-    // Check this rendering will work in Next.js
     console.log('error in registration', errors)
     req.flashes('error', errors.map(err => err.msg))
-    // res.render('register', {
-    //   body: req.body,
-    //   // flashes: re.flash()
-    // })
     return
   }
   next()
@@ -45,4 +39,26 @@ exports.register = async (req, res, next) => {
   })
   // await register(user, req.body.password)
   // next()
+}
+
+exports.updateAccount = async (req, res, next ) => {
+  const updates = {
+    name: req.body.name,
+    email: req.body.email,
+  }
+  try {
+    const user = await User.findOneAndUpdate(
+      { _id: req.user._id }, 
+      { $set: updates },
+      { new: true, runValidators: true, context: 'query' }
+    )
+    req.flash('success', 'Account details updated')
+    req.session.save(err => {
+      res.redirect('/account')
+    })
+    // next()
+  } catch (err) {
+    console.log(err)
+    res.json(err)
+  }
 }
