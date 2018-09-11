@@ -4,9 +4,15 @@ import styles from '../styles'
 
 
 class MainLayout extends React.Component {
+  constructor (props) {
+    super(props)
+  }
   render () {
     return <div>
-      <Nav pathname={ this.props.pathname } />
+      <Nav
+        pathname={ this.props.pathname }
+        user={ this.props.locals.user }
+      />
       <div className="background__gradient"></div>
 
       <pre>
