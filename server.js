@@ -146,6 +146,10 @@ app.prepare()
       res.redirect('/')
     })
 
+    server.get('/account', (req, res, next) => {
+      app.render(req, res, '/account')
+    })
+
     // Requesting project details
     server.get('/p/:id', async (req, res) => {
       const page = '/project'
