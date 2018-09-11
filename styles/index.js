@@ -112,6 +112,7 @@ hr {
 
 pre {
   background: rgba(0,0,0, 0.3);
+  color: white;
   padding: 20px;
   overflow: auto;
   border: solid 1px rgba(255,255,255, 0.2);
