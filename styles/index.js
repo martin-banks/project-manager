@@ -132,7 +132,6 @@ pre {
 }
 .content {
   padding: 50px;
-  padding-top: 100px;
   color: #ccc;
   max-width: 1000px;
   margin: 0 auto;
