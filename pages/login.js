@@ -23,8 +23,8 @@ class Register extends React.Component {
         <h1>Log in page</h1>
 
         <form action="/login" method="POST">
-          <label htmlFor="username">Username</label>
-          <input type="text" name="username" required />
+          <label htmlFor="email">Username</label>
+          <input type="email" name="email" required />
 
           <label htmlFor="password">Password</label>
           <input type="password" name="password" required />
