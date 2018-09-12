@@ -24,16 +24,18 @@ const userSchema = new Schema({
 
 // placeholder - untested
 // ep 38
-userSchema.virtual('projects', {
-  ref: 'Project',
-  localField: '_id',
-  foreignField: 'project'
-})
-
+// find projects where the user's _id is === projects author prop
 userSchema.plugin(
   passportLocalMongoose,
   { usernameField: 'email' }
 )
 userSchema.plugin(mongodbErrorHandler)
+ 
+userSchema.virtual('projects', {
+  ref: 'Project', // model to use
+  localField: '_id', // field on the user - what i'm pairing onto - parent
+  foreignField: 'author' // field on the project - what i'm pairing to - child
+})
+
 
 module.exports = mongoose.model('User', userSchema)
