@@ -20,7 +20,14 @@ const userSchema = new Schema({
     type: String,
     required: 'Please add a name',
   },
+})
 
+// placeholder - untested
+// ep 38
+userSchema.virtual('projects', {
+  ref: 'Project',
+  localField: '_id',
+  foreignField: 'project'
 })
 
 userSchema.plugin(
