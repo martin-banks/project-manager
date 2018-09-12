@@ -202,10 +202,11 @@ app.prepare()
     // Submitting new project data
     server.post('/addproject', 
       authController.checkIfLoggedIn,
+      // TODO merge functions with promiseAll to minimise bottle-necks
       multer(multerOptions).single('image'),
-      // merge these 2 functions with promise all to minimise bottle-necks
       uploadToCloudinary,
       async (req, res) => {
+        // Saving to moingoDB - migrate to controller
         console.log('posting', req.body)
         // ? move keyword processing from client to server?
         req.body.keywords = req.body.keywords
