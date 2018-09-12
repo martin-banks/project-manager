@@ -35,6 +35,8 @@ class Account extends React.Component {
         locals={ this.props.locals }
         url={ this.props.url }
       >
+        <pre>projects :{ this.props.locals.user.projects }</pre>
+
         <h1>Welcome back { this.props.locals.user.name }</h1>
         <form action="account" method="POST">
           <label htmlFor="name">Update you username</label>
