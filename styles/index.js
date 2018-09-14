@@ -1,11 +1,36 @@
 export default (<style jsx global>{`
+[data-theme="dark"] * {
+  color: #ccc;
+}
+[data-theme="dark"] .background__gradient {
+  background-image: linear-gradient(45deg, #111, #333);
+}
+[data-theme="dark"] .nav__logo {
+  fill: #ccc;
+}
+
+
+[data-theme="light"] * {
+  color: #333;
+}
+[data-theme="light"] .background__gradient {
+  background-image: linear-gradient(45deg, #fff, #ccc);
+}
+[data-theme="light"] .nav__logo {
+  fill: #333;
+}
+
+
+
+
 body {
   margin: 0;
   padding: 0;
 }
 * {
-  font-family: "Arial";
+  font-family: "Arial", sans-serif;
 }
+
 
 h1, h2, h3, h4, h5, h6,
 p {
@@ -46,16 +71,18 @@ li.bullet {
   list-style: disc;
 }
 
+
 a {
   text-decoration: none;
-  color: #ccc;
 }
 a:hover {
 }
 
+
 img {
   max-width: 100%;
 }
+
 
 input, label {
   display: block;
@@ -75,7 +102,6 @@ textarea {
   width: 100%;
   padding: 20px;
   border-radius: 2px;
-  color: white;
   margin-bottom: 24px;
 }
 input[type=submit] {
@@ -83,7 +109,6 @@ input[type=submit] {
   cursor: pointer;
   width: 100%;
   background: rgba(255,255,255, 0.2);
-  color: #fff;
   font-size: 18px;
   padding: 12px;
   margin-bottom: 50px;
@@ -92,7 +117,6 @@ input[type=submit]:hover {
   background: gold;
   color: black
 }
-
 input:focus {
   outline: solid 2px gold;
 }
@@ -104,11 +128,13 @@ label {
   opacity: 0.6;
 }
 
+
 hr {
   opacity: 0.1;
   margin: 0;
   margin-bottom: 24px;
 }
+
 
 pre {
   background: rgba(0,0,0, 0.3);
@@ -120,6 +146,7 @@ pre {
   font-family: monospace;
 }
 
+
 .background__gradient {
   position: fixed;
   top: 0;
@@ -127,12 +154,10 @@ pre {
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  background-image: linear-gradient(45deg, #111, #333);
   background-repeat: no-repeat;
 }
 .content {
   padding: 50px;
-  color: #ccc;
   max-width: 1000px;
   margin: 0 auto;
 }

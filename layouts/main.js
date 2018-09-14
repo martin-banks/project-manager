@@ -26,7 +26,7 @@ class MainLayout extends React.Component {
   }
   render () {
     const { flashes } = this.props.locals
-    return <div>
+    return <div data-theme={ this.props.locals.user.theme || 'dark' }>
       <Nav
         pathname={ this.props.pathname }
         user={ this.props.locals.user }
