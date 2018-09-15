@@ -76,12 +76,11 @@ class Project extends React.Component {
         <div className="wrapper__text">
           { name && <h1>{ name }</h1>}
 
-          {/* { (author && author.id) && 
-            <a href={ `/profile/${author.id.toString()}` }
-            >
-              More projects by { author.name.toString() }
+          { (author && author.id) && 
+            <a href={ `/profile/${author.id}` }>
+              <button>More projects by { author.name }</button>
             </a>
-          } */}
+          }
 
           <h3>What</h3>
           <Markdown>{ what || '--' }</Markdown>

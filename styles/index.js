@@ -77,6 +77,17 @@ a {
 }
 a:hover {
 }
+a button {
+  background: rgba(0,0,0, 0.2);
+  border: solid 1px rgba(255,255,255, 0.2);
+  border-radius: 4px;
+  margin: 0;
+  margin-bottom: 24px;
+  padding: 12px 32px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
 
 
 img {
