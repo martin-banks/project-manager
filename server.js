@@ -159,6 +159,25 @@ app.prepare()
         app.render(req, res, '/account')
       }
     )
+
+    server.get('/profile',
+      authController.checkIfLoggedIn,
+      userController.profile,
+      async (req, res, next) => {
+        const profile = await User
+          .findOne({ _id: req.user._id })
+          .populate('projects')
+        res.locals.projects = profile.projects
+        app.render(req, res, '/profile')
+      }
+    )
+    server.get('/profile/:id',
+      userController.profile,
+      (req, res, next) => {
+        app.render(req, res, '/profile')
+      }
+    )
+
     server.post('/account', 
       authController.checkIfLoggedIn,
       userController.updateAccount,
@@ -219,7 +238,10 @@ app.prepare()
         req.body.tech = req.body.tech
           .split(',')
           .map(w => w.trim().toLowerCase())
-        req.body.author = req.user._id
+        req.body.author = {
+          id: req.user._id,
+          name: req.user.name,
+        }
         console.log('body after update', req.body)
         const project = new Project(req.body)
         await project.save()

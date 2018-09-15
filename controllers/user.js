@@ -2,7 +2,9 @@ const mongoose = require('mongoose')
 const { promisify } = require('es6-promisify')
 
 require('../models/User')
+require('../models/Project')
 const User = mongoose.model('User')
+const Project = mongoose.model('Project')
 
 exports.validateRegister = (req, res, next) => {
   req.sanitizeBody('name')
@@ -60,5 +62,23 @@ exports.updateAccount = async (req, res, next ) => {
   } catch (err) {
     console.log(err)
     res.json(err)
+  }
+}
+
+
+exports.profile = async (req, res, next) => {
+  try {
+    const userDetails = await User
+      .findOne({ _id: req.params.id || req.user._id})
+      .populate('projects')
+  
+    res.locals.profile = {
+      projects: userDetails.projects,
+      name: userDetails.name,
+    }
+    next()
+  } catch (err) {
+    req.flash('error', 'Cannot find profile details')
+    res.redirect('/')
   }
 }
