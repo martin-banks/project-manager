@@ -146,7 +146,13 @@ pre {
   font-family: monospace;
 }
 
-
+.wrapper__cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+img.cloudinaryImage {
+  width: 100%;
+}
 .background__gradient {
   position: fixed;
   top: 0;
@@ -158,7 +164,7 @@ pre {
 }
 .content {
   padding: 50px;
-  max-width: 1000px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
