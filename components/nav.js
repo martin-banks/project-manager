@@ -38,24 +38,32 @@ class Nav extends React.Component {
             <a href="/addproject">Add Project</a>
           </li>
         }
+
+        <div className="spacer"></div>
+
+        {/* { this.props.user &&
+          <li className="user">
+            <a href="/profile">My Profile</a>
+          </li>
+        } */}
+        { this.props.user &&
+          <li className={ this.props.pathname === '/account' ? 'user active' : 'user' }>
+            <a href="/account">{ this.props.user.name.split(' ')[0] }</a>
+          </li>
+        }
         { this.props.user &&
           <li className="user">
             <a href="/logout">Log out</a>
           </li> 
         }
-        { this.props.user &&
-          <li className="user">
-            <a href="/account">{ this.props.user.name.split(' ')[0] }</a>
-          </li>
-        }
 
         { !this.props.user && 
-          <li className={ this.props.pathname === '/register' ? 'active' : '' }>
-            <a href="/register" >Register</a>
+          <li className={ this.props.pathname === '/register' ? 'user active' : 'user' }>
+            <a href="/register">Register</a>
           </li>
         }
         { !this.props.user && 
-          <li className={ this.props.pathname === '/login' ? 'active' : '' }>
+          <li className={ this.props.pathname === '/login' ? 'user active' : 'user' }>
             <a href="/login">Log in</a>
           </li> 
         }
@@ -69,12 +77,14 @@ class Nav extends React.Component {
       }
       ul {
         position: relative;
+        display: flex;
         top: 0;
         padding: 0;
         margin: 0;
       }
       li {
         position: relative;
+        flex: 0 0 auto;
         top: 0;
         transition: all 200ms;
         display: inline-block;
@@ -82,6 +92,10 @@ class Nav extends React.Component {
         vertical-align: top;
         opacity: 0.6;
         border-top: solid 2px rgba(0,0,0,0);
+      }
+      div.spacer {
+        flex: 1 1 auto;
+        max-width: 100%;
       }
       a {
         display: block;
@@ -95,7 +109,7 @@ class Nav extends React.Component {
         border-top: solid 2px hsl(50, 60%, 45%);
       }
       li.user {
-        border: solid 1px orange;
+
       }
       li:hover {
         background: rgba(200, 200, 200, 0.1);
