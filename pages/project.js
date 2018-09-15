@@ -26,7 +26,7 @@ class Project extends React.Component {
 
   componentDidMount() {
     this.setState({
-      displayWidth: Math.min(window.innerWidth - 100, 1000)
+      displayWidth: Math.min(window.innerWidth - 100, 1400)
     })
   }
   render () {
@@ -45,6 +45,7 @@ class Project extends React.Component {
       learn,
       evolution,
       liveDate,
+      author,
     } = this.props.router.query.details
     return <Layout
       pathname={ this.props.url.pathname }
@@ -55,48 +56,66 @@ class Project extends React.Component {
       */}
 
       <div>
-        <Image
-          cloudName="martinbanks"
-          publicId={ display }
-          width={ this.state.displayWidth }
-          crop="scale"
-        />
+        <div className="wrapper__image">
+          {/* <Image
+            className="cloudinaryImage__thumbnail"
+            cloudName="martinbanks"
+            publicId={ display }
+            width="50"
+            crop="scale"
+          /> */}
+          <Image
+            className="cloudinaryImage"
+            cloudName="martinbanks"
+            publicId={ display }
+            width={ this.state.displayWidth }
+            crop="scale"
+          />
+        </div>
 
-        { name && <h1>{ name }</h1>}
+        <div className="wrapper__text">
+          { name && <h1>{ name }</h1>}
 
-        <h3>What</h3>
-        <Markdown>{ what || '--' }</Markdown>
+          {/* { (author && author.id) && 
+            <a href={ `/profile/${author.id.toString()}` }
+            >
+              More projects by { author.name.toString() }
+            </a>
+          } */}
 
-        <h3>Why</h3>
-        <Markdown>{ why || '--' }</Markdown>
+          <h3>What</h3>
+          <Markdown>{ what || '--' }</Markdown>
 
-        <h3>How</h3>
-        <Markdown>{ how || '--' }</Markdown>
+          <h3>Why</h3>
+          <Markdown>{ why || '--' }</Markdown>
 
-        <h3>Learn</h3>
-        <Markdown>{ learn || '--' }</Markdown>
+          <h3>How</h3>
+          <Markdown>{ how || '--' }</Markdown>
 
-        <h3>Taking it further</h3>
-        <Markdown>{ evolution || '--' }</Markdown>
+          <h3>Learn</h3>
+          <Markdown>{ learn || '--' }</Markdown>
 
-        <h3>Published</h3>
-        <Markdown>{ liveDate || '--' }</Markdown>
+          <h3>Taking it further</h3>
+          <Markdown>{ evolution || '--' }</Markdown>
 
-        <h3>Tech</h3>
-        <ul>
-          { tech && tech.map(t => (<li className="bullet">{ t }</li>))}
-        </ul>
+          <h3>Published</h3>
+          <Markdown>{ liveDate || '--' }</Markdown>
 
-        { publicUrl && <a href={ publicUrl }><h3>Preview - public</h3></a> }
+          <h3>Tech</h3>
+          <ul>
+            { tech && tech.map(t => (<li className="bullet">{ t }</li>))}
+          </ul>
 
-        { privateUrl && <a href={ privateUrl }><h3>Preview - private</h3></a> }
+          { publicUrl && <a href={ publicUrl }><h3>Preview - public</h3></a> }
 
-        { publicRepo && <a href={ publicRepo }><h3>Repo - public</h3></a> }
+          { privateUrl && <a href={ privateUrl }><h3>Preview - private</h3></a> }
 
-        { privateRepo && <a href={ privateRepo }><h3>Repo - private</h3></a> }
+          { publicRepo && <a href={ publicRepo }><h3>Repo - public</h3></a> }
 
-
+          { privateRepo && <a href={ privateRepo }><h3>Repo - private</h3></a> }
+        </div>
       </div>
+
 
       <pre>{ JSON.stringify(this.props.router.query.details, 'utf-8', 2) }</pre>
       <pre>{ JSON.stringify(this.state, 'utf-8', 2) }</pre>
@@ -112,6 +131,15 @@ class Project extends React.Component {
         p {
           margin-bottom: 24px;
         }
+        .wrapper__image {
+          position: relative;
+          margin-bottom: 32px;
+        }
+        .wrapper__text {
+          max-width: 1000px;
+          margin: 0 auto;
+        }
+      
       `}</style>
     </Layout>
   }
