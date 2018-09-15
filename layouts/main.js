@@ -32,6 +32,7 @@ class MainLayout extends React.Component {
         user={ this.props.locals.user }
       />
 
+      <div className="background__gradient"></div>
       { 
         this.state.showFlashes && Object.keys(flashes)
           .map((f, i) => <Flashes
@@ -41,16 +42,13 @@ class MainLayout extends React.Component {
           />)
       }
 
-      <div className="background__gradient"></div>
-
-      <pre>
-        locals: { JSON.stringify(this.props.locals, 'utf-8', 2) }
-      </pre>
-
       <div className="content">
         { this.props.children }
       </div>
 
+      <pre>
+        locals: { JSON.stringify(this.props.locals, 'utf-8', 2) }
+      </pre>
       { styles }
     </div>
   }
