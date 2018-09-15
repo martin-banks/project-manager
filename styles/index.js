@@ -153,6 +153,15 @@ pre {
 img.cloudinaryImage {
   width: 100%;
 }
+img.cloudinaryImage__thumbnail {
+  border: solid 1px lime;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  filter: blur(20px);
+}
 .background__gradient {
   position: fixed;
   top: 0;
