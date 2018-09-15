@@ -151,7 +151,11 @@ app.prepare()
     // Account details of the currently logged in user
     server.get('/account', 
       authController.checkIfLoggedIn,
-      (req, res, next) => {
+      async (req, res, next) => {
+        const userDetails = await User
+          .findOne({ _id: req.user._id})
+          .populate('projects')
+        res.locals.projects = userDetails.projects
         app.render(req, res, '/account')
       }
     )
