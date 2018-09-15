@@ -33,9 +33,9 @@ class Account extends React.Component {
     return (
       <Layout
         locals={ this.props.locals }
-        url={ this.props.url }
+        pathname={ this.props.url.pathname }
       >
-        <h1>Welcome back { this.props.locals.user.name }</h1>
+        <h1>Welcome back { this.props.locals.user.name.split(' ')[0] }</h1>
 
         <h2>Your projects</h2>
         <div className="wrapper__cards">
