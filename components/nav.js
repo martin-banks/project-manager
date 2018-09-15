@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const Logo = () => (
   <svg
-    class="nav__logo"
+    className="nav__logo"
     width="20"
     height="20"
     xmlns="http://www.w3.org/2000/svg"
