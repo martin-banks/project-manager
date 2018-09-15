@@ -1,13 +1,13 @@
 import React from 'react'
 import { withRouter } from 'next/router'
 import Layout from '../layouts/main'
+import ProjectEntry from '../components/project-entry'
+
 
 class Account extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
-      
-    }
+    this.state = {}
   }
   static async getInitialProps (context) {
     return {
@@ -35,9 +35,16 @@ class Account extends React.Component {
         locals={ this.props.locals }
         url={ this.props.url }
       >
-        <pre>projects :{ this.props.locals.user.projects }</pre>
-
         <h1>Welcome back { this.props.locals.user.name }</h1>
+
+        <h2>Your projects</h2>
+        <div className="wrapper__cards">
+          { this.props.locals.projects
+            .map(p => <ProjectEntry key={`project-${p._id}`} project={ p }/>) }
+        </div>
+
+        <hr />
+        <h2>Account details</h2>
         <form action="account" method="POST">
           <label htmlFor="name">Update you username</label>
           <input
@@ -53,8 +60,7 @@ class Account extends React.Component {
             value={ this.state.email }
             onChange={ this.handleChange.bind(this) }
           />
-
-          <input type="submit" />
+          <input type="submit" value="Update profile"/>
         </form>
       </Layout>
     )

@@ -2,7 +2,7 @@ import React from 'react'
 import { withRouter } from 'next/router'
 import Layout from '../layouts/main'
 import Markdown from 'react-markdown'
-import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
+import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react'
 // import fetch from 'isomorphic-fetch'
 
 
