@@ -8,6 +8,11 @@ const projectSchema = new mongoose.Schema({
     ref: 'User',
     required: 'You must be a registered, logged in user to add a new project',
   },
+  author_name: {
+    type: String,
+    required: 'You must be a registered, logged in user to add a new project',
+  },
+
   slug: String,
 
   // Name / title of the project
