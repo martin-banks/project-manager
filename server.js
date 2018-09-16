@@ -238,10 +238,8 @@ app.prepare()
         req.body.tech = req.body.tech
           .split(',')
           .map(w => w.trim().toLowerCase())
-        req.body.author = {
-          id: req.user._id,
-          name: req.user.name,
-        }
+        req.body.author = req.user._id
+        req.body.author_name = req.user.name
         console.log('body after update', req.body)
         const project = new Project(req.body)
         await project.save()
