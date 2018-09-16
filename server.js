@@ -130,8 +130,10 @@ app.prepare()
     server.post('/register',
       userController.validateRegister,
       userController.register,
+      authController.login,
       (req, res) => {
-        res.send('success')
+        // res.send('success')
+        res.redirect('/account')
       }
     )
 
@@ -151,6 +153,7 @@ app.prepare()
     // Account details of the currently logged in user
     server.get('/account', 
       authController.checkIfLoggedIn,
+      userController.profile,
       async (req, res, next) => {
         const userDetails = await User
           .findOne({ _id: req.user._id})

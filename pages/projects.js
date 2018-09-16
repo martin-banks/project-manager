@@ -42,11 +42,16 @@ class projects extends React.Component {
 
 
   render () {
-    return <Layout
+    return <div>
+      <div className="wrapper__header">
+        <div className="content">
+          <h1>All projects</h1>
+        </div>
+      </div>
+      <Layout
       pathname={ this.props.url.pathname }
       locals={ this.props.locals }
     >
-      <h1>Projects</h1>
       <div className="wrapper__cards">
         { this.props.projects.map(p => <ProjectEntry 
           key={`project-${p._id}`} project={ p }
@@ -54,8 +59,16 @@ class projects extends React.Component {
       </div>
       {/* <pre>{ JSON.stringify(this.props.projects, 'utf-8', 2) }</pre> */}
 
-      <style jsx >{``}</style>
     </Layout>
+    <style jsx>{`
+      h1 {
+        color: white;
+        margin: 0;
+        display: block;
+        {/* text-align: center; */}
+      }
+    `}</style>
+  </div>
   }
 }
 

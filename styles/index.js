@@ -78,6 +78,17 @@ a {
 }
 a:hover {
 }
+a button {
+  background: rgba(0,0,0, 0.2);
+  border: solid 1px rgba(255,255,255, 0.2);
+  border-radius: 4px;
+  margin: 0;
+  margin-bottom: 24px;
+  padding: 12px 32px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
 
 
 img {
@@ -180,11 +191,12 @@ img.cloudinaryImage__thumbnail {
   flex-wrap: wrap;
 }
 
-.wrapper__display--profile {
+.wrapper__header {
   position: relative;
   display: block;
   top: 0;
   left: 0;
+  padding: 50px;
   z-index: 0;
   background-size: 10px 10px;
   background-image: linear-gradient(45deg, rgba(0,0,0, 0) 49%, rgba(255,255,255, 0.2) 50%, rgba(0,0,0, 0) 51%);

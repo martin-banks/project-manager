@@ -51,12 +51,16 @@ class addproject extends React.Component {
 
   render () {
     console.log('props before render', this.props.locals)
-    return <Layout
+    return <div>
+      <div className="wrapper__header">
+        <div className="content">
+          <h1>Add a new project</h1> 
+        </div>
+      </div>
+      <Layout
         pathname={ this.props.url.pathname }
         locals={ this.props.locals }
       >
-        <h1>Add a new project</h1> 
-
         <hr />
         <form action="addproject" method="post" encType="multipart/form-data">
           <UploadImage />
@@ -148,18 +152,18 @@ class addproject extends React.Component {
           <hr />
           <h3>Links</h3>
           <label htmlFor="publicUrl">Public URL</label>
-          <input id="publicUrl" type="text" placehodler="Public URL" />
+          <input id="publicUrl" name="publicUrl" type="text" placehodler="Public URL" />
 
           <label htmlFor="privateUrl">Private URL</label>
-          <input id="privateUrl" type="text" placehodler="Private URL" />
+          <input id="privateUrl" name="privateUrl" type="text" placehodler="Private URL" />
 
           <hr />
           <h3>Repos</h3>
           <label htmlFor="publicRepo">Public repo</label>
-          <input id="publicRepo" type="text" placehodler="Public repo" />
+          <input id="publicRepo" name="publicRepo" type="text" placehodler="Public repo" />
 
           <label htmlFor="privateRepo">Private repo</label>
-          <input id="privateRepo" type="text" placehodler="private repo" />
+          <input id="privateRepo" name="privateRepo" type="text" placehodler="private repo" />
 
           <hr />
 
@@ -170,13 +174,12 @@ class addproject extends React.Component {
           <input id="submit" type="submit" value="Save project" />
 
         </form>
-
+      </Layout>
         <style jsx>{`
           #keywords {
             margin-bottom: 24px;
             opacity: 0.5;
           }
-  
           .toggles {
             margin-bottom: 24px;
           }
@@ -187,7 +190,7 @@ class addproject extends React.Component {
             border: solid 1px rgba(255,255,255, 0.2);
             padding: 16px
           }
-  
+
           label.toggle {
             padding: 12px 20px;
             border-radius: 2px;
@@ -200,8 +203,12 @@ class addproject extends React.Component {
             background: hsl(50, 60%, 45%);
             color: black;
           }
+          h1 {
+            margin: 0;
+            color: white;
+          }
         `}</style>
-      </Layout>
+    </div>
 
 
   }

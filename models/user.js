@@ -20,6 +20,10 @@ const userSchema = new Schema({
     type: String,
     required: 'Please add a name',
   },
+  avatar: {
+    type: String,
+    required: false,
+  },
 })
 
 // placeholder - untested

@@ -20,7 +20,7 @@ export default class UploadImage extends React.Component {
     const { size } = file
     const mb = 1000000
 
-    if (size > this.state.mazSize * mb) {
+    if (size > this.state.maxSize * mb) {
       this.setState({ message: `Image is too large, please reduce to under ${this.state.maxSize}Mb` })
       return
     }
@@ -48,7 +48,7 @@ export default class UploadImage extends React.Component {
   render () {
     return (
       <div className="wrapper">
-        <label htmlFor="image">Upload a display image</label>
+        <label htmlFor="image">{ this.props.label || 'Upload a display image' }</label>
         <p><i>Images must be less than { this.state.maxSize }Mb</i></p>
         <input
           name="image"
@@ -60,9 +60,9 @@ export default class UploadImage extends React.Component {
 
         { this.state.warning ? <p className="warning">{ this.state.warning }</p> : '' }
 
-        { 
+        {
           this.state.previewUrl 
-            ? <img src={ this.state.previewUrl } /> 
+            ? <img src={ this.state.previewUrl } />
             : <p><i>{ this.state.message }</i></p>
         }
 

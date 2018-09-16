@@ -80,7 +80,9 @@ class Project extends React.Component {
           { author && 
             <a href={ `/profile/${author}` }
             >
-              More projects by { author_name || 'this author' }
+              <button>
+                More projects by { author_name || 'this author' }
+              </button>
             </a>
           }
 
