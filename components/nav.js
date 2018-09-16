@@ -71,7 +71,10 @@ class Nav extends React.Component {
 
       <style jsx>{`
       nav {
-        position: relative;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
         padding: 0;
         margin:0;
       }

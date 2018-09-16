@@ -28,6 +28,7 @@ body {
   padding: 0;
 }
 * {
+  box-sizing: border-box;
   font-family: "Arial", sans-serif;
 }
 
@@ -146,10 +147,6 @@ pre {
   font-family: monospace;
 }
 
-.wrapper__cards {
-  display: flex;
-  flex-wrap: wrap;
-}
 img.cloudinaryImage {
   width: 100%;
 }
@@ -173,10 +170,24 @@ img.cloudinaryImage__thumbnail {
 }
 .content {
   padding: 50px;
+  padding-top: 100px;
   max-width: 1400px;
   margin: 0 auto;
 }
 
+.wrapper__cards {
+  display: flex;
+  flex-wrap: wrap;
+}
 
+.wrapper__display--profile {
+  position: relative;
+  display: block;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  background-size: 10px 10px;
+  background-image: linear-gradient(45deg, rgba(0,0,0, 0) 49%, rgba(255,255,255, 0.2) 50%, rgba(0,0,0, 0) 51%);
+}
 
 `}</style>)

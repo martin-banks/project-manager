@@ -46,6 +46,7 @@ class Project extends React.Component {
       evolution,
       liveDate,
       author,
+      author_name,
     } = this.props.router.query.details
     return <Layout
       pathname={ this.props.url.pathname }
@@ -76,12 +77,12 @@ class Project extends React.Component {
         <div className="wrapper__text">
           { name && <h1>{ name }</h1>}
 
-          {/* { (author && author.id) && 
-            <a href={ `/profile/${author.id.toString()}` }
+          { author && 
+            <a href={ `/profile/${author}` }
             >
-              More projects by { author.name.toString() }
+              More projects by { author_name || 'this author' }
             </a>
-          } */}
+          }
 
           <h3>What</h3>
           <Markdown>{ what || '--' }</Markdown>
