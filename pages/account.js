@@ -42,27 +42,27 @@ class Account extends React.Component {
       >
         <h1>Welcome back { this.props.locals.user.name.split(' ')[0] }</h1>
 
-        <h2>Account details</h2>
-        <form action="account" method="POST" encType="multipart/form-data">
+        {/* <h2>Update your account details</h2> */}
+        {/* <form action="account" method="POST" encType="multipart/form-data"> */}
           {/* <UploadImage
             label="Upload a new avatar image"
           /> */}
-          <label htmlFor="name">Update you username</label>
-          <input
+          {/* <label htmlFor="name">Update you username</label> */}
+          {/* <input
             type="text"
             name="name"
             value={ this.state.name }
             onChange={ this.handleChange.bind(this) }
-          />
-          <label htmlFor="email">Update you email</label>
-          <input
+          /> */}
+          {/* <label htmlFor="email">Update you email</label> */}
+          {/* <input
             type="email"
             name="email"
             value={ this.state.email }
             onChange={ this.handleChange.bind(this) }
-          />
-          <input type="submit" value="Update profile"/>
-        </form>
+          /> */}
+          {/* <input type="submit" value="Update profile"/> */}
+        {/* </form> */}
 
         <hr />
 
