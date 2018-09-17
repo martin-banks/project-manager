@@ -39,19 +39,19 @@ const multerOptions = {
   },
 }
 
-function readFile (file) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(
-      path.join(__dirname, file),
-      (err, data) => {
-        if (err) {
-          return reject(err)
-        }
-        return resolve(data)
-      }
-    )
-  })
-}
+// function readFile (file) {
+//   return new Promise((resolve, reject) => {
+//     fs.readFile(
+//       path.join(__dirname, file),
+//       (err, data) => {
+//         if (err) {
+//           return reject(err)
+//         }
+//         return resolve(data)
+//       }
+//     )
+//   })
+// }
 
 require('dotenv').config({ path: '.env' })
 const db = process.env.DATABASE
@@ -75,7 +75,6 @@ app.prepare()
   .then(() => {
     // Set up database
     // 1: connect
-
 
     // Create custom Express server for additional server-side functionality
     const server = express()
@@ -113,7 +112,10 @@ app.prepare()
       res.locals.test = '🤘'
       res.locals.flashes = req.flash(),
       res.locals.cloudName = 'martinbanks',
-      res.locals.user = req.user || false
+      res.locals.user = !req.user ? false : {
+        _id: req.user._id,
+        name: req.user.name,
+      }
       next()
     })
     
@@ -124,8 +126,16 @@ app.prepare()
     })
 
     // Registering new users
+    server.get('/register/:id',
+      userController.checkRegisterWhitelist,
+      (req, res, next) => {
+        app.render(req ,res, '/register')
+      }
+    )
     server.get('/register', (req, res, next) => {
-      app.render(req ,res, '/register')
+      req.flash('error', 'Registration is by invitation only')
+      res.redirect('/')
+      // app.render(req ,res, '/register')
     })
     server.post('/register',
       userController.validateRegister,
@@ -158,6 +168,7 @@ app.prepare()
         const userDetails = await User
           .findOne({ _id: req.user._id})
           .populate('projects')
+        res.locals.user.email = req.user.email        
         res.locals.projects = userDetails.projects
         app.render(req, res, '/account')
       }
