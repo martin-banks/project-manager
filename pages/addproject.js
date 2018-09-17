@@ -61,7 +61,6 @@ class addproject extends React.Component {
         pathname={ this.props.url.pathname }
         locals={ this.props.locals }
       >
-        <hr />
         <form action="addproject" method="post" encType="multipart/form-data">
           <UploadImage />
           <label htmlFor="name">Add a project name</label>
@@ -69,7 +68,7 @@ class addproject extends React.Component {
 
           <hr />
           <h3>About the project</h3>
-          <p>What type of project was it?</p>
+          <label>What type of project was it?</label>
           <div className="toggles">
             <input className="toggle" id="type_news" type="checkbox" />
             <label className="toggle" htmlFor="type_news">
