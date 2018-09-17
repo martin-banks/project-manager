@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
 const { promisify } = require('es6-promisify')
+const fs = require('fs')
+const path = require('path')
+const md5 = require('md5')
 
 require('../models/User')
 require('../models/Project')
@@ -28,6 +31,35 @@ exports.validateRegister = (req, res, next) => {
     return
   }
   next()
+}
+
+
+exports.checkRegisterWhitelist = async (req, res, next) => {
+  const { id } = req.params
+  console.log({ id })
+  try {
+    const users = fs
+      .readFileSync(path.join(__dirname, '../user-whitelist.txt'), 'utf-8')
+      .split('\n')
+      .map(email => ({
+        email,
+        hash: md5(email),
+        link: `localhost:3000/register/${md5(email)}`
+      }))
+      const user = users.filter(u => u.hash === id)
+      console.log({ user })
+      if (user.length) {
+        res.locals.email = user[0].email
+        next()
+        return
+      }
+      req.flash('error', 'Sorry, that address is not valid')
+      res.redirect('/')
+      return
+  } catch (err) {
+    req.flash('error', err.toString())
+    res.redirect('/')
+  }
 }
 
 exports.register = async (req, res, next) => {
