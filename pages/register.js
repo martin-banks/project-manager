@@ -14,29 +14,43 @@ export default class Register extends React.Component {
     super(props)
   }
   render () {
-    return (
+    const { email } = this.props.locals
+    return <div>
+      <div className="wrapper__header">
+        <div className="content">
+          <h1>Register</h1>
+        </div>
+      </div>
       <Layout
         pathname={ this.props.url.pathname }
         locals={ this.props.locals }
       >
-        <h1>Register</h1>
-
         <form action="/register" method="POST">
           <label htmlFor="name">Name</label>
           <input type="text" name="name" required />
 
           <label htmlFor="email">Email</label>
-          <input type="email" name="email" required />
+
+          { email
+            ? <input type="email" name="email" required value={ email }/>
+            : <input type="email" name="email" required />
+          }
 
           <label htmlFor="password">Password</label>
           <input type="password" name="password" required />
 
-          <label htmlFor="confirm-password">Password</label>
+          <label htmlFor="confirm-password">Confirm password</label>
           <input type="password" name="confirm-password" required />
 
           <input type="submit" />
         </form>
       </Layout>
-    )
+      <style jsx>{`
+        h1 {
+          margin: 0;
+        }
+      `}</style>
+    </div>
+    
   }
 }
