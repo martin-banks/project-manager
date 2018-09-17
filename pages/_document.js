@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 export default class MyDocument extends Document {
   static getInitialProps ({ renderPage }) {
-    const {html, head, errorHtml, chunks} = renderPage()
+    const { html, head, errorHtml, chunks } = renderPage()
     const styles = flush()
     return { html, head, errorHtml, chunks, styles }
   }
@@ -14,10 +14,9 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
-          
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+          <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
           <title>{this.props.title || ''}</title>
           <meta name="description" content={this.props.description } />
           <meta name="keywords" content={this.props.keywords || ''} />
