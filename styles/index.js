@@ -37,6 +37,7 @@ h1, h2, h3, h4, h5, h6,
 p {
   margin: 0;
   margin-bottom: 24px;
+  color: white;
 }
 h1 {
   margin-bottom: 40px;
