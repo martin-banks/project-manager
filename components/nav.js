@@ -57,11 +57,11 @@ class Nav extends React.Component {
           </li> 
         }
 
-        { !this.props.user && 
+        {/* { !this.props.user && 
           <li className={ this.props.pathname === '/register' ? 'user active' : 'user' }>
             <a href="/register">Register</a>
           </li>
-        }
+        } */}
         { !this.props.user && 
           <li className={ this.props.pathname === '/login' ? 'user active' : 'user' }>
             <a href="/login">Log in</a>
