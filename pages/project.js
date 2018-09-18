@@ -47,7 +47,20 @@ class Project extends React.Component {
       liveDate,
       author,
       author_name,
+      client,
     } = this.props.router.query.details
+
+    
+    let publishedDate = null
+    if (liveDate) {
+      const d = new Date(liveDate)
+      const day = d.getDate()
+      const month = d.getMonth() + 1
+      const year = d.getFullYear()
+      publishedDate = `${day} - ${month} - ${year}`
+    }
+    
+
     return <Layout
       pathname={ this.props.url.pathname }
       locals={ this.props.locals }
@@ -86,36 +99,100 @@ class Project extends React.Component {
             </a>
           }
 
-          <h3>What</h3>
-          <Markdown>{ what || '--' }</Markdown>
+          {
+            client && <>
+              <h3>Client</h3>
+              <Markdown>{ client }</Markdown>
+            </>
+          }
 
-          <h3>Why</h3>
-          <Markdown>{ why || '--' }</Markdown>
+          {
+            what && <>
+              <h3>What</h3>
+              <Markdown>{ what }</Markdown>
+            </>
+          }
+          
+          {
+            why && <>
+              <h3>Why</h3>
+              <Markdown>{ why }</Markdown>
+            </>
+          }
 
-          <h3>How</h3>
-          <Markdown>{ how || '--' }</Markdown>
+          {
+            how && <>
+              <h3>How</h3>
+              <Markdown>{ how }</Markdown>
+            </>
+          }
 
-          <h3>Learn</h3>
-          <Markdown>{ learn || '--' }</Markdown>
+          {
+            learn && <>
+              <h3>Learn</h3>
+              <Markdown>{ learn }</Markdown>
+            </>
+          }
 
-          <h3>Taking it further</h3>
-          <Markdown>{ evolution || '--' }</Markdown>
+          {
+            evolution && <>
+              <h3>Taking it further</h3>
+              <Markdown>{ evolution }</Markdown>
+            </>
+          }
 
-          <h3>Published</h3>
-          <Markdown>{ liveDate || '--' }</Markdown>
+          {
+            publishedDate && <>
+              <h3>Published</h3>
+              <Markdown>{ publishedDate }</Markdown>
+            </>
+          }
+          
+          {
+            tech && <>
+              <h3>Tech</h3>
+              <ul>
+                {
+                  tech.map(t => (<li
+                    key={ `tech-${t}` }
+                    className="bullet"
+                  >{ t }</li>))
+                }
+              </ul>
+            </>
+          }
 
-          <h3>Tech</h3>
-          <ul>
-            { tech && tech.map(t => (<li className="bullet">{ t }</li>))}
-          </ul>
+          {
+            (publicUrl || privateUrl) && <h3>Preview link</h3>
+          }
 
-          { publicUrl && <a href={ publicUrl }><h3>Preview - public</h3></a> }
+          {
+            publicUrl && <a href={ publicUrl }>
+              <button>Preview - public</button>
+            </a>
+          }
 
-          { privateUrl && <a href={ privateUrl }><h3>Preview - private</h3></a> }
+          {
+            privateUrl && <a href={ privateUrl }>
+              <button>Preview - private</button>
+            </a>
+          }
 
-          { publicRepo && <a href={ publicRepo }><h3>Repo - public</h3></a> }
+          {
+            (publicUrl || privateUrl) && <h3>Repo / files link</h3>
+          }
 
-          { privateRepo && <a href={ privateRepo }><h3>Repo - private</h3></a> }
+          {
+            publicRepo && <a href={ publicRepo }>
+              <button>Repo - public</button>
+            </a>
+          }
+
+          {
+            privateRepo && <a href={ privateRepo }>
+              <button>Repo - private</button>
+            </a>
+          }
         </div>
       </div>
 
@@ -132,6 +209,9 @@ class Project extends React.Component {
           margin-bottom: 8px;
         }
         p {
+          margin-bottom: 24px;
+        }
+        ul {
           margin-bottom: 24px;
         }
         .wrapper__image {
