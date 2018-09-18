@@ -2,7 +2,7 @@ const cloudinary = require('cloudinary')
 const Datauri = require('datauri')
 const uuid = require('uuid')
 
-require('dotenv').config({ path: '.cloudinary.env' })
+require('dotenv').config({ path: '.env' })
 const c = process.env.CLOUD
 
 cloudinary.config({
