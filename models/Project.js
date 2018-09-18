@@ -3,6 +3,10 @@ const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 
 const projectSchema = new mongoose.Schema({
+  created: {
+    type: Date,
+    default: Date.now
+  },
   author: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
@@ -46,10 +50,16 @@ const projectSchema = new mongoose.Schema({
     required: 'Please enter what else could be done',
   },
 
+  category: {
+    type: [ String ],
+    trim: true,
+    required: 'Please choose at least one category',
+  },
+
   // Keywords lifted from the descriptions - auto-generated
   keywords: {
     type: [String],
-    truem: true,
+    trim: true,
     required: 'Please enter at least one keyword',
   },
 
