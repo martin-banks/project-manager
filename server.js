@@ -232,7 +232,7 @@ app.prepare()
         const [ projects, count ] = await Promise.all([ projectsPromise, totalProjects ])
         const pages = Math.ceil(count / limit)
 
-        res.locals.pagination = { pages, page }
+        res.locals.pagination = { pages, page, limit }
         res.locals.projects = projects
         app.render(req, res, '/projects')
       } catch (err) {

@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import Layout from '../layouts/main'
 import ProjectEntry from '../components/project-entry'
+import Pagination from '../components/pagination'
 
 // const card = project => (
 //   <a
@@ -57,8 +58,10 @@ class projects extends React.Component {
           key={`project-${p._id}`} project={ p }
         />) }
       </div>
-      {/* <pre>{ JSON.stringify(this.props.projects, 'utf-8', 2) }</pre> */}
-
+      
+      <Pagination
+        pagination={ this.props.locals.pagination }
+      />
     </Layout>
     <style jsx>{`
       h1 {
