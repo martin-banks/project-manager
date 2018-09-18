@@ -70,17 +70,17 @@ class addproject extends React.Component {
           <h3>About the project</h3>
           <label>What type of project was it?</label>
           <div className="toggles">
-            <input className="toggle" id="type_news" type="checkbox" />
+            <input className="toggle" id="type_news" type="checkbox" name="category" value="News Corp DNA" />
             <label className="toggle" htmlFor="type_news">
               News Corp DNA
             </label>
 
-            <input className="toggle" id="type_personal" type="checkbox" />
+            <input className="toggle" id="type_personal" type="checkbox" name="category" value="personal" />
             <label className="toggle" htmlFor="type_personal">
               Personal
             </label>
 
-            <input className="toggle" id="type_challenge" type="checkbox" />
+            <input className="toggle" id="type_challenge" type="checkbox" name="category" value="challenge" />
             <label className="toggle" htmlFor="type_challenge">
               Challenge / Sandbox
             </label>

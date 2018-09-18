@@ -217,10 +217,22 @@ app.prepare()
     })
 
     // Requesting list of all projects
-    server.get('/projects', async (req, res) => {
-      let projects = {}
+    server.get('/projects/:page', async (req, res) => {
+      const { page } = req.params
+      const limit = 4
+      let skip = (page * limit) - limit
       try {
-        projects = await Project.find()
+        const projectsPromise = Project
+          .find()
+          .skip(skip)
+          .limit(limit)
+          .sort({ created: -1 })
+        const totalProjects = Project.count()
+
+        const [ projects, count ] = await Promise.all([ projectsPromise, totalProjects ])
+        const pages = Math.ceil(count / limit)
+
+        res.locals.pagination = { pages, page }
         res.locals.projects = projects
         app.render(req, res, '/projects')
       } catch (err) {
