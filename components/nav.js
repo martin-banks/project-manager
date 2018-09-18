@@ -30,7 +30,7 @@ class Nav extends React.Component {
           <a href="/"><Logo /></a>
         </li>
         <li className={ this.props.pathname === '/projects' ? 'active' : '' }>
-          <a href="/projects">Projects</a>
+          <a href="/projects/1">Projects</a>
         </li>
 
         { this.props.user &&
