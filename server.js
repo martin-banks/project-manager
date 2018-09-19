@@ -16,6 +16,7 @@ const cookieParser = require('cookie-parser')
 const uploadToCloudinary = require('./uploadCloudinary')
 const userController = require('./controllers/user')
 const authController = require('./controllers/auth')
+const pageController = require('./controllers/pagination')
 
 // Import config for passport strategy
 require('./handlers/passport')
@@ -217,29 +218,37 @@ app.prepare()
     })
 
     // Requesting list of all projects
-    server.get('/projects/:page', async (req, res) => {
-      const { page } = req.params
-      const limit = 4
-      let skip = (page * limit) - limit
-      try {
-        const projectsPromise = Project
-          .find()
-          .skip(skip)
-          .limit(limit)
-          .sort({ created: -1 })
-        const totalProjects = Project.count()
-
-        const [ projects, count ] = await Promise.all([ projectsPromise, totalProjects ])
-        const pages = Math.ceil(count / limit)
-
-        res.locals.pagination = { pages, page, limit }
-        res.locals.projects = projects
+    server.get('/projects/:page',
+      pageController.pagination,
+      (req, res, next) => {
         app.render(req, res, '/projects')
-      } catch (err) {
-        // TODO -> redirect if no projects are found
-        console.log(err)
       }
-    })
+    )
+
+    //   async (req, res) => {
+    //     const { page } = req.params
+    //     const limit = 4
+    //     let skip = (page * limit) - limit
+    //     try {
+    //       const projectsPromise = Project
+    //         .find()
+    //         .skip(skip)
+    //         .limit(limit)
+    //         .sort({ created: -1 })
+    //       const totalProjects = Project.count()
+  
+    //       const [ projects, count ] = await Promise.all([ projectsPromise, totalProjects ])
+    //       const pages = Math.ceil(count / limit)
+
+    //       res.locals.pagination = { pages, page, limit }
+    //       res.locals.projects = projects
+    //       app.render(req, res, '/projects')
+    //     } catch (err) {
+    //       // TODO -> redirect if no projects are found
+    //       console.log(err)
+    //     }
+    // }
+
 
     server.get('/addproject', 
       authController.checkIfLoggedIn,
