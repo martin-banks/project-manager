@@ -218,6 +218,12 @@ app.prepare()
     })
 
     // Requesting list of all projects
+    server.get('/projects',
+      (req, res, next) => {
+        req.flash('warning', 'A page number must be specificed. Redirecting to projects page 1')
+        res.redirect('/projects/1')
+      },
+    )
     server.get('/projects/:page',
       pageController.pagination,
       (req, res, next) => {
