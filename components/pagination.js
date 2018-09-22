@@ -11,9 +11,8 @@ export default class Pagination extends React.Component {
       <ul>
         {
           [... new Array(pages)]
-            .map((x, i) => <li>
+            .map((x, i) => <li key={ `page-${i + 1}` }>
               <a
-                key={ `page-${i + 1}` }
                 href={ `/projects/${i + 1}` }
                 className={ (parseInt(page, 10) === (i + 1)) ? 'active' : '' }
               >{ i + 1 }</a>
