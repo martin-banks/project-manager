@@ -11,10 +11,13 @@ Some things to do at some point
 - Choose custom user avatar image
 - change/reset password
 - Favourited project list
+- Custom registration links
+- Auto email custom links from node??
 
 ### DB
 - Store user id against project
 - Bind project ids to user id
+- Add create date/time as default when saving project to database
 
 ### PROJECTS
 - User comments
@@ -26,8 +29,9 @@ Some things to do at some point
 ### PROJECT DETAIL
 - Favourite ❤️ project
 
-
-
+### Router
+- Pagination for account
+- Pagination for profiles
 
 ### Layout
 - CCS Grid layout
