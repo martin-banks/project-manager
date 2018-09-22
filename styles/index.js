@@ -197,10 +197,15 @@ img.cloudinaryImage__thumbnail {
   display: block;
   top: 0;
   left: 0;
-  padding: 50px;
+
   z-index: 0;
   background-size: 10px 10px;
   background-image: linear-gradient(45deg, rgba(0,0,0, 0) 49%, rgba(255,255,255, 0.2) 50%, rgba(0,0,0, 0) 51%);
+}
+
+
+.wrapper__header .content h1 {
+  margin: 0;
 }
 
 `}</style>)

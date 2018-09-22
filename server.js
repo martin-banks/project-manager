@@ -131,10 +131,30 @@ app.prepare()
       (req, res) => res.redirect('/account')
     )
 
-    server.get('/login',
-      (req, res, next) => app.render(req, res, '/login')
-    )
+    // server.get('/login',
+    //   (req, res, next) => app.render(req, res, '/login')
+    // )
     server.post('/login', authController.login)
+
+    // Reset forgotten password
+    server.post('/account/forgot',
+      authController.forgot
+    )
+
+    server.get('/reset', (req, res) => {
+      req.flash('error', 'A valid reset token is required')
+      res.redirect('/login')
+    })
+
+    server.get('/account/reset/:token',
+      authController.validateReset,
+      (req, res) => app.render(req, res, '/reset')
+    )
+
+    server.post('/account/reset/:token',
+      authController.confirmPassword,
+      authController.updatePassword
+    )
     
     server.get('/logout', (req, res) => {
       req.logout()

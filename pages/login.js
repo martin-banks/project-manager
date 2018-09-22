@@ -1,6 +1,7 @@
 import React from 'react'
-import Layout from '../layouts/main'
 import { withRouter } from 'next/router'
+import Layout from '../layouts/main'
+import Header from '../components/header'
 
 class Register extends React.Component {
   static async getInitialProps (context) {
@@ -11,17 +12,19 @@ class Register extends React.Component {
     return output
   }
 
-  // constructor (props) {
-  //   super(props)
-  // }
+  constructor (props) {
+    super(props)
+  }
+
   render () {
-    return (
+    return (<>
+      <Header>
+        <h1>Log in page</h1>
+      </Header>
       <Layout
         locals={ this.props.locals }
         pathname={ this.props.url.pathname }
       >
-        <h1>Log in page</h1>
-
         <form action="/login" method="POST">
           <label htmlFor="email">Username</label>
           <input type="email" name="email" required />
@@ -29,10 +32,21 @@ class Register extends React.Component {
           <label htmlFor="password">Password</label>
           <input type="password" name="password" required />
 
-          <input type="submit" />
+          <input type="submit" value="Log in"/>
+        </form>
+
+        <hr />
+
+        <form action="/account/forgot" method="POST">
+          <h3>I forgot my password</h3>
+          <label htmlFor="email">Enter your email and we'll send you a link to reset your password</label>
+          <input type="email" name="email" required />
+          <input type="submit" value="Get reset link" />
         </form>
       </Layout>
-    )
+
+
+    </>)
   }
 }
 

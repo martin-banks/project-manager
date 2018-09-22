@@ -27,7 +27,7 @@ exports.validateRegister = (req, res, next) => {
   const errors = req.validationErrors()
   if (errors) {
     console.log('error in registration', errors)
-    req.flashes('error', errors.map(err => err.msg))
+    req.flash('error', errors.map(err => err.msg))
     return
   }
   next()

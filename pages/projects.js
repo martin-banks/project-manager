@@ -50,28 +50,24 @@ class projects extends React.Component {
         </div>
       </div>
       <Layout
-      pathname={ this.props.url.pathname }
-      locals={ this.props.locals }
-    >
-      <div className="wrapper__cards">
-        { this.props.projects.map(p => <ProjectEntry 
-          key={`project-${p._id}`} project={ p }
-        />) }
-      </div>
-      
-      <Pagination
-        pagination={ this.props.locals.pagination }
-      />
-    </Layout>
-    <style jsx>{`
-      h1 {
-        color: white;
-        margin: 0;
-        display: block;
-        {/* text-align: center; */}
-      }
-    `}</style>
-  </div>
+        pathname={ this.props.url.pathname }
+        locals={ this.props.locals }
+      >
+        <div className="wrapper__cards">
+          { this.props.projects.map(p => <ProjectEntry 
+            key={`project-${p._id}`} project={ p }
+          />) }
+        </div>
+
+        <Pagination
+          pagination={ this.props.locals.pagination }
+        />
+      </Layout>
+
+      <style jsx>{`
+
+      `}</style>
+    </div>
   }
 }
 

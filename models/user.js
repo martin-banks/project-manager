@@ -24,6 +24,8 @@ const userSchema = new Schema({
     type: String,
     required: false,
   },
+  passwordResetToken: String,
+  passwordResetExpires: Date,
 })
 
 // placeholder - untested

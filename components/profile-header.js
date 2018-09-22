@@ -1,4 +1,5 @@
 import React from 'react'
+import Header from './header'
 
 export default class ProfileHeader extends React.Component {
   render () {
@@ -6,20 +7,14 @@ export default class ProfileHeader extends React.Component {
     const firstname = name.split(' ')[0]
     const lastname = name.split(' ')[1]
 
-    return <div className="wrapper__header">
-      <div className="user">
-        <div className="avatar">
-          <p>{ firstname[0] }{ lastname && lastname[1] }</p>
-        </div>
-        <h1>{ name }</h1>
+    return <Header>
+      <div className="avatar">
+        <p>{ firstname[0] }{ lastname && lastname[1] }</p>
       </div>
+      <h1>{ name }</h1>
       <style jsx>{`
-        .user {
-          position: relative;
-          display: block;
+        h1 {
           text-align: center;
-          color: white;
-          padding-top: 50px;
         }
         .avatar {
           position: relative;
@@ -43,11 +38,15 @@ export default class ProfileHeader extends React.Component {
           color: rgba(0,0,0, 0.6);
           font-weight: 900;
         }
-        h1 {
-          margin: 0;
-        } 
+
       `}</style>
-    </div>
+
+    </Header>
+
+
+
+
+
   }
 
 }
