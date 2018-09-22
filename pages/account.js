@@ -20,8 +20,8 @@ class Account extends React.Component {
 
   componentDidMount () {
     this.setState({
-      name: this.props.locals.user.name,
-      email: this.props.locals.user.email,
+      name: this.props.locals.profile.name,
+      email: this.props.locals.profile.email,
     })
   }
 
@@ -40,7 +40,7 @@ class Account extends React.Component {
         locals={ this.props.locals }
         pathname={ this.props.url.pathname }
       >
-        <h1>Welcome back { this.props.locals.user.name.split(' ')[0] }</h1>
+        <h1>Welcome back { this.props.locals.profile.name.split(' ')[0] }</h1>
 
         {/* <h2>Update your account details</h2> */}
         {/* <form action="account" method="POST" encType="multipart/form-data"> */}
@@ -68,7 +68,7 @@ class Account extends React.Component {
 
         <h2>Your projects</h2>
         <div className="wrapper__cards">
-          { this.props.locals.projects
+          { this.props.locals.profile.projects
             .map(p => <ProjectEntry key={`project-${p._id}`} project={ p }/>) }
         </div>
 
