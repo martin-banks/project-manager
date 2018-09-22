@@ -2,14 +2,6 @@
 Adelaide Royal Show showbags
 
 ## Description
-<!-- ### What
-Every showbag on offer at Adelaide's Royal Show listed in a complete guide to help readers discover the bags they are most interested in.
-
-### Why
-Adelaide's Royal show features a daunting list of close to 400 different show bags with a wide variety of content, themes and prices but there is no guide on offer to help 
-
-### How
-Sort and filter the  -->
 
 ## Problem / brief
 The Adelaide show features close to 400 different showbags of varying content, themes and prices but there is easy way showgoers can find the bags they are most interested in ahead of time. Create a guide as a premium feature to help our readers navigate this bewildering array as a premium feature to drive subscriptions
@@ -39,7 +31,6 @@ Vue js
 ## Previews
 ### Preview - public
 https://www.adelaidenow.com.au/thesourcesa/royal-adelaide-show-2018-browse-every-showbag-by-category-contents-and-price/news-story/ea77623ddfb842cb7a2feb955db3bbaa
-
 
 
 ## Files
