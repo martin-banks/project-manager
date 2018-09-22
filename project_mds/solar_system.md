@@ -41,7 +41,7 @@ I want to learn more about using WebGL (3D in the browser), specifically the THR
 ### Preview - public
 
 
-### Preview - private
+
 
 
 
@@ -50,7 +50,7 @@ I want to learn more about using WebGL (3D in the browser), specifically the THR
 ### Repo - public
 
 
-### Repo - private
+
 
 
 

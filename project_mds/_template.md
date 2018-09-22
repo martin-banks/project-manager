@@ -2,9 +2,11 @@
 
 
 ## Description
-### What
+<!-- ### What
 ### Why
-### How
+### How -->
+### Problem / brief
+### Solution
 ### Evolution
 ### Learn
 
@@ -17,15 +19,14 @@
 
 ## Previews
 ### Preview - public
-### Preview - private
 
 
 ## Files
 ### Repo - public
-### Repo - private
 
 
 ## Type
 ### Code challenge
 ### News DNA
 ### Personal
+### Experiment

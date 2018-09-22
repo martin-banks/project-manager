@@ -39,13 +39,10 @@ get date from last commit in github repo??
 
 ## Preview - public
 https://martinbanks-translator.now.sh
-## Preview - private
-null
+
 
 ## Repo - public
 https://github.com/martin-banks/language-translator
-## Repo - private
-null
 
 ## personal project
 True
