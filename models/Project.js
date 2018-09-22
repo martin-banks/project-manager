@@ -3,51 +3,77 @@ const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 
 const projectSchema = new mongoose.Schema({
+
   created: {
     type: Date,
     default: Date.now
   },
+
   author: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: 'You must be a registered, logged in user to add a new project',
   },
+
   author_name: {
     type: String,
     required: 'You must be a registered, logged in user to add a new project',
   },
 
   slug: String,
+  display: String,
 
   // Name / title of the project
   name: {
     type: String,
     trim: true,
-    required: 'Please enter a project name',
+    unique: true,
+    required: 'Please enter a unique project name',
   },
 
-  display: String,
 
+  // Client info
+  client: {
+    type: String,
+    trim: true,
+    required: 'Please enter who the client is',
+  },
   // Description info about hte project
-  what: {
+  brief: {
     type: String,
     trim: true,
-    required: 'Please enter a desctription of what this project is',
+    required: 'Please enter some details on the project brief'
   },
-  why: {
+  solution: {
     type: String,
     trim: true,
-    required: 'Please enter a desctription of why you did it',
+    required: 'Please enter a desxcription of your solution'
   },
-  how: {
-    type: String,
-    trim: true,
-    required: 'Please enter a desctription of how you did it',
-  },
+  // what: {
+  //   type: String,
+  //   trim: true,
+  //   required: 'Please enter a desctription of what this project is',
+  // },
+  // why: {
+  //   type: String,
+  //   trim: true,
+  //   required: 'Please enter a desctription of why you did it',
+  // },
+  // how: {
+  //   type: String,
+  //   trim: true,
+  //   required: 'Please enter a desctription of how you did it',
+  // },
   evolution: {
     type: String,
     trim: true,
-    required: 'Please enter what else could be done',
+    // required: 'Please enter how you would like to improve or evolve your solution',
+  },
+  // What did you learn
+  learn: {
+    type: String,
+    trim: true,
+    // required: 'Please a brief description of something you learned on this project',
   },
 
   category: {
@@ -67,23 +93,9 @@ const projectSchema = new mongoose.Schema({
   tech: {
     type: [ String ],
     trim: true,
-    required: 'Please add at least one tech',
+    required: 'Please add at least one piece of tech you used',
   },
 
-  // What did you learn
-  learn: {
-    type: String,
-    trim: true,
-    required: 'Don\'t fprget to add what you learned in this...',
-  },
-
-
-  // Client info
-  client: {
-    type: String,
-    trim: true,
-    required: 'Please enter who the client is',
-  },
 
   // Preview links
   publicUrl: {
@@ -113,7 +125,7 @@ const projectSchema = new mongoose.Schema({
   liveDate: {
     type: Date,
     trim: true,
-    required: 'Please enter the date the project went live',
+    // required: 'Please enter the date the project went live',
   },
 
   // Category types
@@ -129,20 +141,11 @@ const projectSchema = new mongoose.Schema({
     type: Boolean,
     required: false,
   },
+  experiment: {
+    type: Boolean,
+    required: false,
+  },
 
-  // tags: [ String ],
-
-  // Images to be handled by server to Cloudinary
-  // display: {
-  //   type: String,
-  //   trim: true,
-  //   required: 'Display image missing',
-  // },
-  // thumbnail: {
-  //   type: String,
-  //   trim: true,
-  //   required: 'Thumbnail image missing',
-  // },
 })
 
 projectSchema.pre('save', function (next) {
@@ -151,6 +154,5 @@ projectSchema.pre('save', function (next) {
   next()
   // TODO check if project name is unique
 })
-
 
 module.exports = mongoose.model('Project', projectSchema)
