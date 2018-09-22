@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 require('../models/Project')
 const Project = mongoose.model('Project')
 
-
 exports.pagination = async (req, res, next) => {
   const { page } = req.params
   const limit = 4
