@@ -17,6 +17,7 @@ const uploadToCloudinary = require('./uploadCloudinary')
 const userController = require('./controllers/user')
 const authController = require('./controllers/auth')
 const pageController = require('./controllers/pagination')
+const projectController = require('./controllers/project')
 
 // Import config for passport strategy
 require('./handlers/passport')
@@ -40,23 +41,9 @@ const multerOptions = {
   },
 }
 
-// function readFile (file) {
-//   return new Promise((resolve, reject) => {
-//     fs.readFile(
-//       path.join(__dirname, file),
-//       (err, data) => {
-//         if (err) {
-//           return reject(err)
-//         }
-//         return resolve(data)
-//       }
-//     )
-//   })
-// }
 
 require('dotenv').config({ path: '.env' })
 const db = process.env.DATABASE
-console.log(process.env.DATABASE)
 
 mongoose.connect(db, {
   useNewUrlParser: true
@@ -99,7 +86,7 @@ app.prepare()
       store: new MongoStore({
         mongooseConnection: mongoose.connection
       })
-    }));
+    }))
 
     // Passport JS is what we use to handle our logins
     server.use(passport.initialize())
@@ -110,7 +97,6 @@ app.prepare()
     // In order for locals to be used the path must be handled in the custom express server
     // AND the page wil require a  get initial props static method - see pages/index.js
     server.use(async (req, res, next) => {
-      res.locals.test = '🤘'
       res.locals.flashes = req.flash(),
       res.locals.cloudName = 'martinbanks',
       res.locals.user = !req.user ? false : {
@@ -142,16 +128,11 @@ app.prepare()
       userController.validateRegister,
       userController.register,
       authController.login,
-      (req, res) => {
-        // res.send('success')
-        res.redirect('/account')
-      }
+      (req, res) => res.redirect('/account')
     )
 
     server.get('/login',
-      (req, res, next) => {
-        app.render(req, res, '/login')
-      }
+      (req, res, next) => app.render(req, res, '/login')
     )
     server.post('/login', authController.login)
     
@@ -165,64 +146,72 @@ app.prepare()
     server.get('/account', 
       authController.checkIfLoggedIn,
       userController.profile,
-      async (req, res, next) => {
-        const userDetails = await User
-          .findOne({ _id: req.user._id})
-          .populate('projects')
-        res.locals.user.email = req.user.email        
-        res.locals.projects = userDetails.projects
-        app.render(req, res, '/account')
-      }
+      // async (req, res, next) => {
+        // const userDetails = await User
+        //   .findOne({ _id: req.user._id})
+        //   .populate('projects')
+
+        // res.locals.user.email = req.user.email
+        // res.locals.projects = userDetails.projects
+        // next()
+      // },
+
+      (req, res, next) => {
+        res.locals.profile.email = req.user.email
+        next()
+      }, 
+      (req, res) => app.render(req, res, '/account')
     )
 
     server.get('/profile',
       authController.checkIfLoggedIn,
       userController.profile,
-      async (req, res, next) => {
-        const profile = await User
-          .findOne({ _id: req.user._id })
-          .populate('projects')
-        res.locals.projects = profile.projects
-        app.render(req, res, '/profile')
-      }
+      // async (req, res, next) => {
+      //   const profile = await User
+      //     .findOne({ _id: req.user._id })
+      //     .populate('projects')
+      //   res.locals.projects = profile.projects
+      //   next()
+      // },
+      (req, res) => app.render(req, res, '/profile')
     )
+
     server.get('/profile/:id',
       userController.profile,
-      (req, res, next) => {
-        app.render(req, res, '/profile')
-      }
+      (req, res, next) => app.render(req, res, '/profile')
     )
 
     server.post('/account', 
       authController.checkIfLoggedIn,
       userController.updateAccount,
-      // (req, res, next) => {
-      //   req.flash('success', 'update completed')
-      //   app.render(req, res, '/account')
-      // }
+      (req, res) => app.redirect('/account')
     )
 
     // Requesting project details
-    server.get('/p/:id', async (req, res) => {
-      const page = '/project'
-      const queryParams = { id: req.params.id }
-      try {
-        const details = await Project.findById(req.params.id)
-        queryParams.details = details
-        app.render(req, res, page, queryParams)
-      } catch (err) {
-        console.error(err)
-        // TODO -> Create route for error / project not found
-        app.render(req, res, '/index')
-      }
-    })
+    server.get('/p/:id',
+      projectController.details,
+      (req, res) => app.render(req, res, '/project', req.queryParams)
+      // async (req, res) => {
+      //   const page = '/project'
+      //   const queryParams = { id: req.params.id }
+      //   try {
+      //     const details = await Project.findById(req.params.id)
+      //     queryParams.details = details
+      //     app.render(req, res, page, queryParams)
+      //   } catch (err) {
+      //     console.error(err)
+      //     // TODO -> Create route for error / project not found
+      //     app.render(req, res, '/index')
+      //   }
+      // },
+    )
 
     // Requesting list of all projects
     server.get('/projects',
       (req, res, next) => {
-        req.flash('warning', 'A page number must be specificed. Redirecting to projects page 1')
-        res.redirect('/projects/1')
-      },
+        req.flash('warning', 'A page number must be specificed. Redirecting to projects page 1'),
+        (req, res) => res.redirect('/projects/1')
+      }
     )
     server.get('/projects/:page',
       pageController.pagination,
@@ -269,23 +258,24 @@ app.prepare()
       // TODO merge functions with promiseAll to minimise bottle-necks
       multer(multerOptions).single('image'),
       uploadToCloudinary,
-      async (req, res) => {
-        // Saving to moingoDB - migrate to controller
-        console.log('posting', req.body)
-        // ? move keyword processing from client to server?
-        req.body.keywords = req.body.keywords
-          .split(',')
-          .map(w => w.trim().toLowerCase())
-        req.body.tech = req.body.tech
-          .split(',')
-          .map(w => w.trim().toLowerCase())
-        req.body.author = req.user._id
-        req.body.author_name = req.user.name
-        console.log('body after update', req.body)
-        const project = new Project(req.body)
-        await project.save()
-        res.redirect('/projects')
-      }
+      projectController.add
+      // async (req, res) => {
+      //   // Saving to moingoDB - migrate to controller
+      //   console.log('posting', req.body)
+      //   // ? move keyword processing from client to server?
+      //   req.body.keywords = req.body.keywords
+      //     .split(',')
+      //     .map(w => w.trim().toLowerCase())
+      //   req.body.tech = req.body.tech
+      //     .split(',')
+      //     .map(w => w.trim().toLowerCase())
+      //   req.body.author = req.user._id
+      //   req.body.author_name = req.user.name
+      //   console.log('body after update', req.body)
+      //   const project = new Project(req.body)
+      //   await project.save()
+      //   res.redirect('/projects')
+      // }
     )
 
     server.post('/screenshot',

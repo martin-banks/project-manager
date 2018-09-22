@@ -66,13 +66,12 @@ exports.register = async (req, res, next) => {
   const { name, email } = req.body
   const user = new User({ name, email })
   // register user
-  // const register = promisify(User.register, user)
   User.register(user, req.body.password, (err, success) => {
     console.log(err || success)
     next()
   })
+  // const register = promisify(User.register, user)
   // await register(user, req.body.password)
-  // next()
 }
 
 exports.updateAccount = async (req, res, next ) => {
@@ -87,10 +86,10 @@ exports.updateAccount = async (req, res, next ) => {
       { new: true, runValidators: true, context: 'query' }
     )
     req.flash('success', 'Account details updated')
-    req.session.save(err => {
-      res.redirect('/account')
-    })
-    // next()
+    // req.session.save(err => {
+    //   res.redirect('/account')
+    // })
+    next()
   } catch (err) {
     console.log(err)
     res.json(err)
@@ -103,7 +102,7 @@ exports.profile = async (req, res, next) => {
     const userDetails = await User
       .findOne({ _id: req.params.id || req.user._id})
       .populate('projects')
-  
+
     res.locals.profile = {
       projects: userDetails.projects,
       name: userDetails.name,
