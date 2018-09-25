@@ -2,8 +2,12 @@ const passport = require('passport')
 const mongoose = require('mongoose')
 const crypto = require('crypto')
 
+const mail = require('../handlers/mailer')
+
 require('../models/User')
 const User = mongoose.model('User')
+require('../models/Project')
+const Project = mongoose.model('Project')
 
 exports.login = passport.authenticate('local', {
   failureRedirect: '/login',
@@ -17,7 +21,7 @@ exports.checkIfLoggedIn = (req, res, next) => {
     next()
     return
   }
-  console.log('unlogged in user tried to access /addproject')
+  console.log('unlogged in user tried to access restricted area')
   req.flash('error', 'You must be logged in to do that')
   req.session.save(err => {
     console.log('session saved ...')
@@ -43,7 +47,16 @@ exports.forgot = async (req, res, next) => {
     foundUser.passwordResetExpires = Date.now() + oneDay
     await foundUser.save()
     const resetUrl = `http://${req.headers.host}/account/reset/${token}`
+    // send email with reset link
+    await mail.send({
+      user: foundUser,
+      subject: 'Password reset',
+      resetUrl,
+      filename: 'password-reset'
+    })
     req.flash('success', `Your reset url:\n${resetUrl}`)
+
+    // redirect to login page
     res.redirect('back')
     return
   } catch (err) {
@@ -51,8 +64,6 @@ exports.forgot = async (req, res, next) => {
     res.redirect('/')
   }
 
-  // send email with reset link
-  // redirect to login page
 }
 
 exports.validateReset = async (req, res, next) => {
@@ -86,7 +97,6 @@ exports.validateReset = async (req, res, next) => {
   }
 }
 
-
 exports.confirmPassword = async (req, res, next) => {
   if (req.body.password === req.body['confirm-password']) {
     console.log('passwords match')
@@ -110,8 +120,6 @@ exports.updatePassword = async (req, res, next) => {
       findUser.setPassword(req.body.password, async (err, doc) => {
         if (err) {
           throw Error
-          // req.flash('error', `⚠️ Something went wrong️️ updating the password ⚠️\n ${err.toString()}`)
-          // res.redirect('back')
         }
         if (doc) {
           findUser.passwordResetToken = undefined
@@ -129,6 +137,37 @@ exports.updatePassword = async (req, res, next) => {
   } catch (err) {
     req.flash('error', `⚠️ Something went wrong️️ updating the password ⚠️\n ${err.toString()}`)
     res.redirect('back')
+  }
+}
+
+exports.checkIfAuthor = async (req, res, next) => {
+  const { _id } = req.user // user id
+  try { 
+    const projectDetails = await Project.findOne({ _id: req.params.id })
+    console.log({ projectDetails, _id })
+    // if (_id === projectDetails.author) {
+    if (projectDetails.author.equals(_id)) {
+      console.log('you are the author')
+      req.flash('success', 'You are allowed to edit this project')
+      // const project = await Project.findOne({ _id: id })
+      res.locals.projectDetails = projectDetails
+      // res.redirect('/addproject')
+      next()
+      return
+    } else {
+      console.log('\n\nunathorized user tried to edit a project\n\n')
+      req.flash('error', 'Only the author can edit a project')
+      res.redirect('back')
+    }
+  } catch (err) {
+    console.error([
+      '======================',
+      'Something has gone wrong',
+      err,
+      '======================',
+    ].join('\n'))
+    req.flash('error', `Something went wrong fetching project details:\n${err}`)
+    res.redirect('/')
   }
 }
 
