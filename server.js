@@ -10,7 +10,6 @@ const path = require('path')
 const multer = require('multer')
 const passport = require('passport')
 const flash = require('connect-flash')
-
 const cookieParser = require('cookie-parser')
 
 const uploadToCloudinary = require('./uploadCloudinary')
@@ -41,10 +40,8 @@ const multerOptions = {
   },
 }
 
-
 require('dotenv').config({ path: '.env' })
 const db = process.env.DATABASE
-
 mongoose.connect(db, {
   useNewUrlParser: true
 })
@@ -61,32 +58,29 @@ const Project = mongoose.model('Project')
 const User = mongoose.model('User')
 app.prepare()
   .then(() => {
-    // Set up database
-    // 1: connect
-
     // Create custom Express server for additional server-side functionality
     const server = express()
     // Takes the raw requests and turns them into usable properties on req.body
     server.use(flash())
     server.use(bodyParser.json({ limit: '10mb', extended: true }))
     server.use(bodyParser.urlencoded({ limit: '10mb', extended: true }))
-
     server.use(expressValidator())
-
     // populates req.cookies with any cookies that came along with the request
     server.use(cookieParser());
 
     // Sessions allow us to store data on visitors from request to request
     // This keeps users logged in and allows us to send flash messages
-    server.use(session({
-      secret: process.env.SECRET,
-      key: process.env.KEY,
-      resave: false,
-      saveUninitialized: false,
-      store: new MongoStore({
-        mongooseConnection: mongoose.connection
+    server.use(
+      session({
+        secret: process.env.SECRET,
+        key: process.env.KEY,
+        resave: false,
+        saveUninitialized: false,
+        store: new MongoStore({
+          mongooseConnection: mongoose.connection
+        })
       })
-    }))
+    )
 
     // Passport JS is what we use to handle our logins
     server.use(passport.initialize())
@@ -107,12 +101,10 @@ app.prepare()
     })
     
     // TODO -> Set up a router middleware
-    // Home page request
-    server.get('/', (req, res) => {
-      app.render(req, res, '/index')
-    })
 
-    // Registering new users
+    // home page handled by next
+
+    // * Registering new users
     server.get('/register/:id',
       userController.checkRegisterWhitelist,
       (req, res, next) => {
@@ -131,147 +123,112 @@ app.prepare()
       (req, res) => res.redirect('/account')
     )
 
-    // server.get('/login',
-    //   (req, res, next) => app.render(req, res, '/login')
-    // )
-    server.post('/login', authController.login)
+    // * Handle login / logout
+    // server.get('/login') is handled by next default routing
+    server.post('/login',
+      authController.login
+    )
+    server.get('/logout', 
+      (req, res) => {
+        req.logout()
+        req.flash('success', 'You have been logged out')
+        res.redirect('/')
+      }
+    )
 
-    // Reset forgotten password
+    // * Reset forgotten password
+    // Posting email for reset request
     server.post('/account/forgot',
       authController.forgot
     )
-
-    server.get('/reset', (req, res) => {
-      req.flash('error', 'A valid reset token is required')
-      res.redirect('/login')
-    })
-
+    // Counter default next routing
+    server.get('/reset',
+      (req, res) => {
+        req.flash('error', 'A valid reset token is required')
+        res.redirect('/login')
+      }
+    )
+    // Visiting valid reset link from email
     server.get('/account/reset/:token',
       authController.validateReset,
       (req, res) => app.render(req, res, '/reset')
     )
-
+    // Submitting new password
     server.post('/account/reset/:token',
       authController.confirmPassword,
       authController.updatePassword
     )
-    
-    server.get('/logout', (req, res) => {
-      req.logout()
-      req.flash('success', 'You have been logged out')
-      res.redirect('/')
-    })
 
+    // * User account and profile
     // Account details of the currently logged in user
     server.get('/account', 
       authController.checkIfLoggedIn,
       userController.profile,
-      // async (req, res, next) => {
-        // const userDetails = await User
-        //   .findOne({ _id: req.user._id})
-        //   .populate('projects')
-
-        // res.locals.user.email = req.user.email
-        // res.locals.projects = userDetails.projects
-        // next()
-      // },
-
       (req, res, next) => {
         res.locals.profile.email = req.user.email
         next()
       }, 
       (req, res) => app.render(req, res, '/account')
     )
-
-    server.get('/profile',
-      authController.checkIfLoggedIn,
-      userController.profile,
-      // async (req, res, next) => {
-      //   const profile = await User
-      //     .findOne({ _id: req.user._id })
-      //     .populate('projects')
-      //   res.locals.projects = profile.projects
-      //   next()
-      // },
-      (req, res) => app.render(req, res, '/profile')
-    )
-
-    server.get('/profile/:id',
-      userController.profile,
-      (req, res, next) => app.render(req, res, '/profile')
-    )
-
+    // Updating user account
     server.post('/account', 
       authController.checkIfLoggedIn,
       userController.updateAccount,
       (req, res) => app.redirect('/account')
     )
 
-    // Requesting project details
-    server.get('/p/:id',
-      projectController.details,
-      (req, res) => app.render(req, res, '/project', req.queryParams)
-      // async (req, res) => {
-      //   const page = '/project'
-      //   const queryParams = { id: req.params.id }
-      //   try {
-      //     const details = await Project.findById(req.params.id)
-      //     queryParams.details = details
-      //     app.render(req, res, page, queryParams)
-      //   } catch (err) {
-      //     console.error(err)
-      //     // TODO -> Create route for error / project not found
-      //     app.render(req, res, '/index')
-      //   }
-      // },
+    // * Handle user profile pages
+    // Get logged in users profile
+    server.get('/profile',
+      authController.checkIfLoggedIn,
+      userController.profile,
+      (req, res) => app.render(req, res, '/profile')
+    )
+    // Get profile by user id
+    // TODO -> add new route for username
+    server.get('/profile/:id',
+      userController.profile,
+      (req, res, next) => app.render(req, res, '/profile')
     )
 
-    // Requesting list of all projects
+    // * Get project list
+    // Requesting list of all projects - redirects to paginated view
     server.get('/projects',
       (req, res, next) => {
         req.flash('warning', 'A page number must be specificed. Redirecting to projects page 1'),
         (req, res) => res.redirect('/projects/1')
       }
     )
+    // Paginated projects
     server.get('/projects/:page',
       pageController.pagination,
       (req, res, next) => {
         app.render(req, res, '/projects')
       }
     )
+    
+    // * Getting project details
+    // Requesting project details
+    server.get('/p/:id',
+      projectController.details,
+      (req, res) => app.render(req, res, '/project', req.queryParams)
+    )
+    // Edit project
+    server.get('/p/:id/edit',
+      authController.checkIfLoggedIn,
+      authController.checkIfAuthor,
+      (req, res, next) => {
+        app.render(req, res, '/editproject')
+      }
+    )
 
-    //   async (req, res) => {
-    //     const { page } = req.params
-    //     const limit = 4
-    //     let skip = (page * limit) - limit
-    //     try {
-    //       const projectsPromise = Project
-    //         .find()
-    //         .skip(skip)
-    //         .limit(limit)
-    //         .sort({ created: -1 })
-    //       const totalProjects = Project.count()
-  
-    //       const [ projects, count ] = await Promise.all([ projectsPromise, totalProjects ])
-    //       const pages = Math.ceil(count / limit)
-
-    //       res.locals.pagination = { pages, page, limit }
-    //       res.locals.projects = projects
-    //       app.render(req, res, '/projects')
-    //     } catch (err) {
-    //       // TODO -> redirect if no projects are found
-    //       console.log(err)
-    //     }
-    // }
-
-
+    // * Add new project
     server.get('/addproject', 
       authController.checkIfLoggedIn,
       (req, res, next) => {
         app.render(req, res, '/addproject')
       }
     )
-    
     // Submitting new project data
     server.post('/addproject', 
       authController.checkIfLoggedIn,
@@ -279,59 +236,72 @@ app.prepare()
       multer(multerOptions).single('image'),
       uploadToCloudinary,
       projectController.add
-      // async (req, res) => {
-      //   // Saving to moingoDB - migrate to controller
-      //   console.log('posting', req.body)
-      //   // ? move keyword processing from client to server?
-      //   req.body.keywords = req.body.keywords
-      //     .split(',')
-      //     .map(w => w.trim().toLowerCase())
-      //   req.body.tech = req.body.tech
-      //     .split(',')
-      //     .map(w => w.trim().toLowerCase())
-      //   req.body.author = req.user._id
-      //   req.body.author_name = req.user.name
-      //   console.log('body after update', req.body)
-      //   const project = new Project(req.body)
-      //   await project.save()
-      //   res.redirect('/projects')
-      // }
     )
 
+    // ! ☠️ TEST LINK - DEPRICATED ☠️
     server.post('/screenshot',
       (req, res, next) => {
         console.log('starting with file')
         next()
       },
       multer(multerOptions).single('image'),
-      (req, res, next) => {
-        console.log('post recieved')
-        uploadToCloudinary(req, res, next)
-      },
-      (req, res, next) => {
-        // console.log('cloudinary results:', Object.keys(res))
-        // console.log('cloud', res['cloudinary'])
-        res.redirect('/')
-      }
+      uploadToCloudinary,
+      (req, res, next) => res.redirect('/')
     )
 
-
-    // Default next router handling
+    // * Default next router handling
+    // ??? remove in favour of handling all routes manually ???
     // For any routes that are not specifically handled above
     // use the default Next.js router
     server.get('*', (req, res) => {
       handle(req, res)
     })
 
-    // Start server
+    // * Start custom server
     server.listen(port, err => {
       if (err) throw err
-      console.log(`> Ready on http://localhost:${port}`)
+      console.log([
+        `${FgGreen}`,
+        `=========================================`,
+        '',
+        `🏁   Ready on http://localhost:${port}`,
+        '',
+        `=========================================`,
+        `${Reset}`,
+      ].join('\n'))
     })
-  })
+  // })
   .catch(ex => {
     console.error(ex.stack)
     process.exit(1)
   })
+})
 
 
+
+// terminal colors
+const Reset = "\x1b[0m"
+const Bright = "\x1b[1m"
+const Dim = "\x1b[2m"
+const Underscore = "\x1b[4m"
+const Blink = "\x1b[5m"
+const Reverse = "\x1b[7m"
+const Hidden = "\x1b[8m"
+
+const FgBlack = "\x1b[30m"
+const FgRed = "\x1b[31m"
+const FgGreen = "\x1b[32m"
+const FgYellow = "\x1b[33m"
+const FgBlue = "\x1b[34m"
+const FgMagenta = "\x1b[35m"
+const FgCyan = "\x1b[36m"
+const FgWhite = "\x1b[37m"
+
+const BgBlack = "\x1b[40m"
+const BgRed = "\x1b[41m"
+const BgGreen = "\x1b[42m"
+const BgYellow = "\x1b[43m"
+const BgBlue = "\x1b[44m"
+const BgMagenta = "\x1b[45m"
+const BgCyan = "\x1b[46m"
+const BgWhite = "\x1b[47m"
