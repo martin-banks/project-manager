@@ -173,6 +173,10 @@ class addproject extends React.Component {
           <input id="submit" type="submit" value="Save project" />
 
         </form>
+
+        <pre>
+          { JSON.stringify(this.props.router, 'utf-8', 2) }
+        </pre>
       </Layout>
         <style jsx>{`
           #keywords {
