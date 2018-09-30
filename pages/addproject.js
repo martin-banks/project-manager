@@ -20,12 +20,15 @@ class addproject extends React.Component {
       keywords: [],
       display: null,
       thumbnail: null,
+      saving: false,
     }
     this.description = {
-     what: React.createRef(),
-     why: React.createRef(),
-     how: React.createRef(),
-     evolution: React.createRef(),
+      //  what: React.createRef(),
+      //  why: React.createRef(),
+      //  how: React.createRef(),
+      brief: React.createRef(),
+      solution: React.createRef(),
+      evolution: React.createRef(),
     }
   }
 
@@ -49,6 +52,10 @@ class addproject extends React.Component {
     this.setState({ s })
   }
 
+  handleSubmit (e) {
+    this.setState({ saving: true })
+  }
+
   render () {
     console.log('props before render', this.props.locals)
     return <div>
@@ -61,7 +68,12 @@ class addproject extends React.Component {
         pathname={ this.props.url.pathname }
         locals={ this.props.locals }
       >
-        <form action="addproject" method="post" encType="multipart/form-data">
+        <form
+          action="addproject"
+          method="post"
+          encType="multipart/form-data"
+          onSubmit={ this.handleSubmit.bind(this) }
+        >
           <UploadImage />
           <label htmlFor="name">Add a project name</label>
           <input id="name" name="name" type="text" placehodler="projectname" required />
@@ -87,7 +99,27 @@ class addproject extends React.Component {
           </div>
 
           <hr />
-          <label htmlFor="what">What is this project about?</label>
+          
+          <label htmlFor="brief">Project brief / problem</label>
+          <textarea
+            id="brief"
+            name="brief"
+            rows="5"
+            ref={ this.description.brief }
+            onChange={ this.getKeyWords.bind(this) }
+            required
+          />
+
+          <label htmlFor="solution">Solution</label>
+          <textarea
+            id="solution"
+            name="solution"
+            rows="5"
+            ref={ this.description.solution }
+            onChange={ this.getKeyWords.bind(this) }
+            required
+          />
+          {/* <label htmlFor="what">What is this project about?</label>
           <textarea
             id="what"
             name="what"
@@ -115,9 +147,8 @@ class addproject extends React.Component {
             ref={ this.description.why }
             onChange={ this.getKeyWords.bind(this) }
             required
-          />
+          /> */}
 
-          <hr />
           <label htmlFor="evolution">
             How could it be improved or developed further?</label>
           <textarea
@@ -129,8 +160,10 @@ class addproject extends React.Component {
             required
           />
 
-          <label htmlFor="keywords">Keywords <i>(These are automatically generated from the descriptions above)</i></label>
-          <input type="text" name="keywords" value={ this.state.keywords } />
+          <label htmlFor="keywords">
+            Keywords <i>(These are automatically generated from the descriptions above)</i>
+          </label>
+          <input type="hidden" name="keywords" value={ this.state.keywords } />
           <p
             name="keywords"
             id="keywords"
@@ -141,7 +174,7 @@ class addproject extends React.Component {
           <textarea name="tech" id="tech" rows="5"></textarea>
 
           <hr />
-          <label htmlFor="client">Who was it for?</label>
+          <label htmlFor="client">Client</label>
           <input type="text" name="client" id="client" required />
           
           <hr />
@@ -177,6 +210,14 @@ class addproject extends React.Component {
         <pre>
           { JSON.stringify(this.props.router, 'utf-8', 2) }
         </pre>
+
+        {
+          this.state.saving && 
+          <div className="overlay">
+            <p>Saving project...</p>
+          </div>
+        }
+        
       </Layout>
         <style jsx>{`
           #keywords {
@@ -209,6 +250,21 @@ class addproject extends React.Component {
           h1 {
             margin: 0;
             color: white;
+          }
+          .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .overlay p {
+            
           }
         `}</style>
     </div>
