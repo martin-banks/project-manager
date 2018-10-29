@@ -1,6 +1,7 @@
 
 ### Additional custom ignores ###
 *.env
+user-whitelist.txt
 
 
 
