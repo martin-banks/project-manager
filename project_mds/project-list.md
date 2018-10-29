@@ -15,23 +15,25 @@
 [ ] NRL Buzz top picks
 [ ] Supercoach top players
 [x] Showbags
-[ ] Book club
+[ ] Book club + v2
 [ ] SA AFL top players
 [ ] Richlist top 5s
 [x] Dally M perfect games
 [ ] Dally M perfect team
+[ ] Everest Horses
 
 
 ### Misc
-[ ] Trump v Putin
+[ ] Trump v Putin - head to head
 [x] ICE effects hotspot
 [ ] Pink links
-[ ] JT links       
+[ ] JT links   
+[ ] Future SEQ link block    
 [ ] Calorie calculator
 [ ] How much super should you have?
 [x] Kingpin globe
     https://www.adelaidenow.com.au/news/national/australias-untouchable-drug-lord/news-story/db07ca11d81c1398029f378eafe9aaf7
-[s] Queen v world leaders
+[x] Queen v world leaders
 [ ] Growing melbourne
 [ ] Junk health cover
 [ ] Local crime stats
@@ -49,14 +51,13 @@
 ## Personal
 [x] Solar system
 [x] Language translator
-[ ] Snake
+[x] Snake
 [ ] Jumping game
 [ ] Marvel finder
 [ ] Hangman bot
 
 
 ## Coming up
-[ ] Book club v2
 [ ] What politicians own
 [ ] Moon
 
