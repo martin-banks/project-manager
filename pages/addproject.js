@@ -1,6 +1,7 @@
 import React from 'react'
 import Layout from '../layouts/main'
 import { withRouter } from 'next/router'
+import Markdown from 'react-markdown'
 
 import UploadImage from '../components/uploadImage'
 const keywords = require('../functions/keywords')
@@ -21,6 +22,7 @@ class addproject extends React.Component {
       display: null,
       thumbnail: null,
       saving: false,
+      description_md: '',
     }
     this.description = {
       //  what: React.createRef(),
@@ -29,6 +31,7 @@ class addproject extends React.Component {
       brief: React.createRef(),
       solution: React.createRef(),
       evolution: React.createRef(),
+      md: React.createRef(),
     }
   }
 
@@ -54,6 +57,12 @@ class addproject extends React.Component {
 
   handleSubmit (e) {
     this.setState({ saving: true })
+  }
+
+  storeDescMd () {
+    this.setState({
+      description_md: this.description.md.current.value
+    })
   }
 
   render () {
@@ -100,6 +109,24 @@ class addproject extends React.Component {
 
           <hr />
           
+          <label htmlFor="description_md">Markdown description</label>
+          {/* hightlight will not work with text area */}
+          <textarea
+            name="description_md"
+            id="description_md"
+            cols="30"
+            rows="5"
+            ref={ this.description.md }
+            onChange={ this.storeDescMd.bind(this) }
+          >
+          </textarea>
+
+
+          <Markdown>
+            { this.state.description_md }
+          </Markdown>
+
+          <pre>Remove in favor of single markdown field</pre>
           <label htmlFor="brief">Project brief / problem</label>
           <textarea
             id="brief"
@@ -206,6 +233,8 @@ class addproject extends React.Component {
           <input id="submit" type="submit" value="Save project" />
 
         </form>
+        
+        
 
         <pre>
           { JSON.stringify(this.props.router, 'utf-8', 2) }
