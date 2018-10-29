@@ -100,7 +100,7 @@ img {
 input, label {
   display: block;
 }
-input {
+input, textarea {
   font-size: 16px;
 }
 input[type=text],
