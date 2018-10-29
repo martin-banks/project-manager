@@ -238,16 +238,6 @@ app.prepare()
       projectController.add
     )
 
-    // ! ☠️ TEST LINK - DEPRICATED ☠️
-    server.post('/screenshot',
-      (req, res, next) => {
-        console.log('starting with file')
-        next()
-      },
-      multer(multerOptions).single('image'),
-      uploadToCloudinary,
-      (req, res, next) => res.redirect('/')
-    )
 
     // * Default next router handling
     // ??? remove in favour of handling all routes manually ???
