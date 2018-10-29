@@ -199,21 +199,23 @@ app.prepare()
         (req, res) => res.redirect('/projects/1')
       }
     )
-    // Paginated projects
+
+    // * Paginated projects
     server.get('/projects/:page',
       pageController.pagination,
       (req, res, next) => {
         app.render(req, res, '/projects')
       }
     )
-    
+
     // * Getting project details
     // Requesting project details
     server.get('/p/:id',
       projectController.details,
       (req, res) => app.render(req, res, '/project', req.queryParams)
     )
-    // Edit project
+
+    // *Edit project
     server.get('/p/:id/edit',
       authController.checkIfLoggedIn,
       authController.checkIfAuthor,
@@ -238,7 +240,6 @@ app.prepare()
       projectController.add
     )
 
-
     // * Default next router handling
     // ??? remove in favour of handling all routes manually ???
     // For any routes that are not specifically handled above
@@ -260,7 +261,6 @@ app.prepare()
         `${Reset}`,
       ].join('\n'))
     })
-  // })
   .catch(ex => {
     console.error(ex.stack)
     process.exit(1)
