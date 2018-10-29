@@ -23,6 +23,7 @@ class addproject extends React.Component {
       thumbnail: null,
       saving: false,
       description_md: '',
+      showPreview: false,
     }
     this.description = {
       //  what: React.createRef(),
@@ -65,6 +66,12 @@ class addproject extends React.Component {
     })
   }
 
+  togglePreview () {
+    const showPreview = !this.state.showPreview
+    console.log({ showPreview })
+    this.setState({ showPreview })
+  }
+
   render () {
     console.log('props before render', this.props.locals)
     return <div>
@@ -103,7 +110,12 @@ class addproject extends React.Component {
 
             <input className="toggle" id="type_challenge" type="checkbox" name="category" value="challenge" />
             <label className="toggle" htmlFor="type_challenge">
-              Challenge / Sandbox
+              Challenge
+            </label>
+
+            <input className="toggle" id="type_sandbox" type="checkbox" name="category" value="sandbox" />
+            <label className="toggle" htmlFor="type_sandbox">
+              Sandbox
             </label>
           </div>
 
@@ -121,10 +133,13 @@ class addproject extends React.Component {
           >
           </textarea>
 
-
-          <Markdown>
-            { this.state.description_md }
-          </Markdown>
+          <button className="toggle" onClick={ this.togglePreview.bind(this) } type="button">
+            { this.state.showPreview ? 'Hide' : 'Show'} preview
+          </button>
+          { 
+            this.state.showPreview
+              && <Markdown>{ this.state.description_md }</Markdown>
+          }
 
           <pre>Remove in favor of single markdown field</pre>
           <label htmlFor="brief">Project brief / problem</label>
