@@ -35,10 +35,10 @@ exports.add = async (req, res, next) => {
     req.body.author_name = req.user.name
     console.log('body after update', req.body)
 
+    res.redirect('/projects')
     // Create new DB entry and save
     const newProject = new Project(req.body)
-    await newProject.save()
-    res.redirect('/projects')
+    newProject.save()
     // next()
   } catch (err) {
     res.json(err)
