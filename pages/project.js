@@ -32,6 +32,7 @@ class Project extends React.Component {
   render () {
     console.log('project props', this.props.router.query)
     const {
+      description_md,
       display,
       name,
       tech,
@@ -89,6 +90,7 @@ class Project extends React.Component {
 
         <div className="wrapper__text">
           { name && <h1>{ name }</h1>}
+          <Markdown>{ description_md }</Markdown>
 
           { author && 
             <a href={ `/profile/${author}` }

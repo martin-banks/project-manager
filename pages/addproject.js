@@ -29,9 +29,9 @@ class addproject extends React.Component {
       //  what: React.createRef(),
       //  why: React.createRef(),
       //  how: React.createRef(),
-      brief: React.createRef(),
-      solution: React.createRef(),
-      evolution: React.createRef(),
+      // brief: React.createRef(),
+      // solution: React.createRef(),
+      // evolution: React.createRef(),
       md: React.createRef(),
     }
   }
@@ -43,7 +43,7 @@ class addproject extends React.Component {
     })
   }
 
-  getKeyWords (e) {
+  getKeyWords () {
     // Each textarea has it's own reference
     // For each keypress we pass the content from all textareas to extraction
     // This way we always have all keywords from all description fields
@@ -64,16 +64,15 @@ class addproject extends React.Component {
     this.setState({
       description_md: this.description.md.current.value
     })
+    this.getKeyWords()
   }
 
   togglePreview () {
     const showPreview = !this.state.showPreview
-    console.log({ showPreview })
     this.setState({ showPreview })
   }
 
   render () {
-    console.log('props before render', this.props.locals)
     return <div>
       <div className="wrapper__header">
         <div className="content">
@@ -92,7 +91,7 @@ class addproject extends React.Component {
         >
           <UploadImage />
           <label htmlFor="name">Add a project name</label>
-          <input id="name" name="name" type="text" placehodler="projectname" required />
+          <input id="name" name="name" type="text" placehodler="projectname" required/>
 
           <hr />
           <h3>About the project</h3>
@@ -130,6 +129,7 @@ class addproject extends React.Component {
             rows="5"
             ref={ this.description.md }
             onChange={ this.storeDescMd.bind(this) }
+            required
           >
           </textarea>
 
@@ -141,7 +141,7 @@ class addproject extends React.Component {
               && <Markdown>{ this.state.description_md }</Markdown>
           }
 
-          <pre>Remove in favor of single markdown field</pre>
+          {/* <pre>Remove in favor of single markdown field</pre>
           <label htmlFor="brief">Project brief / problem</label>
           <textarea
             id="brief"
@@ -150,9 +150,9 @@ class addproject extends React.Component {
             ref={ this.description.brief }
             onChange={ this.getKeyWords.bind(this) }
             required
-          />
+          /> */}
 
-          <label htmlFor="solution">Solution</label>
+          {/* <label htmlFor="solution">Solution</label>
           <textarea
             id="solution"
             name="solution"
@@ -160,7 +160,7 @@ class addproject extends React.Component {
             ref={ this.description.solution }
             onChange={ this.getKeyWords.bind(this) }
             required
-          />
+          /> */}
           {/* <label htmlFor="what">What is this project about?</label>
           <textarea
             id="what"
@@ -191,7 +191,7 @@ class addproject extends React.Component {
             required
           /> */}
 
-          <label htmlFor="evolution">
+          {/* <label htmlFor="evolution">
             How could it be improved or developed further?</label>
           <textarea
             id="evolution"
@@ -200,7 +200,7 @@ class addproject extends React.Component {
             ref={ this.description.evolution }
             onChange={ this.getKeyWords.bind(this) }
             required
-          />
+          /> */}
 
           <label htmlFor="keywords">
             Keywords <i>(These are automatically generated from the descriptions above)</i>

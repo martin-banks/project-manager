@@ -28,52 +28,14 @@ const projectSchema = new mongoose.Schema({
     type: String,
     trim: true,
     unique: true,
-    required: 'Please enter a unique project name',
+    required: 'A project name is required',
   },
 
-
-  // Client info
-  client: {
+  description_md: {
     type: String,
     trim: true,
-    required: 'Please enter who the client is',
-  },
-  // Description info about hte project
-  brief: {
-    type: String,
-    trim: true,
-    required: 'Please enter some details on the project brief'
-  },
-  solution: {
-    type: String,
-    trim: true,
-    required: 'Please enter a desxcription of your solution'
-  },
-  // what: {
-  //   type: String,
-  //   trim: true,
-  //   required: 'Please enter a desctription of what this project is',
-  // },
-  // why: {
-  //   type: String,
-  //   trim: true,
-  //   required: 'Please enter a desctription of why you did it',
-  // },
-  // how: {
-  //   type: String,
-  //   trim: true,
-  //   required: 'Please enter a desctription of how you did it',
-  // },
-  evolution: {
-    type: String,
-    trim: true,
-    // required: 'Please enter how you would like to improve or evolve your solution',
-  },
-  // What did you learn
-  learn: {
-    type: String,
-    trim: true,
-    // required: 'Please a brief description of something you learned on this project',
+    required: false,
+    // required: 'A description of the project is required',
   },
 
   category: {
@@ -103,6 +65,7 @@ const projectSchema = new mongoose.Schema({
     trim: true,
     required: false,
   },
+
   privateUrl: {
     type: String,
     trim: true,
@@ -115,6 +78,7 @@ const projectSchema = new mongoose.Schema({
     trim: true,
     required: false,
   },
+
   privateRepo: { 
     type: String,
     trim: true,
@@ -128,23 +92,70 @@ const projectSchema = new mongoose.Schema({
     // required: 'Please enter the date the project went live',
   },
 
+  // Client info
+  // client: {
+  //   type: String,
+  //   trim: true,
+  //   required: 'Please enter who the client is',
+  // },
+
+  // Description info about hte project
+  // brief: {
+  //   type: String,
+  //   trim: true,
+  //   required: 'Please enter some details on the project brief'
+  // },
+
+  // solution: {
+  //   type: String,
+  //   trim: true,
+  //   required: 'Please enter a desxcription of your solution'
+  // },
+  // what: {
+  //   type: String,
+  //   trim: true,
+  //   required: 'Please enter a desctription of what this project is',
+  // },
+  // why: {
+  //   type: String,
+  //   trim: true,
+  //   required: 'Please enter a desctription of why you did it',
+  // },
+  // how: {
+  //   type: String,
+  //   trim: true,
+  //   required: 'Please enter a desctription of how you did it',
+  // },
+  // evolution: {
+  //   type: String,
+  //   trim: true,
+  //   // required: 'Please enter how you would like to improve or evolve your solution',
+  // },
+  // What did you learn
+  // learn: {
+  //   type: String,
+  //   trim: true,
+  //   // required: 'Please a brief description of something you learned on this project',
+  // },
+
+
   // Category types
-  personalProject: {
-    type: Boolean,
-    required: false,
-  },
-  newsProject: {
-    type: Boolean,
-    required: false,
-  },
-  challenge: {
-    type: Boolean,
-    required: false,
-  },
-  experiment: {
-    type: Boolean,
-    required: false,
-  },
+  // personalProject: {
+  //   type: Boolean,
+  //   required: false,
+  // },
+  // newsProject: {
+  //   type: Boolean,
+  //   required: false,
+  // },
+  // challenge: {
+  //   type: Boolean,
+  //   required: false,
+  // },
+  // experiment: {
+  //   type: Boolean,
+  //   required: false,
+  // },
 
 })
 
