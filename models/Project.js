@@ -58,14 +58,12 @@ const projectSchema = new mongoose.Schema({
     required: 'Please add at least one piece of tech you used',
   },
 
-
   // Preview links
   publicUrl: {
     type: String,
     trim: true,
     required: false,
   },
-
   privateUrl: {
     type: String,
     trim: true,
@@ -78,7 +76,6 @@ const projectSchema = new mongoose.Schema({
     trim: true,
     required: false,
   },
-
   privateRepo: { 
     type: String,
     trim: true,

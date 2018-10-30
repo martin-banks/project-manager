@@ -102,7 +102,12 @@ app.prepare()
     
     // TODO -> Set up a router middleware
 
-    // home page handled by next
+
+    // Redirect home page views to project list
+    // Temp soluition until homepage design/purpose is decided
+    server.get('/', (req, res, next) => {
+      res.redirect('/projects')
+    })
 
     // * Registering new users
     server.get('/register/:id',
