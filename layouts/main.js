@@ -46,9 +46,12 @@ class MainLayout extends React.Component {
         { this.props.children }
       </div>
 
-      <pre>
+      {/* <pre>
         locals: { JSON.stringify(this.props.locals, 'utf-8', 2) }
-      </pre>
+      </pre> */}
+
+      <footer></footer>
+
       { styles }
     </div>
   }

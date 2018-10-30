@@ -10,7 +10,7 @@ export default class UploadImage extends React.Component {
       message: 'No file to preview',
       thumbnail: null,
       warning: null,
-      maxSize: 5,
+      maxSize: 1,
     }
   }
 
@@ -56,6 +56,7 @@ export default class UploadImage extends React.Component {
           type="file"
           accept="image/jpeg, image/png"
           onChange={ this.handleImageUpload.bind(this) }
+          required
         />
 
         { this.state.warning ? <p className="warning">{ this.state.warning }</p> : '' }

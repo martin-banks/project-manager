@@ -75,11 +75,18 @@ li.bullet {
 
 
 a {
+  transition: all 250ms;
   text-decoration: none;
+  border-bottom: solid 2px rgba(200, 170, 0, 0.6);
+  background: rgba(200, 170, 0, 0);
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 a:hover {
+  color: black;
+  background: rgba(200, 170, 0, 1);
 }
-a button {
+button {
   background: rgba(0,0,0, 0.2);
   border: solid 1px rgba(255,255,255, 0.2);
   border-radius: 4px;
@@ -91,11 +98,9 @@ a button {
   cursor: pointer;
 }
 
-
 img {
   max-width: 100%;
 }
-
 
 input, label {
   display: block;
@@ -138,7 +143,7 @@ input[type=submit]:focus {
 }
 label {
   margin-bottom: 8px;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 
@@ -157,6 +162,12 @@ pre {
   border: solid 1px rgba(255,255,255, 0.2);
   border-radius: 4px;
   font-family: monospace;
+}
+
+footer {
+  padding: 50px 0;
+  margin-top: 100px;
+  border-top: solid 1px rgba(255,255,255, 0.2)
 }
 
 img.cloudinaryImage {

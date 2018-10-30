@@ -51,7 +51,7 @@ class Project extends React.Component {
       client,
     } = this.props.router.query.details
 
-    
+
     let publishedDate = null
     if (liveDate) {
       const d = new Date(liveDate)
@@ -70,88 +70,88 @@ class Project extends React.Component {
        // TODO Store content in state before component mount then itterate to render
       */}
 
-      <div>
-        <div className="wrapper__image">
-          {/* <Image
-            className="cloudinaryImage__thumbnail"
-            cloudName="martinbanks"
-            publicId={ display }
-            width="50"
-            crop="scale"
-          /> */}
-          <Image
-            className="cloudinaryImage"
-            cloudName="martinbanks"
-            publicId={ display }
-            width={ this.state.displayWidth }
-            crop="scale"
-          />
-        </div>
+      <div className="wrapper__image">
+        {/* <Image
+          className="cloudinaryImage__thumbnail"
+          cloudName="martinbanks"
+          publicId={ display }
+          width="50"
+          crop="scale"
+        /> */}
+        <Image
+          className="cloudinaryImage"
+          cloudName="martinbanks"
+          publicId={ display }
+          width={ this.state.displayWidth }
+          crop="scale"
+        />
+      </div>
 
-        <div className="wrapper__text">
-          { name && <h1>{ name }</h1>}
-          <Markdown>{ description_md }</Markdown>
+      <div className="wrapper__text">
+        { name && <h1>{ name }</h1> }
 
-          { author && 
-            <a href={ `/profile/${author}` }
-            >
-              <button>
-                More projects by { author_name || 'this author' }
-              </button>
-            </a>
-          }
+        { 
+          author && <a href={ `/profile/${author}` }>
+            <button>
+              More projects by { author_name || 'this author' }
+            </button>
+          </a>
+        }
 
-          {
-            client && <>
-              <h3>Client</h3>
-              <Markdown>{ client }</Markdown>
-            </>
-          }
+        {
+          client && <>
+            <h3>Client</h3>
+            <Markdown>{ client }</Markdown>
+          </>
+        }
 
-          {
-            what && <>
-              <h3>What</h3>
-              <Markdown>{ what }</Markdown>
-            </>
-          }
-          
-          {
-            why && <>
-              <h3>Why</h3>
-              <Markdown>{ why }</Markdown>
-            </>
-          }
+        <Markdown>{ description_md }</Markdown>
 
-          {
-            how && <>
-              <h3>How</h3>
-              <Markdown>{ how }</Markdown>
-            </>
-          }
+        {/* {
+          what && <>
+            <h3>What</h3>
+            <Markdown>{ what }</Markdown>
+          </>
+        }
+        
+        {
+          why && <>
+            <h3>Why</h3>
+            <Markdown>{ why }</Markdown>
+          </>
+        }
 
-          {
-            learn && <>
-              <h3>Learn</h3>
-              <Markdown>{ learn }</Markdown>
-            </>
-          }
+        {
+          how && <>
+            <h3>How</h3>
+            <Markdown>{ how }</Markdown>
+          </>
+        }
 
-          {
-            evolution && <>
-              <h3>Taking it further</h3>
-              <Markdown>{ evolution }</Markdown>
-            </>
-          }
+        {
+          learn && <>
+            <h3>Learn</h3>
+            <Markdown>{ learn }</Markdown>
+          </>
+        }
 
-          {
-            publishedDate && <>
-              <h3>Published</h3>
-              <Markdown>{ publishedDate }</Markdown>
-            </>
-          }
-          
-          {
-            tech && <>
+        {
+          evolution && <>
+            <h3>Taking it further</h3>
+            <Markdown>{ evolution }</Markdown>
+          </>
+        }
+
+        {
+          publishedDate && <>
+            <h3>Published</h3>
+            <Markdown>{ publishedDate }</Markdown>
+          </>
+        } */}
+        
+        {
+          tech && tech.filter(t => t.length).length 
+            ? <>
               <h3>Tech</h3>
               <ul>
                 {
@@ -162,45 +162,44 @@ class Project extends React.Component {
                 }
               </ul>
             </>
-          }
+            : ''
+        }
 
-          {
-            (publicUrl || privateUrl) && <h3>Preview link</h3>
-          }
+        {
+          (publicUrl || privateUrl) && <h3>Preview link</h3>
+        }
 
-          {
-            publicUrl && <a href={ publicUrl }>
-              <button>Preview - public</button>
-            </a>
-          }
+        {
+          publicUrl && <a href={ publicUrl }>
+            <button>Preview - public</button>
+          </a>
+        }
 
-          {
-            privateUrl && <a href={ privateUrl }>
-              <button>Preview - private</button>
-            </a>
-          }
+        {
+          privateUrl && <a href={ privateUrl }>
+            <button>Preview - private</button>
+          </a>
+        }
 
-          {
-            (publicUrl || privateUrl) && <h3>Repo / files link</h3>
-          }
+        {
+          (publicUrl || privateUrl) && <h3>Repo / files link</h3>
+        }
 
-          {
-            publicRepo && <a href={ publicRepo }>
-              <button>Repo - public</button>
-            </a>
-          }
+        {
+          publicRepo && <a href={ publicRepo }>
+            <button>Repo - public</button>
+          </a>
+        }
 
-          {
-            privateRepo && <a href={ privateRepo }>
-              <button>Repo - private</button>
-            </a>
-          }
-        </div>
+        {
+          privateRepo && <a href={ privateRepo }>
+            <button>Repo - private</button>
+          </a>
+        }
+
       </div>
 
-
-      <pre>{ JSON.stringify(this.props.router.query.details, 'utf-8', 2) }</pre>
-      <pre>{ JSON.stringify(this.state, 'utf-8', 2) }</pre>
+      {/* <pre>{ JSON.stringify(this.props.router.query.details, 'utf-8', 2) }</pre> */}
 
       <style jsx>{`
         hr {

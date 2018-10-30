@@ -119,27 +119,48 @@ class addproject extends React.Component {
           </div>
 
           <hr />
-          
-          <label htmlFor="description_md">Markdown description</label>
-          {/* hightlight will not work with text area */}
-          <textarea
-            name="description_md"
-            id="description_md"
-            cols="30"
-            rows="5"
-            ref={ this.description.md }
-            onChange={ this.storeDescMd.bind(this) }
-            required
-          >
-          </textarea>
 
-          <button className="toggle" onClick={ this.togglePreview.bind(this) } type="button">
-            { this.state.showPreview ? 'Hide' : 'Show'} preview
+          
+          <label htmlFor="description_md">
+            Description
+          </label>
+          <p className="note">
+            <i>
+              Make use of Mark down features to style your description. Not familiar with MarkDown? <a 
+                href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Click here for a cheatsheet</a>
+            </i>
+          </p>
+          {/* hightlight will not work with text area */}
+          <div className="description">
+            <textarea
+              name="description_md"
+              id="description_md"
+              cols="30"
+              rows="5"
+              ref={ this.description.md }
+              onChange={ this.storeDescMd.bind(this) }
+              required
+            >
+            </textarea>
+
+            { 
+              this.state.showPreview
+                && <div className="preview">
+                  <Markdown>{ this.state.description_md }</Markdown>
+                </div>
+            }
+          </div>
+
+          <button
+            className="toggle"
+            onClick={ this.togglePreview.bind(this) }
+            type="button"
+          >
+            { this.state.showPreview ? 'Hide' : 'Show'} description preview
           </button>
-          { 
-            this.state.showPreview
-              && <Markdown>{ this.state.description_md }</Markdown>
-          }
 
           {/* <pre>Remove in favor of single markdown field</pre>
           <label htmlFor="brief">Project brief / problem</label>
@@ -201,6 +222,8 @@ class addproject extends React.Component {
             onChange={ this.getKeyWords.bind(this) }
             required
           /> */}
+
+          <hr />
 
           <label htmlFor="keywords">
             Keywords <i>(These are automatically generated from the descriptions above)</i>
@@ -273,10 +296,22 @@ class addproject extends React.Component {
           }
           .toggle {
             display: inline-block;
-            margin: 2px;
+            margin: 24px 0;
             background: rgba(0,0,0, 0.3);
-            border: solid 1px rgba(255,255,255, 0.2);
-            padding: 16px
+            border: solid 1px rgba(255,255,255, 0.1);
+            padding: 16px;
+          }
+
+          .description {
+            display: flex;
+          }
+          .description textarea,
+          .description .preview {
+            flex: 1 1 auto;
+            width: 50%;
+          }
+          .description .preview {
+            padding-left: 40px;
           }
 
           label.toggle {
@@ -309,6 +344,9 @@ class addproject extends React.Component {
           }
           .overlay p {
             
+          }
+          p.note {
+            opacity: 0.6;
           }
         `}</style>
     </div>
