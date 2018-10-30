@@ -77,14 +77,23 @@ li.bullet {
 a {
   transition: all 250ms;
   text-decoration: none;
+}
+a:hover {
+}
+
+
+p a {
   border-bottom: solid 2px rgba(200, 170, 0, 0.6);
   background: rgba(200, 170, 0, 0);
   padding: 4px 8px;
   border-radius: 4px;
 }
-a:hover {
+p a:hover {
   color: black;
   background: rgba(200, 170, 0, 1);
+}
+nav a {
+  border: none;
 }
 button {
   background: rgba(0,0,0, 0.2);
