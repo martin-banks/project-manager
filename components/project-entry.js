@@ -7,7 +7,7 @@ export default class ProjectEntry extends React.Component {
   }
 
   render () {
-    console.log('project info', this.props.project)
+    // console.log('project info', this.props.project)
     return <a
       className="card"
       href={ `/p/${this.props.project._id}` }

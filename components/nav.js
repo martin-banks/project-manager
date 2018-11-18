@@ -23,7 +23,7 @@ class Nav extends React.Component {
     super(props)
   }
   render () {
-    console.log('nav render', this.props)
+    // console.log('nav render', this.props)
     return <nav>
       <ul>
         <li className={ this.props.pathname === '/index' ? 'active' : '' }>

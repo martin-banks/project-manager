@@ -33,7 +33,7 @@ class projects extends React.Component {
   static async getInitialProps (context) {
     const projects = await context.res.locals.projects
     const { url } = context
-    console.log({ projects })
+    // console.log({ projects })
     return {
       locals: context.res && context.res.locals,
       projects,
