@@ -38,18 +38,25 @@ exports.checkRegisterWhitelist = async (req, res, next) => {
   const { id } = req.params
   console.log({ id })
   try {
-    const users = fs
-      .readFileSync(path.join(__dirname, '../user-whitelist.txt'), 'utf-8')
-      .split('\n')
-      .map(email => ({
-        email,
-        hash: md5(email),
-        link: `localhost:3000/register/${md5(email)}`
-      }))
+    // const users = fs
+    //   .readFileSync(path.join(__dirname, '../user-whitelist.txt'), 'utf-8')
+    //   .split('\n')
+    const users = require('../new_users.json')
+      .map(user => {
+        const { email, permissions } = user
+        return {
+          email,
+          hash: md5(email),
+          permissions,
+          // link: `localhost:3000/register/${md5(email)}?${md5(role)}`
+          link: `localhost:3000/register/${md5(email)}`
+        }
+      })
       const user = users.filter(u => u.hash === id)
       console.log({ user })
       if (user.length) {
         res.locals.email = user[0].email
+        res.locals.permissions = user[0].permissions
         next()
         return
       }
@@ -64,7 +71,11 @@ exports.checkRegisterWhitelist = async (req, res, next) => {
 
 exports.register = async (req, res, next) => {
   const { name, email } = req.body
-  const user = new User({ name, email })
+  const newUser = require('../new_users.json')
+    .find(u => u.email === email)
+
+  console.log({ newUser })
+  const user = new User({ name, email, permissions: newUser.permissions })
   // register user
   User.register(user, req.body.password, (err, success) => {
     console.log(err || success)
