@@ -1,7 +1,6 @@
 const passport = require('passport')
 const mongoose = require('mongoose')
 const crypto = require('crypto')
-
 const mail = require('../handlers/mailer')
 
 require('../models/User')
@@ -9,8 +8,22 @@ const User = mongoose.model('User')
 require('../models/Project')
 const Project = mongoose.model('Project')
 
+exports.checkValidLoginAddress = async function (req, res, next) {
+  const { id } = req.params
+  if (!id) {
+    req.flash('error', 'User token not provided')
+    res.redirect('/')
+  }
+  const foundUser = await User.findOne({ loginToken: id })
+  if (!foundUser) {
+    req.flash('error', 'User token is not valid')
+    res.redirect('/')
+  }
+  next()
+}
+
 exports.login = passport.authenticate('local', {
-  failureRedirect: '/login',
+  failureRedirect: '/',
   failureFlash: 'Nope, failed to login',
   successRedirect: '/',
   successFlash: 'You are logged in',
@@ -21,11 +34,11 @@ exports.checkIfLoggedIn = (req, res, next) => {
     next()
     return
   }
-  console.log('unlogged in user tried to access restricted area')
+  console.log('Unlogged in user tried to access restricted area')
   req.flash('error', 'You must be logged in to do that')
   req.session.save(err => {
     console.log('session saved ...')
-    res.redirect('/login')
+    res.redirect('/')
   })
 }
 
@@ -63,7 +76,6 @@ exports.forgot = async (req, res, next) => {
     req.flash('error', `💀 Something went wrong 💀\n${err.toString()}`)
     res.redirect('/')
   }
-
 }
 
 exports.validateReset = async (req, res, next) => {
