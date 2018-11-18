@@ -24,6 +24,18 @@ class addproject extends React.Component {
       saving: false,
       description_md: '',
       showPreview: false,
+      categories: [
+        'Personal',
+        'News DNA',
+        'Challenge',
+        'Sandbox',
+        'Web-app',
+        'Productivity tool',
+        '100 Days of code',
+        'Game',
+        'Data vis',
+
+      ]
     }
     this.description = {
       //  what: React.createRef(),
@@ -95,27 +107,25 @@ class addproject extends React.Component {
 
           <hr />
           <h3>About the project</h3>
+
+          <div className="toggles">
+            <input className="toggle" id="public" type="checkbox" name="public" value="Make public"/>
+            <label className="toggle" htmlFor="public">
+              Display publically?
+            </label>
+          </div>
+
           <label>What type of project was it?</label>
           <div className="toggles">
-            <input className="toggle" id="type_news" type="checkbox" name="category" value="News Corp DNA" />
-            <label className="toggle" htmlFor="type_news">
-              News Corp DNA
-            </label>
+            {
+              this.state.categories.map (cat => <>
+                <input className="toggle" id={ `category-${cat}`} type="checkbox" name="category" value={ cat } />
+                <label className="toggle" htmlFor={ `category-${cat}`}>
+                  { cat }
+                </label>
+              </>)
+            }
 
-            <input className="toggle" id="type_personal" type="checkbox" name="category" value="personal" />
-            <label className="toggle" htmlFor="type_personal">
-              Personal
-            </label>
-
-            <input className="toggle" id="type_challenge" type="checkbox" name="category" value="challenge" />
-            <label className="toggle" htmlFor="type_challenge">
-              Challenge
-            </label>
-
-            <input className="toggle" id="type_sandbox" type="checkbox" name="category" value="sandbox" />
-            <label className="toggle" htmlFor="type_sandbox">
-              Sandbox
-            </label>
           </div>
 
           <hr />
@@ -296,9 +306,10 @@ class addproject extends React.Component {
           }
           .toggle {
             display: inline-block;
-            margin: 24px 0;
+            margin: 2px;
             background: rgba(0,0,0, 0.3);
             border: solid 1px rgba(255,255,255, 0.1);
+            border-radius: 4px;
             padding: 16px;
           }
 
