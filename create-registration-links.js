@@ -2,13 +2,24 @@ const md5 = require('md5')
 const fs = require('fs')
 const path = require('path')
 
-const users = fs
-  .readFileSync(path.join(__dirname, 'user-whitelist.txt'), 'utf-8')
-  .split('\n')
-  .map(email => ({
-    email,
-    hash: md5(email),
-    link: `localhost:3000/register/${md5(email)}`
-  }))
+const args = process.argv.slice(2)
+console.log({ args })
 
-console.log({users})
+// const users = fs
+//   .readFileSync(path.join(__dirname, 'user-whitelist.txt'), 'utf-8')
+//   .split('\n')
+const users = require('./new_users.json')
+  .map(user => {
+    const { email, permissions } = user
+    // const token = md5(`${email}__${role}`)
+    const token = md5(email)
+    return {
+      email,
+      hash: token,
+      permissions,
+      link: `/register/${token}`
+    }
+  })
+
+console.log(JSON.stringify(users, null, 2))
+
