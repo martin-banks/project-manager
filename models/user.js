@@ -26,6 +26,18 @@ const userSchema = new Schema({
   },
   passwordResetToken: String,
   passwordResetExpires: Date,
+
+  loginToken: {
+    type: String,
+    required: false, //'You forgot the login token',
+  },
+
+  permissions: {
+    type: Array,
+    default: [
+      'none',
+    ]
+  }
 })
 
 // placeholder - untested
