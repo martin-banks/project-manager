@@ -124,13 +124,21 @@ input[type=submit],
 input[type=date],
 textarea {
   box-sizing: border-box;
-  background: rgba(0,0,0, 0.2);
-  border: solid 1px rgba(255,255,255, 0.2);
+  background: rgba(0,0,0, 0.4);
+  border: none;
+  border-bottom: solid 1px rgba(255,255,255, 0.5);
   width: 100%;
   padding: 20px;
   border-radius: 2px;
   margin-bottom: 24px;
 }
+
+input:focus,
+textarea:focus,
+button:focus {
+  outline: solid 2px gold;
+}
+
 input[type=submit] {
   transition: all 200ms;
   cursor: pointer;
