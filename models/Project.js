@@ -9,6 +9,11 @@ const projectSchema = new mongoose.Schema({
     default: Date.now
   },
 
+  public: {
+    type: Boolean,
+    default: false,
+  },
+
   author: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
