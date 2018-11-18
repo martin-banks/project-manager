@@ -12,8 +12,8 @@ exports.details = async (req, res, next) => {
     // app.render(req, res, '/project', queryParams)
     next()
   } catch (err) {
-    console.error(err)
-    req.flash('error', 'Sorry, can\'t find a porject with that id')
+    // console.error(err)
+    req.flash('error', 'Sorry, I can\'t find a project with that id')
     res.redirect('back')
     // TODO -> Create route for error / project not found
   }
@@ -33,9 +33,8 @@ exports.add = async (req, res, next) => {
     // Add author details to project entry
     req.body.author = req.user._id
     req.body.author_name = req.user.name
-    console.log('body after update', req.body)
 
-    res.redirect('/projects')
+    res.redirect('/projects/1')
     // Create new DB entry and save
     const newProject = new Project(req.body)
     newProject.save()
