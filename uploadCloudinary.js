@@ -12,14 +12,15 @@ cloudinary.config({
 })
 
 module.exports = function (req, res, next) {
-  console.log('----\nreq body', req.body, '----\n')
+  // console.log('----\nreq body', req.body, '----\n')
+  const { name = 'missing' } = req.body
   const base64 = new Datauri()
   base64.format(`.${req.file.mimetype.split('/')[1]}`, req.file.buffer)
 
   cloudinary.uploader.upload(
     base64.content,
     (result, err) => {
-      console.log(err || result)
+      // console.log(err || result)
       req.body.display = result.public_id
       res.cloudinary = {
         result,
@@ -28,7 +29,7 @@ module.exports = function (req, res, next) {
       next()
     },
     {
-      public_id: `${uuid.v4()}__${req.body.name || 'missing'}`,
+      public_id: `${uuid.v4()}__${name.toLowerCase().replace(/ /g, '_')}`,
       tags: ['additional', 'things'],
       caption: 'after title',
       alt: 'after desc',
