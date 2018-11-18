@@ -14,7 +14,7 @@ export default class Register extends React.Component {
     super(props)
   }
   render () {
-    const { email } = this.props.locals
+    const { email, permissions = ['none'] } = this.props.locals
     return <div>
       <div className="wrapper__header">
         <div className="content">
@@ -34,6 +34,16 @@ export default class Register extends React.Component {
           { email
             ? <input type="email" name="email" required value={ email }/>
             : <input type="email" name="email" required />
+          }
+
+          { permissions
+            .map(p => <input
+                key={`permission-${p}`}
+                type="hidden"
+                name="permissions"
+                value={ p }
+              />
+            )
           }
 
           <label htmlFor="password">Password</label>
