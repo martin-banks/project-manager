@@ -29,12 +29,12 @@ const port = 3000
 const multerOptions = {
   storage: multer.memoryStorage(),
   fileFilter(req, file, next) {
-    console.log('req', { req })
-    console.log('file', { file })
+    // console.log('req', { req })
+    // console.log('file', { file })
     if (file.mimetype.startsWith('image/')) {
       next(null, true)
     } else {
-      console.log('File type is not supported')
+      // console.error('File type is not supported')
       next({ message: 'File type is not supported' }, false)
     }
   },
@@ -51,19 +51,22 @@ mongoose.Promise = global.Promise
 mongoose.connection.on('error', err => {
   console.error(`⚠️ Error connecting to database ⚠️\n${err.message}`)
 })
+
 // Set up data schema model
 require('./models/Project')
-require('./models/User')
 const Project = mongoose.model('Project')
+
+require('./models/User')
 const User = mongoose.model('User')
+
 app.prepare()
   .then(() => {
     // Create custom Express server for additional server-side functionality
     const server = express()
     // Takes the raw requests and turns them into usable properties on req.body
     server.use(flash())
-    server.use(bodyParser.json({ limit: '10mb', extended: true }))
-    server.use(bodyParser.urlencoded({ limit: '10mb', extended: true }))
+    server.use(bodyParser.json({ limit: '2mb', extended: true }))
+    server.use(bodyParser.urlencoded({ limit: '2mb', extended: true }))
     server.use(expressValidator())
     // populates req.cookies with any cookies that came along with the request
     server.use(cookieParser());
@@ -105,34 +108,59 @@ app.prepare()
 
     // Redirect home page views to project list
     // Temp soluition until homepage design/purpose is decided
-    server.get('/', (req, res, next) => {
-      res.redirect('/projects')
-    })
+    // server.get('/', (req, res, next) => {
+    //   app.render(req, res, '/')
+    // })
 
     // * Registering new users
+    server.get('/register', (req, res, next) => {
+      req.flash('error', 'Registration is by invitation only')
+      res.redirect('/')
+      // app.render(req ,res, '/register')
+    })
+    // server.post('/register', (req, res, next) => {
+    //   req.flash('error', 'Registration is by invitation only')
+    //   res.redirect('/')
+    //   // app.render(req ,res, '/register')
+    // })
+
     server.get('/register/:id',
       userController.checkRegisterWhitelist,
       (req, res, next) => {
         app.render(req ,res, '/register')
       }
     )
-    server.get('/register', (req, res, next) => {
-      req.flash('error', 'Registration is by invitation only')
-      res.redirect('/')
-      // app.render(req ,res, '/register')
-    })
     server.post('/register',
       userController.validateRegister,
       userController.register,
       authController.login,
       (req, res) => res.redirect('/account')
     )
-
+    
     // * Handle login / logout
-    // server.get('/login') is handled by next default routing
+    server.get('/login',
+      (req, res, next) => {
+        req.flash('error', 'Log in is not currently availble')
+        res.redirect('/')
+      }
+    )
     server.post('/login',
+      (req, res, next) => {
+        req.flash('error', 'Sorry, I can\'t do that')
+        res.redirect('/')
+      }
+    )
+
+    server.get('/login/:id',
+      authController.checkValidLoginAddress,
+      (req, tes, next) => {
+        app.render(req, res, '/login')
+      }
+    )
+    server.post('/login/:id',
       authController.login
     )
+
     server.get('/logout', 
       (req, res) => {
         req.logout()
@@ -150,7 +178,13 @@ app.prepare()
     server.get('/reset',
       (req, res) => {
         req.flash('error', 'A valid reset token is required')
-        res.redirect('/login')
+        res.redirect('/')
+      }
+    )
+    server.post('/reset/:token',
+      (req, res) => {
+        req.flash('error', 'A valid reset token is required')
+        res.redirect('/')
       }
     )
     // Visiting valid reset link from email
@@ -266,11 +300,11 @@ app.prepare()
         `${Reset}`,
       ].join('\n'))
     })
+  })
   .catch(ex => {
-    console.error(ex.stack)
+    // console.error(ex.stack)
     process.exit(1)
   })
-})
 
 
 
