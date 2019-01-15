@@ -1,9 +1,21 @@
 import { createGlobalStyle } from 'styled-components'
 
+// extralia-light: 200
+// light: 300
+// regular: 400
+// medium: 500
+// semi-bold: 600
+// bold: 700
+
+
 export default createGlobalStyle`
+  
+  @import url('https://fonts.googleapis.com/css?family=Oswald:200,400,700');
+
 
   html {
     font-size: 8px;
+    color: #333;
   }
 
   body {
@@ -12,41 +24,51 @@ export default createGlobalStyle`
   }
   *, *:before, *:after {
     box-sizing: border-box;
-    font-family: "SF UI text", "Helvertica Neue", "Helvetica", sans-serif;
+    font-family: "Helvertica Neue", sans-serif;
   }
 
 
   h1, h2, h3, h4, h5, h6 {
+    font-family: "Oswald", "Helvertica Neue", sans-serif;
+    letter-spacing: -1px;
     margin: 0
   }
 
   h1 {
+    font-size: 8rem;
     margin-bottom: 5rem;
+    letter-spacing: -2px;
   }
   h2 {
+    font-size: 6rem;
     margin-bottom: 4rem;
   }
   h3 {
+    font-size: 5rem;
     margin-bottom: 2rem;
   }
   h4 {
+    font-size: 4rem;
     margin-bottom: 1rem;
   }
   h5 {
+    font-size: 3rem;
     margin-bottom: 1rem;
   }
   h6 {
+    font-size: 2rem;
     margin-bottom: 0.5rem;
   }
 
   p, a, ul, ol, li {
+    font-size: 2rem;
     padding: 0;
     margin: 0;
     margin-bottom: 1rem;
   }
 
-
   ul, ol {}
+
   li {
     list-style: none;
   }
@@ -54,26 +76,21 @@ export default createGlobalStyle`
   a {
     transition: all 250ms;
     text-decoration: none;
-  }
-  a:hover {
-  }
-
-
-  a {
     border-bottom: solid 2px rgba(200, 170, 0, 0.6);
-    background: rgba(200, 170, 0, 0);
+    /* background: rgba(200, 170, 0, 0); */
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
+    &:hover {
+      background: rgba(200, 170, 0, 1);
+    }
   }
-  a:hover {
-    color: black;
-    background: rgba(200, 170, 0, 1);
-  }
+
+
   nav a {
     border: none;
   }
   button {
-    background: rgba(0,0,0, 0.2);
+    /* background: rgba(0,0,0, 0.2); */
     border: solid 1px rgba(255,255,255, 0.2);
     border-radius: 0.5rem;
     margin: 0;
@@ -101,7 +118,7 @@ export default createGlobalStyle`
   input[type=date],
   textarea {
     box-sizing: border-box;
-    background: rgba(0,0,0, 0.4);
+    /* background: rgba(0,0,0, 0.4); */
     border: none;
     border-bottom: solid 1px rgba(255,255,255, 0.5);
     width: 100%;
@@ -113,7 +130,7 @@ export default createGlobalStyle`
   input:focus,
   textarea:focus,
   button:focus {
-    outline: solid 2px gold;
+    outline: solid 2px orange;
   }
 
   input[type=submit] {
@@ -129,12 +146,10 @@ export default createGlobalStyle`
     background: gold;
     color: black
   }
-  input:focus {
-    outline: solid 2px gold;
-  }
-  input[type=submit]:focus {
+
+  /* input[type=submit]:focus {
     outline: solid 2px orange;
-  }
+  } */
   label {
     margin-bottom: 1rem;
     opacity: 0.8;
