@@ -1,5 +1,6 @@
 import React from 'react'
-import styles from '../styles'
+// import styles from '../styles'
+import GlobalStyles from '../styles/global'
 import Nav from '../components/nav'
 import Flashes from '../components/flashes'
 
@@ -52,7 +53,8 @@ class MainLayout extends React.Component {
 
       <footer></footer>
 
-      { styles }
+      {/* { styles } */}
+      <GlobalStyles />
     </div>
   }
 }
