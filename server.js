@@ -108,9 +108,9 @@ app.prepare()
 
     // Redirect home page views to project list
     // Temp soluition until homepage design/purpose is decided
-    // server.get('/', (req, res, next) => {
-    //   app.render(req, res, '/')
-    // })
+    server.get('/', (req, res, next) => {
+      app.render(req, res, '/')
+    })
 
     // * Registering new users
     server.get('/register', (req, res, next) => {
@@ -302,7 +302,7 @@ app.prepare()
     })
   })
   .catch(ex => {
-    // console.error(ex.stack)
+    console.error(ex.stack)
     process.exit(1)
   })
 
