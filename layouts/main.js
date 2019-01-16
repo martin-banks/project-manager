@@ -3,6 +3,7 @@ import React from 'react'
 import GlobalStyles from '../styles/global'
 import Nav from '../components/nav'
 import Flashes from '../components/flashes'
+import BackgroundStripe from '../styled-components/background-stripes'
 
 
 class MainLayout extends React.Component {
@@ -28,6 +29,7 @@ class MainLayout extends React.Component {
   render () {
     const { flashes } = this.props.locals
     return <div data-theme={ this.props.locals.user.theme || 'dark' }>
+      <BackgroundStripe/>
       <Nav
         pathname={ this.props.pathname }
         user={ this.props.locals.user }
