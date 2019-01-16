@@ -33,13 +33,11 @@ export default createGlobalStyle`
   }
 
   nav {
-    /* position: absolute; */
     top: 0;
     left: 0;
     width: 100%;
-    /* padding: 2rem; */
     margin:0;
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
     ul {
       display: flex;
     }
@@ -47,30 +45,25 @@ export default createGlobalStyle`
       position: relative;
       flex: 0 0 auto;
       top: 0;
-      transition: all 200ms;
       display: inline-block;
       margin: 0;
+      padding: 3rem 1rem;
       vertical-align: top;
       opacity: 0.6;
       border-top: solid 2px rgba(0,0,0,0);
       &.active {
         opacity: 0.8;
-        background:  rgba(0,0,0, 0.4);
-        border-top: solid 2px hsl(50, 60%, 45%);
+        /* background:  rgba(0,0,0, 0.4); */
+        border-bottom: solid 2px #333;
       }
       &.user {}
       &:hover {
-        background: rgba(200, 200, 200, 0.1);
+        background: rgba(200, 200, 200, 0.2);
         opacity: 1;
       }
     }
     div.spacer {
       flex: 1 1 auto;
-    }
-    a {
-      display: block;
-      position: relative;
-      padding: 2rem 4rem;
     }
   }
 
@@ -180,7 +173,7 @@ export default createGlobalStyle`
   }
 
   input[type=submit] {
-    transition: all 200ms;
+    /* transition: all 200ms; */
     cursor: pointer;
     width: 100%;
     background: rgba(255,255,255, 0.2);
