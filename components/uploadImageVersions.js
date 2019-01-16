@@ -109,7 +109,7 @@ export default class UploadImage extends React.Component {
         <canvas ref={ this.thumbnail } width="0" height="0"></canvas>
 
         <style jsx>{`
-          .wrapper {
+          {/* .wrapper {
             margin-bottom: 24px
           }
           img {
@@ -128,7 +128,7 @@ export default class UploadImage extends React.Component {
             padding: 12px;
             margin-bottom: 16px;
             border-radius: 4px;
-          }
+          } */}
         `}</style>
       </div>
     )

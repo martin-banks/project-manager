@@ -21,7 +21,7 @@ export default class Pagination extends React.Component {
 
       </ul>
       <style jsx>{`
-        ul {
+        {/* ul {
           width: 100%;
           background: rgba(0,0,0, 0.5);
           display: flex;
@@ -35,7 +35,7 @@ export default class Pagination extends React.Component {
           background: gold;
           color: black;
           border-radius: 4px;
-        }
+        } */}
       `}</style>
     </div>
   }

@@ -15,7 +15,7 @@ export default class ProfileHeader extends React.Component {
         <h1>{ name }</h1>
       </div> */}
       <style jsx>{`
-        .user {
+        {/* .user {
           position: relative;
           display: block;
           text-align: center;
@@ -43,7 +43,7 @@ export default class ProfileHeader extends React.Component {
           font-size: 20px;
           color: rgba(0,0,0, 0.6);
           font-weight: 900;
-        }  
+        }   */}
       `}</style>
     </div>
   }

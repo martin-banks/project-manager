@@ -68,7 +68,7 @@ export default class UploadImage extends React.Component {
         }
 
         <style jsx>{`
-          .wrapper {
+          {/* .wrapper {
             margin-bottom: 24px
           }
           img {
@@ -86,7 +86,7 @@ export default class UploadImage extends React.Component {
             padding: 12px;
             margin-bottom: 16px;
             border-radius: 4px;
-          }
+          } */}
         `}</style>
 
       </div>

@@ -44,19 +44,23 @@ class projects extends React.Component {
 
   render () {
     return <div>
-      <div className="wrapper__header">
-        <div className="content">
-          <h1>All projects</h1>
-        </div>
-      </div>
       <Layout
         pathname={ this.props.url.pathname }
         locals={ this.props.locals }
       >
+        <div className="wrapper__header">
+          <div className="content">
+            <h1>All projects</h1>
+          </div>
+        </div>
         <div className="wrapper__cards">
-          { this.props.projects.map(p => <ProjectEntry 
-            key={`project-${p._id}`} project={ p }
-          />) }
+          {
+            this.props.projects
+              .map(p => <ProjectEntry 
+                key={`project-${p._id}`}
+                project={ p }
+              />)
+          }
         </div>
 
         <Pagination

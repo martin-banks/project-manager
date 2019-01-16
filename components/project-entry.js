@@ -28,7 +28,7 @@ export default class ProjectEntry extends React.Component {
         </div>
       </div>
       <style jsx>{`
-        .card {
+        {/* .card {
           transition: all 300ms;
           flex: 1 1 auto;
           border-radius: 4px;
@@ -47,7 +47,7 @@ export default class ProjectEntry extends React.Component {
           margin-bottom: 16px;
         }
         .wrapper__text {
-        }
+        } */}
       `}</style>
     </a>
   }

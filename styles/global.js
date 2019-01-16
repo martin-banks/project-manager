@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 
+// @import url('https://fonts.googleapis.com/css?family=Oswald:200,400,700');
 // extralia-light: 200
 // light: 300
 // regular: 400
@@ -7,15 +8,19 @@ import { createGlobalStyle } from 'styled-components'
 // semi-bold: 600
 // bold: 700
 
+// @import url('https://fonts.googleapis.com/css?family=Barlow+Condensed:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+
 
 export default createGlobalStyle`
   
-  @import url('https://fonts.googleapis.com/css?family=Oswald:200,400,700');
+  /* @import url('https://fonts.googleapis.com/css?family=Oswald:200,400,700'); */
+  @import url("https://fonts.googleapis.com/css?family=Barlow+Condensed:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i");
 
 
   html {
     font-size: 8px;
     color: #333;
+    text-rendering: optimizeLegibility;
   }
 
   body {
@@ -24,20 +29,61 @@ export default createGlobalStyle`
   }
   *, *:before, *:after {
     box-sizing: border-box;
-    font-family: "Helvertica Neue", sans-serif;
+    font-family: "Helvetica Neue", sans-serif;
+  }
+
+  nav {
+    /* position: absolute; */
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* padding: 2rem; */
+    margin:0;
+    margin-bottom: 4rem;
+    ul {
+      display: flex;
+    }
+    li {
+      position: relative;
+      flex: 0 0 auto;
+      top: 0;
+      transition: all 200ms;
+      display: inline-block;
+      margin: 0;
+      vertical-align: top;
+      opacity: 0.6;
+      border-top: solid 2px rgba(0,0,0,0);
+      &.active {
+        opacity: 0.8;
+        background:  rgba(0,0,0, 0.4);
+        border-top: solid 2px hsl(50, 60%, 45%);
+      }
+      &.user {}
+      &:hover {
+        background: rgba(200, 200, 200, 0.1);
+        opacity: 1;
+      }
+    }
+    div.spacer {
+      flex: 1 1 auto;
+    }
+    a {
+      display: block;
+      position: relative;
+      padding: 2rem 4rem;
+    }
   }
 
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: "Oswald", "Helvertica Neue", sans-serif;
-    letter-spacing: -1px;
+    font-family: "Barlow Condensed", "Oswald", "Helvertica Neue", sans-serif;
     margin: 0
   }
 
   h1 {
     font-size: 8rem;
+    font-weight: 700;
     margin-bottom: 5rem;
-    letter-spacing: -2px;
   }
   h2 {
     font-size: 6rem;
@@ -91,12 +137,12 @@ export default createGlobalStyle`
   }
   button {
     /* background: rgba(0,0,0, 0.2); */
-    border: solid 1px rgba(255,255,255, 0.2);
+    border: solid 1px rgba(0,0,0, 0.1);
     border-radius: 0.5rem;
     margin: 0;
     margin-bottom: 3rem;
     padding: 2rem 3rem;
-    color: white;
+    /* color: white; */
     font-size: 2rem;
     cursor: pointer;
   }

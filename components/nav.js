@@ -70,7 +70,7 @@ class Nav extends React.Component {
       </ul>
 
       <style jsx>{`
-      nav {
+      {/* nav {
         position: absolute;
         top: 0;
         left: 0;
@@ -117,7 +117,7 @@ class Nav extends React.Component {
       li:hover {
         background: rgba(200, 200, 200, 0.1);
         opacity: 1;
-      }
+      } */}
       `}</style>
     </nav>
   }
