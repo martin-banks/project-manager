@@ -5,6 +5,7 @@ const BackgroundStripe = styled.div`
   top: 0;
   left: 0;
   width: 100vw;
+  min-height: 500px;
   height: 100vh;
   background-image: linear-gradient(45deg, rgba(0,0,0, 0) 49%, rgba(0,0,0,0.25) 50%, rgba(0,0,0, 0) 51%);
   background-size: 1rem 1rem;
