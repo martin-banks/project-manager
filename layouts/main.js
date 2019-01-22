@@ -29,7 +29,7 @@ class MainLayout extends React.Component {
   render () {
     const { flashes } = this.props.locals
     return <div data-theme={ this.props.locals.user.theme || 'dark' }>
-      <BackgroundStripe/>
+      <BackgroundStripe />
       <Nav
         pathname={ this.props.pathname }
         user={ this.props.locals.user }
