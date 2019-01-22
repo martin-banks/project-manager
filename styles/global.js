@@ -69,13 +69,18 @@ export default createGlobalStyle`
 
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: "Barlow Condensed", "Oswald", "Helvertica Neue", sans-serif;
+    font-family:
+      "Barlow Condensed",
+      "Oswald",
+      "Helvertica Neue",
+      sans-serif;
+    font-weight: 300;
     margin: 0
   }
 
   h1 {
     font-size: 8rem;
-    font-weight: 700;
+    font-weight: 300;
     margin-bottom: 5rem;
   }
   h2 {
@@ -85,6 +90,9 @@ export default createGlobalStyle`
   h3 {
     font-size: 5rem;
     margin-bottom: 2rem;
+    &:first-letter {
+      text-transform: uppercase;
+    }
   }
   h4 {
     font-size: 4rem;
@@ -115,7 +123,8 @@ export default createGlobalStyle`
   a {
     transition: all 250ms;
     text-decoration: none;
-    border-bottom: solid 2px rgba(200, 170, 0, 0.6);
+    /* border-bottom: solid 2px rgba(200, 170, 0, 0.6); */
+    border-bottom: none;
     /* background: rgba(200, 170, 0, 0); */
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
@@ -169,7 +178,7 @@ export default createGlobalStyle`
   input:focus,
   textarea:focus,
   button:focus {
-    outline: solid 2px orange;
+    /* outline: solid 2px orange; */
   }
 
   input[type=submit] {
