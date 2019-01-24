@@ -4,6 +4,15 @@ import GlobalStyles from '../styles/global'
 import Nav from '../components/nav'
 import Flashes from '../components/flashes'
 import BackgroundStripe from '../styled-components/background-stripes'
+import styled from 'styled-components'
+
+const Content = styled.div`
+  display: block;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 3rem;
+  margin: 0 auto
+`
 
 
 class MainLayout extends React.Component {
@@ -35,7 +44,6 @@ class MainLayout extends React.Component {
         user={ this.props.locals.user }
       />
 
-      <div className="background__gradient"></div>
       { 
         this.state.showFlashes && Object.keys(flashes)
           .map((f, i) => <Flashes
@@ -45,9 +53,9 @@ class MainLayout extends React.Component {
           />)
       }
 
-      <div className="content">
+      <Content>
         { this.props.children }
-      </div>
+      </Content>
 
       {/* <pre>
         locals: { JSON.stringify(this.props.locals, 'utf-8', 2) }
