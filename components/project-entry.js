@@ -4,6 +4,10 @@ import { Image } from 'cloudinary-react'
 export default class ProjectEntry extends React.Component {
   constructor (props) {
     super(props)
+
+    this.state = {
+      imageWidth: 400,
+    }
   }
 
   displayDate (d) {
@@ -15,7 +19,10 @@ export default class ProjectEntry extends React.Component {
     const month = months[newDate.getMonth()]
     const days = newDate.getDate()
     return `${days} / ${month} / ${year}`
+  }
 
+  componentDidMount () {
+    this.setState({ imageWidth: window.innerWidth * 0.8 })
   }
 
   render () {
@@ -31,43 +38,46 @@ export default class ProjectEntry extends React.Component {
             <p>{ this.displayDate(this.props.project.liveDate) }</p>
             <h3>{ this.props.project.name }</h3>
           </div>
-          <Image
-            className="cloudinaryImage"
-            cloudName="martinbanks"
-            publicId={ this.props.project.display }
-            width={ 600 }
-            crop="scale"
-          />
+          <div className="cloudinaryImage">
+            <Image
+              cloudName="martinbanks"
+              publicId={ this.props.project.display }
+              width={ this.state.imageWidth }
+              crop="scale"
+            />
+          </div>
         {/* </div> */}
       {/* </div> */}
       <style jsx>{`
         .card {
-          {/* outline: solid 1px purple; */}
-          transition: all 300ms;
+          transition: background 200ms, outline 200ms;
           flex: 1 1 auto;
-          border-radius: 4px;
+          border-radius: 0px;
           background: rgba(0,0,0, 0);
-          {/* min-width: 200px; */}
           width: 100%;
-          max-width: 1000px;
-          padding: 16px;
+          padding: 4rem;
           margin: 0 auto;
-          margin-bottom: 8px;
+          margin-bottom: 6rem;
           display: flex;
+          flex-wrap: wrap;
           align-items: center;
+          background: #fff;
         }
         .card:hover {
-          background: rgba(50,0,50, 0.2);
+          background: rgba(235,232,255, 1);
+          outline: 1px solid rgba(50,0,50, 0.2);
         }
         .cloudinaryImage {
+          outline: 1px solid pink;
+          background: rgba(100,100,100, 1);
           flex: 1 1 auto;
-        }
-        .wrapper__image {
-          width: 100%;
-          margin-bottom: 16px;
+          min-width: 350px;
+          max-width: 60vw;
         }
         .wrapper__text {
           flex: 1 1 auto;
+          max-width: 50%;
+          outline: solid 1px lime;
         }
       `}</style>
     </a>
